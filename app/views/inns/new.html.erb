@@ -57,10 +57,12 @@
 </div>
 
 <div>
-  <%= f.label :payment_methods %>
-  <%= f.text_field :payment_methods %>
+<%= f.label :payment_methods %> <br>  
+<% @payment_methods.each do |payment_method| %>
+  <%= f.check_box :payment_methods, { multiple: true }, payment_method, nil %>
+  <%= label_tag :payment_method, payment_method %>
+<% end %>
 </div>
-
 <div>
   <%= f.label :accepts_pets %>
   <%= f.check_box :accepts_pets %>
