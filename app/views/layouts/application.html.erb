@@ -18,7 +18,7 @@
         <%= current_user.email %> |
 
         <% if current_user.admin? %>
-          <%= link_to 'Cadastrar pousada' %>
+          <%= link_to 'Cadastrar pousada', new_inn_path %>
         <%end%>
         <%= button_to 'Sair', destroy_user_session_path, method: :delete %> 
       <% else %>

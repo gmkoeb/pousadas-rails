@@ -1,0 +1,21 @@
+pt-BR:
+  activerecord:
+    models:
+      inn: 'Pousada'
+    attributes:
+      inn:
+        corporate_name: 'Razão social'
+        brand_name: 'Nome fantasia'
+        registration_number: 'CNPJ'
+        phone: 'Telefone para contato'
+        email: 'E-mail'
+        district: 'Bairro'
+        address: 'Endereço'
+        state: 'Estado'
+        city: 'Cidade'
+        zip_code: 'CEP'
+        description: 'Descrição'
+        payment_methods: 'Formas de pagamento'
+        accepts_pets: 'Permite pets'
+        terms_of_service: 'Políticas de uso'
+        check_in_check_out_time: 'Horário padrão para check-in e check-out'
