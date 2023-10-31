@@ -27,6 +27,11 @@
       </nav>
     </header>
     <div>
+    <% if flash.alert %>
+      <div id=”error_explanation”>
+      <p><%= flash.alert %></p>
+    </div>
+    <% end %>
       <p><%= notice %></p>
     </div>
     <%= yield %>
