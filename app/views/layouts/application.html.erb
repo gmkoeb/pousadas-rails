@@ -15,7 +15,11 @@
       <h1>Pousadas Rails</h1>
       <nav>
       <% if user_signed_in? %>
-        <%= current_user.description %> |
+        <%= current_user.email %> |
+
+        <% if current_user.admin? %>
+          <%= link_to 'Cadastrar pousada' %>
+        <%end%>
         <%= button_to 'Sair', destroy_user_session_path, method: :delete %> 
       <% else %>
         <%= link_to 'Entrar', new_user_session_path %>
