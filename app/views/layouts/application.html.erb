@@ -13,7 +13,18 @@
   <body>
     <header>
       <h1>Pousadas Rails</h1>
+      <nav>
+      <% if user_signed_in? %>
+        <%= current_user.description %> |
+        <%= button_to 'Sair', destroy_user_session_path, method: :delete %> 
+      <% else %>
+        <%= link_to 'Entrar', new_user_session_path %>
+      <% end %> 
+      </nav>
     </header>
+    <div>
+      <p><%= notice %></p>
+    </div>
     <%= yield %>
   </body>
 </html>
