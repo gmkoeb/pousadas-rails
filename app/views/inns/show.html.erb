@@ -1,34 +1,74 @@
 <h1>Pousada <%= @inn.brand_name %></h1>
 
 <h2>Detalhes da pousada</h2>
-<div>
-  <ul>
-    <li>Razão social: <%= @inn.corporate_name %></li>
-    <li>Nome fantasia: <%= @inn.brand_name %></li>
-    <li>CNPJ: <%= @inn.registration_number %></li>
-    <li>Telefone para contato: <%= @inn.phone %></li>
-    <li>E-mail: <%= @inn.email %></li>
-    <li>Endereço completo: <%= @inn.address %>. <%= @inn.district %>, <%= @inn.city %> - <%= @inn.state %>. </li>
-    <li>CEP: <%= @inn.zip_code %></li>
-    <li>Descrição: <%= @inn.description %></li>
-    <li>Formas de pagamento:
-    <% eval(@inn.payment_methods).each do |method| %>
-      <p><%= method %></p>
-    <%end%>
-    </li>
-    <li>
-      <% if @inn.accepts_pets? %>
-      <p>Permite pets: Sim</p>
-      <% else %>
-      <p>Permite pets: Não</p>
-      <%end%> 
-    </li>
-    <li>
-      <p>Políticas de uso: <%= @inn.terms_of_service %></p>
-    </li>
-    <li>
-      <p>Horário padrão de check-in e check-out: <%= @inn.check_in_check_out_time.strftime("%H:%M") %></p>
-    </li>
-  </ul>
-  <%= link_to 'Editar', edit_inn_path%>
-</div>
+<% if @inn == current_user.inn%>
+  <div>
+    <ul>
+      <li>Razão social: <%= @inn.corporate_name %></li>
+      <li>Nome fantasia: <%= @inn.brand_name %></li>
+      <li>CNPJ: <%= @inn.registration_number %></li>
+      <li>Telefone para contato: <%= @inn.phone %></li>
+      <li>E-mail: <%= @inn.email %></li>
+      <li>Endereço completo: <%= @inn.address %>. <%= @inn.district %>, <%= @inn.city %> - <%= @inn.state %>. </li>
+      <li>CEP: <%= @inn.zip_code %></li>
+      <li>Descrição: <%= @inn.description %></li>
+      <li>Formas de pagamento:
+      <% eval(@inn.payment_methods).each do |method| %>
+        <p><%= method %></p>
+      <%end%>
+      </li>
+      <li>
+        <% if @inn.accepts_pets? %>
+        <p>Permite pets: Sim</p>
+        <% else %>
+        <p>Permite pets: Não</p>
+        <%end%> 
+      </li>
+      <li>
+        <p>Políticas de uso: <%= @inn.terms_of_service %></p>
+      </li>
+      <li>
+        <p>Horário padrão de check-in e check-out: <%= @inn.check_in_check_out_time.strftime("%H:%M") %></p>
+      </li>
+      <li>
+        <% if @inn.draft? %>
+          <%= button_to 'Publicar pousada', publish_inn_path(@inn.id), {method: 'patch'}%>
+        <% else %>
+          <%= button_to 'Esconder pousada', draft_inn_path(@inn.id), {method: 'patch'}%>
+        <%end%>
+      </li>
+    </ul>
+    <%= link_to 'Editar', edit_inn_path%>
+  </div>
+<% elsif @inn.published? %>
+  <div>
+    <ul>
+      <li>Nome: <%= @inn.brand_name %></li>
+      <li>Telefone para contato: <%= @inn.phone %></li>
+      <li>E-mail: <%= @inn.email %></li>
+      <li>Endereço completo: <%= @inn.address %>. <%= @inn.district %>, <%= @inn.city %> - <%= @inn.state %>. </li>
+      <li>CEP: <%= @inn.zip_code %></li>
+      <li>Descrição: <%= @inn.description %></li>
+      <li>Formas de pagamento:
+      <% eval(@inn.payment_methods).each do |method| %>
+        <p><%= method %></p>
+      <%end%>
+      </li>
+      <li>
+        <% if @inn.accepts_pets? %>
+        <p>Permite pets: Sim</p>
+        <% else %>
+        <p>Permite pets: Não</p>
+        <%end%> 
+      </li>
+      <li>
+        <p>Políticas de uso: <%= @inn.terms_of_service %></p>
+      </li>
+      <li>
+        <p>Horário padrão de check-in e check-out: <%= @inn.check_in_check_out_time.strftime("%H:%M") %></p>
+      </li>
+    </ul>
+  </div>
+<% else %>
+  <p>Esta pousada não está aceitando reservas</p>
+<%end%>

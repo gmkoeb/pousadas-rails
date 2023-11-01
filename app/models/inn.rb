@@ -18,4 +18,6 @@ class Inn < ApplicationRecord
   }
 
   belongs_to :user
+
+  enum status: {draft: 0, published: 2}
 end

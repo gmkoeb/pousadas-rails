@@ -1,0 +1,12 @@
+<h1>Pousadas</h1>
+<% if @inns.empty? %>
+  <h2> Ainda não existem pousadas cadastradas. </h2>
+<%else%>
+  <% @inns.each do |inn| %>
+  <ul>
+    <li>
+      <%= inn.brand_name %>
+    </li>
+  </ul>
+  <%end%>
+<%end%>

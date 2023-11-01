@@ -50,4 +50,16 @@ class InnsController < ApplicationController
       render 'edit'
     end
   end
+
+  def publish
+    inn = Inn.find(params[:id])
+    inn.published!
+    redirect_to inn_path(inn.slug)
+  end
+
+  def draft
+    inn = Inn.find(params[:id])
+    inn.draft!
+    redirect_to inn_path(inn.slug)
+  end
 end
