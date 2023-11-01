@@ -78,4 +78,26 @@ describe 'Usuário admin se autentica' do
       expect(page).to have_content 'gmkoeb@gmail.com'
     end
   end
+
+  it 'e não possui pousadas cadastradas' do
+    # Arrange
+    User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    # Act
+    visit root_path
+    click_on 'Entrar'
+    fill_in 'E-mail', with: 'gmkoeb@gmail.com'
+    fill_in 'Senha', with: 'password'
+    within '.actions' do
+      click_on 'Entrar'
+    end
+    # Assert
+    expect(current_path).to eq new_inn_path
+    expect(page).to have_content 'Login efetuado com sucesso.'
+    expect(page).not_to have_link 'Entrar'
+    expect(page).to have_link 'Cadastrar pousada'
+    expect(page).to have_button 'Sair'
+    within 'nav' do
+      expect(page).to have_content 'gmkoeb@gmail.com'
+    end
+  end
 end

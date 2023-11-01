@@ -32,6 +32,7 @@ describe 'Usuario cria uma conta' do
     click_on 'Criar conta'
 
     # Assert
+    expect(current_path).to eq new_inn_path
     expect(page).to have_content 'Boas vindas! Você realizou seu cadastro com sucesso.'
     expect(page).to have_content 'Cadastrar pousada'
     expect(page).to have_content 'email@email.com'
