@@ -60,11 +60,11 @@ describe 'Dono de pousadas cria uma pousada' do
     fill_in 'Políticas de uso', with: 'Não pode som alto após as 18h'
     select '12', from: 'inn[check_in_check_out_time(4i)]'
     select '00', from: 'inn[check_in_check_out_time(5i)]'
-    click_on 'Criar pousada'
+    click_on 'Criar Pousada'
     # Assert
     expect(current_path).to eq inn_path('pousada-do-luar')
     within 'nav' do
-      expect(page).to have_content 'Detalhes da pousada'
+      expect(page).to have_content 'Minha pousada'
     end
     expect(page).to have_content 'Pousada cadastrada com sucesso! 😊'
     expect(page).to have_content 'Razão social: Pousadas Florianópolis LTDA'
@@ -114,7 +114,7 @@ describe 'Dono de pousadas cria uma pousada' do
     fill_in 'Políticas de uso', with: 'Não pode som alto após as 18h'
     select '12', from: 'inn[check_in_check_out_time(4i)]'
     select '00', from: 'inn[check_in_check_out_time(5i)]'
-    click_on 'Criar pousada'
+    click_on 'Criar Pousada'
     # Assert
     expect(page).to have_content 'Não foi possível cadastrar pousada. 😢'
     expect(page).to have_content 'Verifique os erros abaixo:'
@@ -147,7 +147,7 @@ describe 'Dono de pousadas cria uma pousada' do
     fill_in 'Políticas de uso', with: 'Não pode som alto após as 18h'
     select '12', from: 'inn[check_in_check_out_time(4i)]'
     select '00', from: 'inn[check_in_check_out_time(5i)]'
-    click_on 'Criar pousada'
+    click_on 'Criar Pousada'
     # Assert
     expect(page).to have_content 'Não foi possível cadastrar pousada. 😢'
     expect(page).to have_content 'Verifique os erros abaixo:'
