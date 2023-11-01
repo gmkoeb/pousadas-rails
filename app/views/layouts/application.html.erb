@@ -14,6 +14,9 @@
     <header>
       <h1>Pousadas Rails</h1>
       <nav>
+      <% if request.path != root_path %>
+        <%= link_to 'Home', root_path%>
+      <% end %>
       <% if user_signed_in? %>
         <%= current_user.email %> |
         <% if current_user.admin? %>
