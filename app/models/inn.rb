@@ -12,4 +12,10 @@ class Inn < ApplicationRecord
             :check_in_check_out_time, presence: true
 
   validates :registration_number, :brand_name, :email, :phone, uniqueness: true
+
+  validates :user_id, uniqueness: {
+    message: "já possui uma pousada"
+  }
+
+  belongs_to :user
 end

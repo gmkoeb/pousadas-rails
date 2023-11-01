@@ -63,6 +63,9 @@ describe 'Dono de pousadas cria uma pousada' do
     click_on 'Criar pousada'
     # Assert
     expect(current_path).to eq inn_path('pousada-do-luar')
+    within 'nav' do
+      expect(page).to have_content 'Detalhes da pousada'
+    end
     expect(page).to have_content 'Pousada cadastrada com sucesso! 😊'
     expect(page).to have_content 'Razão social: Pousadas Florianópolis LTDA'
     expect(page).to have_content 'Nome fantasia: Pousada do Luar'
@@ -91,7 +94,7 @@ describe 'Dono de pousadas cria uma pousada' do
                 address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
                 city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
                 payment_methods: 'Dinheiro', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
-                check_in_check_out_time: '12:00')
+                check_in_check_out_time: '12:00', user: user)
     # Act
     visit root_path
     click_on 'Cadastrar pousada'
@@ -118,6 +121,7 @@ describe 'Dono de pousadas cria uma pousada' do
     expect(page).to have_content 'Nome fantasia já está em uso'
     expect(page).to have_content 'E-mail já está em uso'
     expect(page).to have_content 'Telefone para contato já está em uso'
+    expect(page).to have_content 'Dono de pousadas já possui uma pousada'
   end
 
   it 'com dados faltando' do
