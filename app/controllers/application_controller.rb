@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   private
   def authenticate_admin!
     authenticate_user!
-    redirect_to root_path, status: :forbidden unless current_user.admin?
+    redirect_to root_path, notice: 'Você precisa ser um dono de pousadas para realizar essa operação.' unless current_user.admin?
   end
 
   def admin_has_inn?
