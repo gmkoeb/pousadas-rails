@@ -155,3 +155,16 @@ describe 'Dono de pousadas cria uma pousada' do
     expect(page).to have_content 'Telefone para contato não pode ficar em branco'
   end
 end
+
+describe 'Usuário comum tenta criar uma pousada' do
+  it 'a partir da home' do
+    # Arrange
+    user = User.create!(email: 'gmkoeb1@gmail.com', password: 'password')
+    login_as(user)
+    # Act
+    visit new_inn_path
+    # Assert
+    expect(current_path).to eq(root_path)
+    expect(page).to have_content 'Você precisa ser um dono de pousadas para realizar essa operação.'
+  end
+end

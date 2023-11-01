@@ -1,11 +1,7 @@
 class InnsController < ApplicationController
   before_action :authenticate_admin!, except: [:show, :index]
   def new
-    if current_user.admin?
-      @inn = Inn.new
-    else
-      redirect_to root_path, notice: 'Você precisa ser um dono de pousadas para acessar essa página.'
-    end
+    @inn = Inn.new
   end
 
   def create

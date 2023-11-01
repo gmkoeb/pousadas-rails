@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário edita pousada' do
+describe 'Dono de pousadas edita pousada' do
   it 'a partir da home' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
@@ -132,5 +132,25 @@ describe 'Usuário edita pousada' do
     # Assert
     expect(current_path).to eq(root_path)
     expect(page).to have_content 'Você só pode editar as suas pousadas.'
+  end
+end
+
+describe 'Usuário comum tenta editar uma pousada' do
+  it 'a partir da home' do
+    # Arrange
+    user = User.create!(email: 'gmkoeb1@gmail.com', password: 'password')
+    user_2 = User.create!(email: 'admin@admin.com', password: 'password', admin: 'true')
+    login_as(user)
+    inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
+                      registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
+                      address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                      city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                      payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
+                      check_in_check_out_time: '12:00', user: user_2)
+    # Act
+    visit edit_inn_path(inn.slug)
+    # Assert
+    expect(current_path).to eq(root_path)
+    expect(page).to have_content 'Você precisa ser um dono de pousadas para realizar essa operação.'
   end
 end
