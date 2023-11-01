@@ -1,5 +1,5 @@
 <h1>Cadastre sua Pousada</h1>
-<% if user_has_inn?(current_user) %>
+<% if current_user.inn %>
   <p>Você já possui uma pousada cadastrada. Não sera possível cadastrar uma nova.</p>
 <%end%>
 

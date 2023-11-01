@@ -120,6 +120,12 @@ describe 'Usuário edita pousada' do
                 city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
                 payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
                 check_in_check_out_time: '12:00', user: user)
+    inn_2 = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Sol', 
+                  registration_number: '2333123', phone: '45995203040', email: 'pousadadosol@gmail.com', 
+                  address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                  city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                  payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
+                  check_in_check_out_time: '12:00', user: user_2)
     # Act
     visit root_path
     visit edit_inn_path(inn.slug)

@@ -1,4 +1,5 @@
 class InnsController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :index]
   def new
     if current_user.admin?
       @inn = Inn.new
@@ -26,6 +27,7 @@ class InnsController < ApplicationController
   end
 
   def show     
+    admin_has_inn?
     @inn = Inn.friendly.find(params[:id])
   end
 

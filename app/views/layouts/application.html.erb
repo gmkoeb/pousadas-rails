@@ -19,8 +19,8 @@
         <% if current_user.admin? %>
           <%= link_to 'Cadastrar pousada |', new_inn_path %>
         <%end%>
-        <% if user_has_inn?(current_user)%>
-          <%= link_to 'Minha pousada', inn_path(find_user_inn(current_user)) %>
+        <% if current_user.inn %>
+          <%= link_to 'Minha pousada', inn_path(current_user.inn.slug) %>
         <% end %> 
         <%= button_to 'Sair', destroy_user_session_path, method: :delete %> 
       <% else %>
