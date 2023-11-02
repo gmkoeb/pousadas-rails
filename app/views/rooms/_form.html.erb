@@ -1,0 +1,62 @@
+<%= form_for([@inn, @room]) do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  
+  <div>
+    <%= f.label :area %>
+    <%= f.number_field :area %>
+  </div>
+  
+  <div>
+    <%= f.label :maximum_guests %>
+    <%= f.number_field :maximum_guests %>
+  </div>
+  
+  <div>
+    <%= f.label :price %>
+    <%= f.number_field :price %>
+  </div>
+  
+  <div>
+    <%= f.label :has_bathroom %>
+    <%= f.check_box :has_bathroom %>
+  </div>
+  
+  <div>
+    <%= f.label :has_balcony %>
+    <%= f.check_box :has_balcony %>
+  </div>
+  
+  <div>
+    <%= f.label :has_air_conditioner %>
+    <%= f.check_box :has_air_conditioner %>
+  </div>
+  
+  <div>
+    <%= f.label :has_tv %>
+    <%= f.check_box :has_tv %>
+  </div>
+  
+  <div>
+    <%= f.label :has_wardrobe %>
+    <%= f.check_box :has_wardrobe %>
+  </div>
+
+  <div>
+    <%= f.label :has_coffer %>
+    <%= f.check_box :has_coffer %>
+  </div>
+
+  <div>
+    <%= f.label :accessible %>
+    <%= f.check_box :accessible %>
+  </div>
+  <%= f.submit %>
+<% end %>

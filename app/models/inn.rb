@@ -6,6 +6,10 @@ class Inn < ApplicationRecord
     brand_name_changed?
   end
 
+  belongs_to :user
+
+  has_many :rooms
+
   validates :brand_name, :corporate_name, :registration_number, :phone, :email, 
             :address, :district, :state, :city, :zip_code, :description, 
             :payment_methods, :terms_of_service, 
@@ -19,16 +23,13 @@ class Inn < ApplicationRecord
 
   validate :user_has_admin_role
 
-  belongs_to :user
-
   enum status: {draft: 0, published: 2}
 
   private
 
   def user_has_admin_role
     unless user && user.admin?
-      errors.add(:user, "Usuário precisa ser dono de pousadas para cadastrar pousada")
+      errors.add(:user, "Você precisa ser um dono de pousadas para realizar essa ação.")
     end
   end
-
 end

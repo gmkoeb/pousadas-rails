@@ -1,0 +1,18 @@
+pt-BR:
+  activerecord:
+    models:
+      room: 'Quarto'
+    attributes:
+      room:
+        name: 'Nome do quarto'
+        description: 'Descrição'
+        area: 'Área'
+        maximum_guests: 'Número máximo de hóspedes'
+        price: 'Preço padrão'
+        has_bathroom: 'Têm banheiro?'
+        has_balcony: 'Têm varanda?'
+        has_air_conditioner: 'Têm ar condicionado?'
+        has_tv: 'Têm TV?'
+        has_wardrobe: 'Têm armário?'
+        has_coffer: 'Têm cofre?'
+        accessible: 'É acessível para pessoas com deficiência?'

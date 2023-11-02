@@ -1,8 +1,9 @@
-<h1>Pousada <%= @inn.brand_name %></h1>
+<h1><%= @inn.brand_name %></h1>
 
 <h2>Detalhes da pousada</h2>
+<%= link_to 'Quartos', inn_rooms_path(@inn.slug) %>
 <% if current_user && current_user.inn %>
-  <% @inn == current_user.inn %>
+  <% if @inn == current_user.inn %>
     <div>
       <ul>
         <li>Razão social: <%= @inn.corporate_name %></li>
@@ -40,9 +41,14 @@
           <%end%>
         </li>
       </ul>
-      <%= link_to 'Editar', edit_inn_path%>
+      <div>
+        <%= link_to 'Cadastrar Quarto', new_inn_room_path(@inn) %> 
+        <%= link_to 'Editar', edit_inn_path(@inn)%>
+      </div>
     </div>
-<% elsif @inn.published? %>
+  <%end%>
+<%end%>
+<% if current_user.nil? || current_user.inn != @inn %>
   <div>
     <ul>
       <li>Nome: <%= @inn.brand_name %></li>
@@ -71,6 +77,4 @@
       </li>
     </ul>
   </div>
-<% else %>
-  <p>Esta pousada não está aceitando reservas</p>
 <%end%>

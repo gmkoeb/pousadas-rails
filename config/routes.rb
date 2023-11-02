@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   resources :inns, only: [:show, :create, :new, :edit, :update] do
     patch :publish, on: :member
     patch :draft, on: :member
+    resources :rooms
   end
 end

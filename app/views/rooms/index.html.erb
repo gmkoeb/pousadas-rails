@@ -1,0 +1,8 @@
+<h1>Quartos da pousada</h1>
+
+<% @inn.rooms.each do |room| %>
+  <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
+  <ul>
+    <li>Descrição: <%= room.description %></li>
+  </ul>
+<%end%>

@@ -1,5 +1,7 @@
 class InnsController < ApplicationController
-  before_action :authenticate_admin!, except: [:show, :index]
+  before_action :authenticate_admin!, except: [:show]
+  before_action :admin_has_inn?, except: [:new, :create]
+  
   def new
     @inn = Inn.new
   end
@@ -13,8 +15,10 @@ class InnsController < ApplicationController
     @inn = Inn.new(inn_params)
 
     @inn.user = current_user
-
-    if @inn.save
+    
+    
+    if @inn.valid?
+      @inn.save
       redirect_to inn_path(@inn.slug), notice: 'Pousada cadastrada com sucesso!'
     else  
       flash.now[:notice] = 'Não foi possível cadastrar pousada.'
@@ -23,8 +27,12 @@ class InnsController < ApplicationController
   end
 
   def show     
-    admin_has_inn?
     @inn = Inn.friendly.find(params[:id])
+    if @inn.draft?
+      if current_user.nil? || current_user.inn != @inn
+        redirect_to root_path, notice: 'Essa pousada não está aceitando reservas no momento.'
+      end
+    end
   end
 
   def edit
@@ -48,7 +56,7 @@ class InnsController < ApplicationController
       redirect_to inn_path(@inn.slug), notice: 'Pousada atualizada com sucesso!'
     else
       flash.now[:notice] = 'Não foi possível atualizar a pousada.'
-      render 'edit'
+      render 'edit', status: '422'
     end
   end
 
