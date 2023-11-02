@@ -15,9 +15,9 @@ class InnsController < ApplicationController
     @inn.user = current_user
 
     if @inn.save
-      redirect_to inn_path(@inn.slug), notice: 'Pousada cadastrada com sucesso! 😊'
+      redirect_to inn_path(@inn.slug), notice: 'Pousada cadastrada com sucesso!'
     else  
-      flash.now[:notice] = 'Não foi possível cadastrar pousada. 😢'
+      flash.now[:notice] = 'Não foi possível cadastrar pousada.'
       render 'new', status: 422
     end
   end
@@ -45,9 +45,9 @@ class InnsController < ApplicationController
                                              :zip_code, :description, :accepts_pets, :terms_of_service, 
                                              :check_in_check_out_time, payment_methods:[])
     if @inn.update(inn_params)
-      redirect_to inn_path(@inn.slug), notice: 'Pousada atualizada com sucesso! 😊'
+      redirect_to inn_path(@inn.slug), notice: 'Pousada atualizada com sucesso!'
     else
-      flash.now[:notice] = 'Não foi possível atualizar a pousada. 😢'
+      flash.now[:notice] = 'Não foi possível atualizar a pousada.'
       render 'edit'
     end
   end

@@ -66,7 +66,7 @@ describe 'Dono de pousadas cria uma pousada' do
     within 'nav' do
       expect(page).to have_content 'Minha pousada'
     end
-    expect(page).to have_content 'Pousada cadastrada com sucesso! 😊'
+    expect(page).to have_content 'Pousada cadastrada com sucesso!'
     expect(page).to have_content 'Razão social: Pousadas Florianópolis LTDA'
     expect(page).to have_content 'Nome fantasia: Pousada do Luar'
     expect(page).to have_content 'CNPJ: 34133123'
@@ -116,7 +116,7 @@ describe 'Dono de pousadas cria uma pousada' do
     select '00', from: 'inn[check_in_check_out_time(5i)]'
     click_on 'Criar Pousada'
     # Assert
-    expect(page).to have_content 'Não foi possível cadastrar pousada. 😢'
+    expect(page).to have_content 'Não foi possível cadastrar pousada.'
     expect(page).to have_content 'Verifique os erros abaixo:'
     expect(page).to have_content 'Nome fantasia já está em uso'
     expect(page).to have_content 'E-mail já está em uso'
@@ -149,7 +149,7 @@ describe 'Dono de pousadas cria uma pousada' do
     select '00', from: 'inn[check_in_check_out_time(5i)]'
     click_on 'Criar Pousada'
     # Assert
-    expect(page).to have_content 'Não foi possível cadastrar pousada. 😢'
+    expect(page).to have_content 'Não foi possível cadastrar pousada.'
     expect(page).to have_content 'Verifique os erros abaixo:'
     expect(page).to have_content 'CNPJ não pode ficar em branco'
     expect(page).to have_content 'Telefone para contato não pode ficar em branco'

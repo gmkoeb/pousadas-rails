@@ -5,8 +5,11 @@
   <% @inns.each do |inn| %>
   <ul>
     <li>
-      <%= inn.brand_name %>
+      <%= link_to inn.brand_name, inn_path(inn.slug) %>
     </li>
+    <li>Endereço: <%= inn.address %>. <%= inn.district %>, <%= inn.city %> - <%= inn.state %>. </li>
+    <li>Telefone para contato: <%= inn.phone %></li>
+    <li>E-mail: <%= inn.email %></li>
   </ul>
   <%end%>
 <%end%>

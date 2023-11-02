@@ -17,7 +17,18 @@ class Inn < ApplicationRecord
     message: "já possui uma pousada"
   }
 
+  validate :user_has_admin_role
+
   belongs_to :user
 
   enum status: {draft: 0, published: 2}
+
+  private
+
+  def user_has_admin_role
+    unless user && user.admin?
+      errors.add(:user, "Usuário precisa ser dono de pousadas para cadastrar pousada")
+    end
+  end
+
 end

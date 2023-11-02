@@ -69,7 +69,7 @@ describe 'Dono de pousadas edita pousada' do
     select '00', from: 'inn[check_in_check_out_time(5i)]'
     click_on 'Atualizar Pousada'
     # Assert
-    expect(page).to have_content 'Pousada atualizada com sucesso! 😊'
+    expect(page).to have_content 'Pousada atualizada com sucesso!'
     expect(page).to have_content 'Razão social: Pousadas Florianópolis Editadas LTDA'
     expect(page).to have_content 'Nome fantasia: Pousada do Sol'
     expect(page).to have_content 'E-mail: pousadadosol@gmail.com'
@@ -104,7 +104,7 @@ describe 'Dono de pousadas edita pousada' do
     select '00', from: 'inn[check_in_check_out_time(5i)]'
     click_on 'Atualizar Pousada'
     # Assert
-    expect(page).to have_content 'Não foi possível atualizar a pousada. 😢'
+    expect(page).to have_content 'Não foi possível atualizar a pousada.'
     expect(page).to have_content 'Verifique os erros abaixo:'
     expect(page).to have_content 'Razão social não pode ficar em branco'
   end
@@ -127,7 +127,6 @@ describe 'Dono de pousadas edita pousada' do
                   payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
                   check_in_check_out_time: '12:00', user: user_2)
     # Act
-    visit root_path
     visit edit_inn_path(inn.slug)
     # Assert
     expect(current_path).to eq(root_path)
