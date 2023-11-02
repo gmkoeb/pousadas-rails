@@ -38,6 +38,7 @@ class InnsController < ApplicationController
 
   def update
     @inn = Inn.friendly.find(params[:id])
+    return unless current_user.inn == @inn
     inn_params = params.require(:inn).permit(:corporate_name, :brand_name, 
                                              :registration_number, :phone, :email, 
                                              :address, :district, :state, :city,
