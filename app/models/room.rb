@@ -24,4 +24,5 @@ class Room < ApplicationRecord
       errors.add(:base, "Essa ação não pode ser realizada.")
     end
   end
+  
 end

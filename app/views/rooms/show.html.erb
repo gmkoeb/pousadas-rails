@@ -1,15 +1,43 @@
-<h1><%= @room.name %></h1>
-<h2>Detalhes do quarto:</h2>
-<li>Descrição: <%= @room.description %></li>
-<li>Área: <%= @room.area %> m²</li>
-<li>Número máximo de hóspedes: <%= @room.maximum_guests %></li>
-<li>Preço padrão da diária: R$ <%= @room.price %></li>
-<li><%= bathroom(@room.has_bathroom) %></li>
-<li><%= balcony(@room.has_balcony) %></li>
-<li><%= air_conditioner(@room.has_air_conditioner) %></li>
-<li><%= tv(@room.has_tv) %></li>
-<li><%= wardrobe(@room.has_wardrobe) %></li>
-<li><%= coffer(@room.has_coffer) %></li>
-<li><%= accessibility(@room.accessible) %></li>
+<% if current_user %>
+  <% if current_user.inn == @inn %>
+    <h1><%= @room.name %></h1>
+    <h2>Detalhes do quarto:</h2>
+    <li>Descrição: <%= @room.description %></li>
+    <li>Área: <%= @room.area %> m²</li>
+    <li>Número máximo de hóspedes: <%= @room.maximum_guests %></li>
+    <li>Preço padrão da diária: R$ <%= @room.price %></li>
+    <li><%= bathroom(@room.has_bathroom) %></li>
+    <li><%= balcony(@room.has_balcony) %></li>
+    <li><%= air_conditioner(@room.has_air_conditioner) %></li>
+    <li><%= tv(@room.has_tv) %></li>
+    <li><%= wardrobe(@room.has_wardrobe) %></li>
+    <li><%= coffer(@room.has_coffer) %></li>
+    <li><%= accessibility(@room.accessible) %></li>
 
-<%= link_to 'Editar Quarto', edit_inn_room_path(@inn, @room) %>
+    <% if @room.draft? %>
+      <h4>ATENÇÃO: Ao publicar o quarto ele poderá ser visualizado por outros usuários, e aceitará reservas.</h4>
+      <%= button_to 'Publicar Quarto', publish_inn_room_path(@inn.id, @room.id), {method: 'patch'}%>
+    <% else %>
+      <%= button_to 'Esconder Quarto', draft_inn_room_path(@inn.id, @room.id), {method: 'patch'}%>
+    <%end%>
+
+    <%= link_to 'Editar Quarto', edit_inn_room_path(@inn, @room) %>
+  <% end %>
+<% end %>
+
+<% if current_user.nil? || current_user.inn != @inn %>
+  <h1><%= @room.name %></h1>
+  <h2>Detalhes do quarto:</h2>
+  <li>Descrição: <%= @room.description %></li>
+  <li>Área: <%= @room.area %> m²</li>
+  <li>Número máximo de hóspedes: <%= @room.maximum_guests %></li>
+  <li>Preço padrão da diária: R$ <%= @room.price %></li>
+  <li><%= bathroom(@room.has_bathroom) %></li>
+  <li><%= balcony(@room.has_balcony) %></li>
+  <li><%= air_conditioner(@room.has_air_conditioner) %></li>
+  <li><%= tv(@room.has_tv) %></li>
+  <li><%= wardrobe(@room.has_wardrobe) %></li>
+  <li><%= coffer(@room.has_coffer) %></li>
+  <li><%= accessibility(@room.accessible) %></li>
+<% end %>
+

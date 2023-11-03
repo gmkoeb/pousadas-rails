@@ -1,8 +1,26 @@
 <h1>Quartos da pousada</h1>
-
-<% @inn.rooms.each do |room| %>
-  <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
-  <ul>
-    <li>Descrição: <%= room.description %></li>
-  </ul>
-<%end%>
+<% if current_user %>
+  <% if @inn == current_user.inn%>
+    <% @rooms.each do |room| %>
+      <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
+      <ul>
+        <li>Descrição: <%= room.description %></li>
+      </ul>
+    <%end%>
+  <%end%>
+<%else%>
+  <% @rooms.each do |room| %>
+    <% if room.published? %>
+      <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
+      <ul>
+        <li>Descrição: <%= room.description %></li>
+      </ul>
+    <% else %>
+      <h2><%= room.name %></h2>
+      <ul>
+        <li>Descrição: <%= room.description %></li>
+        <h3>Quarto indisponível no momento.</h3>
+      </ul>
+    <%end%>
+  <%end%>
+<% end %>

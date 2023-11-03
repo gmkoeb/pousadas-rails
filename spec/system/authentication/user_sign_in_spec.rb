@@ -121,8 +121,8 @@ describe 'Usuário admin se autentica' do
     # Assert
     expect(current_path).to eq root_path
     expect(page).to have_content 'Login efetuado com sucesso.'
-    expect(page).not_to have_link 'Entrar'
-    expect(page).to have_link 'Cadastrar pousada'
+    expect(page).to_not have_link 'Entrar'
+    expect(page).to_not have_link 'Cadastrar pousada'
     expect(page).to have_button 'Sair'
     within 'nav' do
       expect(page).to have_content 'gmkoeb@gmail.com'

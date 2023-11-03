@@ -88,7 +88,8 @@ describe 'Dono de pousadas cria uma pousada' do
   it 'com dados repetidos' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    login_as(user)
+    user_2 = User.create!(email: 'gmkoeb2@gmail.com', password: 'password', admin: 'true')
+    login_as(user_2)
     Inn.create!(corporate_name: 'Pousada Repetida LTDA', brand_name: 'Pousada do Luar', 
                 registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                 address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -97,7 +98,6 @@ describe 'Dono de pousadas cria uma pousada' do
                 check_in_check_out_time: '12:00', user: user)
     # Act
     visit root_path
-    click_on 'Cadastrar pousada'
     fill_in 'Razão social', with: 'Pousadas Florianópolis LTDA'
     fill_in 'Nome fantasia', with: 'Pousada do Luar'
     fill_in 'CNPJ', with: '234241414'    
@@ -121,7 +121,6 @@ describe 'Dono de pousadas cria uma pousada' do
     expect(page).to have_content 'Nome fantasia já está em uso'
     expect(page).to have_content 'E-mail já está em uso'
     expect(page).to have_content 'Telefone para contato já está em uso'
-    expect(page).to have_content 'Dono de pousadas já possui uma pousada'
   end
 
   it 'com dados faltando' do

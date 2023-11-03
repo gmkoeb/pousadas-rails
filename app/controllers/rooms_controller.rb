@@ -28,6 +28,11 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.friendly.find(params[:id])
+    if @room.draft?
+      if current_user.nil? || current_user.inn != @inn
+        redirect_to inn_rooms_path(@inn), notice: 'Este quarto não está aceitando reservas no momento.'
+      end
+    end
   end
 
   def edit
@@ -47,6 +52,19 @@ class RoomsController < ApplicationController
       render 'edit', status: 422
     end                                  
   end
+
+  def publish
+    room = Room.friendly.find(params[:id])
+    room.published!
+    redirect_to inn_room_path(@inn, room)
+  end
+
+  def draft
+    room = Room.friendly.find(params[:id])
+    room.draft!
+    redirect_to inn_room_path(@inn, room)
+  end
+
   private
 
   def set_inn

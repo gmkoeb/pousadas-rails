@@ -101,13 +101,16 @@ describe 'dono de pousadas cadastra quarto' do
 
   it 'em pousada que não é dele' do
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    
     user_2 = User.create!(email: 'admin@gmail.com', password: 'password', admin: 'true')
+
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
                       city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
                       payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
                       check_in_check_out_time: '12:00', user: user)
+
     inn_2 = Inn.create!(corporate_name: 'Pousadas Curitiba LTDA', brand_name: 'Pousada da Chuva', 
                         registration_number: '1233', phone: '4136223040', email: 'pousadachuva@gmail.com', 
                         address: 'Rua da pousada, 153', district: 'Santa Cândida', state: 'Paraná',

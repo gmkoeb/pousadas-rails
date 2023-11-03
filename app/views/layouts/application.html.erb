@@ -20,9 +20,10 @@
       <% if user_signed_in? %>
         <%= current_user.email %> |
         <% if current_user.admin? %>
-          <%= link_to 'Cadastrar pousada |', new_inn_path %>
           <% if current_user.inn && current_user.inn.valid? %>
             <%= link_to 'Minha pousada', inn_path(current_user.inn.slug) %>
+          <% else %>
+            <%= link_to 'Cadastrar pousada |', new_inn_path %>
           <% end %> 
         <%end%>
         <%= button_to 'Sair', destroy_user_session_path, method: :delete %> 
