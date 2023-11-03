@@ -10,7 +10,10 @@ class RoomsController < ApplicationController
                                                 :maximum_guests, :price, :has_bathroom, 
                                                 :has_balcony, :has_air_conditioner, :has_tv,
                                                 :has_wardrobe, :has_coffer, :accessible)
-    @room = @inn.rooms.build(room_params)
+                                                
+    inn = current_user.inn          
+
+    @room = inn.rooms.build(room_params)
     if @room.save
       redirect_to inn_rooms_path, notice: 'Quarto cadastrado com sucesso!'
     else
@@ -19,7 +22,9 @@ class RoomsController < ApplicationController
     end                       
   end
 
-  def index;end
+  def index
+    @rooms = @inn.rooms
+  end
 
   def show
     @room = Room.friendly.find(params[:id])
