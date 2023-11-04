@@ -72,5 +72,6 @@ describe 'Usuário vê detalhes de um quarto' do
     # Assert
     expect(page).to have_content 'Editar Quarto'
     expect(page).to have_content 'Publicar Quarto'
+    expect(page).to have_content 'Definir Preços Por Período'
   end
 end
