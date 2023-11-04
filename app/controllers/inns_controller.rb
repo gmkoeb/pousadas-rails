@@ -1,17 +1,14 @@
 class InnsController < ApplicationController
   before_action :authenticate_admin!, except: [:show]
   before_action :admin_has_inn?, except: [:new, :create]
+  before_action :set_inn, only: [:show, :edit, :update]
+  before_action :inn_params, only: [:create, :update]
   
   def new
     @inn = Inn.new
   end
 
   def create
-    inn_params = params.require(:inn).permit(:corporate_name, :brand_name, 
-                                             :registration_number, :phone, :email, 
-                                             :address, :district, :state, :city,
-                                             :zip_code, :description, :accepts_pets, :terms_of_service, 
-                                             :check_in_check_out_time, payment_methods:[])
     @inn = Inn.new(inn_params)
 
     @inn.user = current_user
@@ -26,7 +23,6 @@ class InnsController < ApplicationController
   end
 
   def show     
-    @inn = Inn.friendly.find(params[:id])
     if @inn.draft?
       if current_user.nil? || current_user.inn != @inn
         redirect_to root_path, notice: 'Essa pousada não está aceitando reservas no momento.'
@@ -35,7 +31,6 @@ class InnsController < ApplicationController
   end
 
   def edit
-    @inn = Inn.friendly.find(params[:id])
     if current_user == @inn.user
       render
     else
@@ -44,7 +39,6 @@ class InnsController < ApplicationController
   end
 
   def update
-    @inn = Inn.friendly.find(params[:id])
     return unless current_user.inn == @inn
     inn_params = params.require(:inn).permit(:corporate_name, :brand_name, 
                                              :registration_number, :phone, :email, 
@@ -69,5 +63,18 @@ class InnsController < ApplicationController
     inn = Inn.find(params[:id])
     inn.draft!
     redirect_to inn_path(inn)
+  end
+
+  private
+  def set_inn
+    @inn = Inn.friendly.find(params[:id])
+  end
+
+  def inn_params
+    inn_params = params.require(:inn).permit(:corporate_name, :brand_name, 
+                                             :registration_number, :phone, :email, 
+                                             :address, :district, :state, :city,
+                                             :zip_code, :description, :accepts_pets, :terms_of_service, 
+                                             :check_in_check_out_time, payment_methods:[])
   end
 end

@@ -1,5 +1,6 @@
 class PricePerPeriodsController < ApplicationController
   before_action :set_room, :set_inn, :authenticate_admin!
+
   def new
     @price_per_period = @room.price_per_periods.build
   end
@@ -7,14 +8,12 @@ class PricePerPeriodsController < ApplicationController
   def create
     price_per_period_params = params.require(:price_per_period).permit(:special_price, :starts_at, :ends_at)
 
-    inn = current_user.inn
-
-    room = current_user.inn.rooms.find(@room.id)
+    room = @inn.rooms.find(@room.id)
 
     @price_per_period = room.price_per_periods.build(price_per_period_params)
 
     if @price_per_period.save
-      redirect_to inn_room_path(inn, room), notice: 'Preço por período cadastrado com sucesso.'
+      redirect_to inn_room_path(@inn, room), notice: 'Preço por período cadastrado com sucesso.'
     else
       flash.now[:notice] = "Não foi possível cadastrar preço especial."
       render 'new', status: 422

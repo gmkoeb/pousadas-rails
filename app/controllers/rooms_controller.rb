@@ -1,19 +1,14 @@
 class RoomsController < ApplicationController
-  before_action :set_inn, :admin_has_inn?
+  before_action :admin_has_inn?, :set_inn
   before_action :authenticate_admin!, :inn_belongs_to_user?, only: [:new, :create, :edit, :update]
+  before_action :room_params, only: [:create, :update]
+  before_action :set_room, only: [:show, :edit, :update, :publish, :draft]
   def new
     @room = @inn.rooms.build
   end
 
-  def create
-    room_params = params.require(:room).permit(:name, :description, :area, 
-                                                :maximum_guests, :price, :has_bathroom, 
-                                                :has_balcony, :has_air_conditioner, :has_tv,
-                                                :has_wardrobe, :has_coffer, :accessible)
-                                                
-    inn = current_user.inn          
-
-    @room = inn.rooms.build(room_params)
+  def create                                                
+    @room = current_user.inn.rooms.build(room_params)
     if @room.save
       redirect_to inn_rooms_path, notice: 'Quarto cadastrado com sucesso!'
     else
@@ -23,7 +18,11 @@ class RoomsController < ApplicationController
   end
 
   def index
-    @rooms = @inn.rooms
+    if current_user && current_user.admin?
+      @rooms = @inn.rooms
+    else
+      @rooms = @inn.rooms.published
+    end
   end
 
   def show
@@ -35,12 +34,9 @@ class RoomsController < ApplicationController
     end
   end
 
-  def edit
-    @room = Room.friendly.find(params[:id])
-  end
+  def edit;end
 
   def update
-    @room = Room.friendly.find(params[:id])
     room_params = params.require(:room).permit(:name, :description, :area, 
                                                :maximum_guests, :price, :has_bathroom, 
                                                :has_balcony, :has_air_conditioner, :has_tv,
@@ -54,15 +50,13 @@ class RoomsController < ApplicationController
   end
 
   def publish
-    room = Room.friendly.find(params[:id])
-    room.published!
-    redirect_to inn_room_path(@inn, room)
+    @room.published!
+    redirect_to inn_room_path(@inn, @room)
   end
 
   def draft
-    room = Room.friendly.find(params[:id])
-    room.draft!
-    redirect_to inn_room_path(@inn, room)
+    @room.draft!
+    redirect_to inn_room_path(@inn, @room)
   end
 
   private
@@ -71,9 +65,20 @@ class RoomsController < ApplicationController
     @inn = Inn.friendly.find(params[:inn_id])
   end
 
+  def set_room
+    @room = Room.friendly.find(params[:id])
+  end
+
   def inn_belongs_to_user?
     if current_user.inn != @inn
       redirect_to root_path, notice: 'Você não pode realizar essa ação'
     end
+  end
+
+  def room_params
+    room_params = params.require(:room).permit(:name, :description, :area, 
+                                               :maximum_guests, :price, :has_bathroom, 
+                                               :has_balcony, :has_air_conditioner, :has_tv,
+                                               :has_wardrobe, :has_coffer, :accessible)
   end
 end
