@@ -12,7 +12,7 @@ module RoomsHelper
     if has
       'Possui varanda'
     else
-      'Não possui varando'
+      'Não possui varanda'
     end
   end
 
@@ -54,5 +54,9 @@ module RoomsHelper
     else
       'Não é acessível para pessoas com deficiência'
     end
+  end
+
+  def sort_by_date(array)
+    array.sort_by { |array| array.starts_at }
   end
 end

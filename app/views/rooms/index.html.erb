@@ -9,18 +9,13 @@
     <%end%>
   <%end%>
 <%else%>
-  <% @rooms.each do |room| %>
-    <% if room.published? %>
+  <% @rooms.published.each do |room| %>
       <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
       <ul>
         <li>Descrição: <%= room.description %></li>
       </ul>
-    <% else %>
-      <h2><%= room.name %></h2>
-      <ul>
-        <li>Descrição: <%= room.description %></li>
-        <h3>Quarto indisponível no momento.</h3>
-      </ul>
-    <%end%>
+  <%end%>
+  <% if @rooms.published.empty? %>
+    <h2>Não existem quartos disponíveis no momento.</h2>
   <%end%>
 <% end %>

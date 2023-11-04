@@ -16,11 +16,10 @@ class InnsController < ApplicationController
 
     @inn.user = current_user
     
-    
-    if @inn.valid?
-      @inn.save
+    if @inn.save
       redirect_to inn_path(@inn.slug), notice: 'Pousada cadastrada com sucesso!'
     else  
+      @inn.user = nil
       flash.now[:notice] = 'Não foi possível cadastrar pousada.'
       render 'new', status: 422
     end

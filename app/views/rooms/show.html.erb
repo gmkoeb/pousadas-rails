@@ -13,12 +13,41 @@
     <li><%= wardrobe(@room.has_wardrobe) %></li>
     <li><%= coffer(@room.has_coffer) %></li>
     <li><%= accessibility(@room.accessible) %></li>
-
+    <%= link_to 'Definir Preços Por Período', new_inn_room_price_per_period_path(@inn, @room) %>
+    <% if @room.price_per_periods.any? %>
+      <aside>
+        <table>
+          <h2>Preços por Período</h2>
+          <tr>
+            <th>Preço Especial</th>
+            <th>Data de Ínicio</th>
+            <th>Data de Término</th>
+          </tr>
+          <% prices = sort_by_date(@room.price_per_periods) %>
+          <% prices.each do |price_per_period| %>
+            <tr>
+              <td>
+                R$ <%= price_per_period.special_price %>
+              </td>  
+              <td>
+                <%= price_per_period.starts_at.strftime("%d/%m/%Y") %>
+              </td>  
+              <td>
+                <%= price_per_period.ends_at.strftime("%d/%m/%Y") %>
+              </td>  
+              <td>
+                <%= button_to('Remover', inn_room_price_per_period_path(current_user.inn, @room, price_per_period.id), method: :delete) %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </aside>
+    <% end %>
     <% if @room.draft? %>
       <h4>ATENÇÃO: Ao publicar o quarto ele poderá ser visualizado por outros usuários, e aceitará reservas.</h4>
-      <%= button_to 'Publicar Quarto', publish_inn_room_path(@inn.id, @room.id), {method: 'patch'}%>
+      <%= button_to 'Publicar Quarto', publish_inn_room_path(@inn, @room), {method: 'patch'}%>
     <% else %>
-      <%= button_to 'Esconder Quarto', draft_inn_room_path(@inn.id, @room.id), {method: 'patch'}%>
+      <%= button_to 'Esconder Quarto', draft_inn_room_path(@inn, @room), {method: 'patch'}%>
     <%end%>
 
     <%= link_to 'Editar Quarto', edit_inn_room_path(@inn, @room) %>
@@ -39,5 +68,31 @@
   <li><%= wardrobe(@room.has_wardrobe) %></li>
   <li><%= coffer(@room.has_coffer) %></li>
   <li><%= accessibility(@room.accessible) %></li>
+  <% if @room.price_per_periods.any? %>
+    <aside>
+      <table>
+        <h2>Preços por Período</h2>
+        <tr>
+          <th>Preço Especial</th>
+          <th>Data de Ínicio</th>
+          <th>Data de Término</th>
+        </tr>
+        <% @room.price_per_periods.each do |price_per_period| %>
+        <tr>
+          <td>
+            <%= price_per_period.special_price %>
+          </td>  
+          <td>
+            <%= price_per_period.starts_at %>
+          </td>  
+          <td>
+            <%= price_per_period.ends_at %>
+          </td>  
+        </tr>
+        <% end %>
+      </table>
+
+    </aside>
+  <% end %>
 <% end %>
 

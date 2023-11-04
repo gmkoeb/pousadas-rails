@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_02_214759) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_03_140238) do
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -45,6 +45,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_02_214759) do
     t.integer "status", default: 0
     t.index ["slug"], name: "index_inns_on_slug", unique: true
     t.index ["user_id"], name: "index_inns_on_user_id"
+  end
+
+  create_table "price_per_periods", force: :cascade do |t|
+    t.integer "special_price"
+    t.date "starts_at"
+    t.date "ends_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "room_id", null: false
+    t.index ["room_id"], name: "index_price_per_periods_on_room_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -83,5 +93,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_02_214759) do
   end
 
   add_foreign_key "inns", "users"
+  add_foreign_key "price_per_periods", "rooms"
   add_foreign_key "rooms", "inns"
 end

@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      price_per_period: 'Preços Por Período'
+    attributes:
+      price_per_period:
+        special_price: 'Preço Especial'
+        starts_at: 'Data de Ínicio'
+        ends_at: 'Data de Término'

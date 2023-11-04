@@ -8,6 +8,8 @@ class Room < ApplicationRecord
   end
 
   belongs_to :inn
+ 
+  has_many :price_per_periods
 
   validates :name, :description, :area, :maximum_guests, :price, presence: true
 

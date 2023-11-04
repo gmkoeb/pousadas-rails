@@ -58,7 +58,7 @@
 <%= f.label :payment_methods %> <br>  
 <% payment_methods = ["Dinheiro", "PIX", "Cartão de crédito", "Cartão de débito"] %>
 <% payment_methods.each do |payment_method| %>
-  <%= f.check_box :payment_methods, { multiple: true }, payment_method, nil %>
+  <%= f.check_box :payment_methods, { checked: accepted_payment(payment_method), multiple: true }, payment_method, nil %>
   <%= label_tag :payment_methods, payment_method %>
 <% end %>
 </div>
