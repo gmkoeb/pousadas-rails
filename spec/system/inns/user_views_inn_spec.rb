@@ -124,8 +124,8 @@ describe 'Dono de pousadas vê detalhes de pousada' do
     click_on 'Minha pousada'
   end
   click_on 'Publicar pousada'
-  within 'nav' do
-    click_on 'Home'
+  within 'header' do
+    click_on 'Pousadas Rails'
   end
   # Assert
   expect(page).to have_content 'Pousada do Luar'

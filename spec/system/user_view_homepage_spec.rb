@@ -7,8 +7,7 @@ describe 'Usuário não autenticado visita página inicial' do
     # Act
     visit root_path
     # Assert
-    expect(page).to have_content 'Pousadas Rails'
-    expect(page).to_not have_content 'Home'
+    expect(page).to have_link 'Pousadas Rails'
   end
 
   it 'e vê o botão de entrar' do
@@ -20,7 +19,6 @@ describe 'Usuário não autenticado visita página inicial' do
     within 'nav' do
       expect(page).to have_content 'Entrar'
     end
-    expect(page).to_not have_content 'Home'
   end
 
   it 'e vê as pousadas publicadas' do 

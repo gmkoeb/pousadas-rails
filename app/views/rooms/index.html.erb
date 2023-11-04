@@ -7,6 +7,9 @@
         <li>Descrição: <%= room.description %></li>
       </ul>
     <%end%>
+    <% if @rooms.empty? %>
+      <h2>Não existem quartos disponíveis no momento. <%= link_to 'Clique aqui para cadastrar um', new_inn_room_path(@inn)%></h2>
+    <%end%>
   <%end%>
 <%else%>
   <% @rooms.each do |room| %>
