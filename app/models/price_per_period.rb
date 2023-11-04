@@ -15,7 +15,7 @@ class PricePerPeriod < ApplicationRecord
       next if period.id == id 
       range = Range.new(period.starts_at, period.ends_at)
       new_range = Range.new(starts_at, ends_at)
-      overlaps = new_range.in?(range)
+      overlaps = new_range.any?(range)
       if overlaps
         errors.add(:base, 'Já existe um preço especial nessa data!')
       end
