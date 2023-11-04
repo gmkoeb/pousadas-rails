@@ -1,7 +1,7 @@
 <h1><%= @inn.brand_name %></h1>
 
 <h2>Detalhes da pousada</h2>
-<%= link_to 'Quartos', inn_rooms_path(@inn.slug) %>
+<%= link_to 'Quartos', inn_rooms_path(@inn) %>
 <% if current_user && current_user.inn %>
   <% if @inn == current_user.inn %>
     <div>
