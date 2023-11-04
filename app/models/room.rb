@@ -22,7 +22,7 @@ class Room < ApplicationRecord
   private
   def valid_inn
     user = User.where(inn: inn_id).first
-    unless self.inn && user == self.inn.user
+    unless self.inn && user.inn == self.inn
       errors.add(:rooms, "Essa operação não pode ser realizada.")
     end
   end

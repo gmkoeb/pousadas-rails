@@ -31,7 +31,7 @@ class PricePerPeriod < ApplicationRecord
   end 
   
   def valid_inn
-    user = User.where(inn: self.room.inn_id).first
+    user = User.where(inn: room.inn_id).first
     unless self.room.inn && user == self.room.inn.user
       errors.add(:base, "Essa operação não pode ser realizada.")
     end
