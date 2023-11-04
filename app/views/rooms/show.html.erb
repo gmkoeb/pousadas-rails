@@ -1,3 +1,4 @@
+<% prices = sort_by_date(@room.price_per_periods) %>
 <% if current_user %>
   <% if current_user.inn == @inn %>
     <h1><%= @room.name %></h1>
@@ -23,20 +24,19 @@
             <th>Data de Ínicio</th>
             <th>Data de Término</th>
           </tr>
-          <% prices = sort_by_date(@room.price_per_periods) %>
-          <% prices.each do |price_per_period| %>
+          <% prices.each do |price| %>
             <tr>
               <td>
-                R$ <%= price_per_period.special_price %>
+                R$ <%= price.special_price %>
               </td>  
               <td>
-                <%= price_per_period.starts_at.strftime("%d/%m/%Y") %>
+                <%= price.starts_at.strftime("%d/%m/%Y") %>
               </td>  
               <td>
-                <%= price_per_period.ends_at.strftime("%d/%m/%Y") %>
+                <%= price.ends_at.strftime("%d/%m/%Y") %>
               </td>  
               <td>
-                <%= button_to('Remover', inn_room_price_per_period_path(current_user.inn, @room, price_per_period.id), method: :delete) %>
+                <%= button_to('Remover', inn_room_price_per_period_path(current_user.inn, @room, price.id), method: :delete) %>
               </td>
             </tr>
           <% end %>
@@ -77,21 +77,20 @@
           <th>Data de Ínicio</th>
           <th>Data de Término</th>
         </tr>
-        <% @room.price_per_periods.each do |price_per_period| %>
+        <% prices.each do |price| %>
         <tr>
           <td>
-            <%= price_per_period.special_price %>
+            R$ <%= price.special_price %>
           </td>  
           <td>
-            <%= price_per_period.starts_at %>
+            <%= price.starts_at.strftime("%d/%m/%Y") %>
           </td>  
           <td>
-            <%= price_per_period.ends_at %>
+            <%= price.ends_at.strftime("%d/%m/%Y") %>
           </td>  
         </tr>
         <% end %>
       </table>
-
     </aside>
   <% end %>
 <% end %>

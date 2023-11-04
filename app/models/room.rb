@@ -17,14 +17,7 @@ class Room < ApplicationRecord
 
   enum status: {draft: 0, published: 2}
 
-  validate :belongs_to_correct_inn
 
-  private
-
-  def belongs_to_correct_inn
-    if inn_id && inn_id != inn.id
-      errors.add(:base, "Essa ação não pode ser realizada.")
-    end
-  end
+  
   
 end
