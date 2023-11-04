@@ -15,7 +15,7 @@ describe 'Usuário vê detalhes de um quarto' do
     # Act
     visit root_path
     click_on 'Pousada do Luar'
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Quarto Master'
     # Assert
     expect(page).to have_content 'Quarto Master'
@@ -66,7 +66,7 @@ describe 'Usuário vê detalhes de um quarto' do
     # Act
     visit root_path
     click_on 'Pousada do Luar'
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Quarto Master'
 
     # Assert

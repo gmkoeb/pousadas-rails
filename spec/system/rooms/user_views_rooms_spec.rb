@@ -20,7 +20,7 @@ describe 'usuário vê quartos de uma pousada' do
     # Act
     visit root_path
     click_on 'Pousada do Luar'
-    click_on 'Quartos'
+    click_on 'Quarto'
     # Assert
     expect(page).to have_link 'Quarto Master'
     expect(page).to have_link 'Quarto Economy'
@@ -49,11 +49,12 @@ describe 'usuário vê quartos de uma pousada' do
     # Act
     visit root_path
     click_on 'Pousada do Luar'
-    click_on 'Quartos'
+    click_on 'Quarto'
     # Assert
     expect(page).to have_content 'Não existem quartos disponíveis no momento.'
     expect(page).to_not have_link 'Clique aqui para cadastrar um quarto.'
   end
+
   it 'e é dono da pousada' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
@@ -71,7 +72,7 @@ describe 'usuário vê quartos de uma pousada' do
     within 'nav' do
       click_on 'Minha pousada'
     end
-    click_on 'Quartos'
+    click_on 'Quarto'
     # Assert
     expect(page).to have_link 'Quarto Master Casal'
     expect(page).to_not have_content 'Quarto indisponível no momento.'

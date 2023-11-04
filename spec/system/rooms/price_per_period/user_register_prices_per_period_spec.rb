@@ -18,7 +18,7 @@ describe 'usuário cadastra preços especiais' do
     within 'nav' do
       click_on 'Minha pousada'
     end
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Quarto Master'
     click_on 'Definir Preços Por Período'
     # Assert
@@ -45,7 +45,7 @@ describe 'usuário cadastra preços especiais' do
     within 'nav' do
       click_on 'Minha pousada'
     end
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Quarto Master'
     click_on 'Definir Preços Por Período'
 
@@ -84,7 +84,7 @@ describe 'usuário cadastra preços especiais' do
     within 'nav' do
       click_on 'Minha pousada'
     end
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Quarto Master'
     click_on 'Definir Preços Por Período'
     # Act
@@ -115,7 +115,7 @@ describe 'usuário cadastra preços especiais' do
     within 'nav' do
       click_on 'Minha pousada'
     end
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Quarto Master'
     click_on 'Definir Preços Por Período'
     fill_in 'Preço Especial', with: '10000'
@@ -146,7 +146,7 @@ describe 'usuário cadastra preços especiais' do
     within 'nav' do
       click_on 'Minha pousada'
     end
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Quarto Master'
     click_on 'Definir Preços Por Período'
     fill_in 'Preço Especial', with: '10000'

@@ -16,7 +16,7 @@ describe 'usuário remove preço por período' do
     # Act
     visit root_path
     click_on 'Minha pousada'
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Quarto Master'
     within 'table' do
       click_on 'Remover'

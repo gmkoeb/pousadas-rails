@@ -15,7 +15,7 @@ describe 'usuário vê preços por período' do
     # Act
     visit root_path
     click_on 'Pousada do Luar'
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Quarto Master'
     # Assert
     expect(page).to have_content 'Preços por Período'

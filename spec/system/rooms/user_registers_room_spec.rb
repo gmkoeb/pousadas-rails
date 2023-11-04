@@ -16,7 +16,7 @@ describe 'dono de pousadas cadastra quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Clique aqui para cadastrar um quarto.'
     # Assert
     expect(page).to have_content 'Cadastro de Quarto'
@@ -50,7 +50,7 @@ describe 'dono de pousadas cadastra quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Clique aqui para cadastrar um quarto.'
     fill_in 'Nome do quarto', with: 'Quarto Master'
     fill_in 'Descrição', with: 'É o maior quarto da pousada.'
@@ -86,7 +86,7 @@ describe 'dono de pousadas cadastra quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Clique aqui para cadastrar um quarto.'
     fill_in 'Nome do quarto', with: ''
     fill_in 'Descrição', with: ''
@@ -119,7 +119,7 @@ describe 'dono de pousadas cadastra quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Quartos'
+    click_on 'Quarto'
     click_on 'Cadastrar Quarto'
     fill_in 'Nome do quarto', with: ''
     fill_in 'Descrição', with: ''

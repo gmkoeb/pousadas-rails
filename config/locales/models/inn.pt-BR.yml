@@ -1,7 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      inn: 'Pousada'
+      inn: 
+        one: 'Pousada'
+        other: 'Pousadas'
     attributes:
       inn:
         corporate_name: 'Razão social'
