@@ -52,6 +52,7 @@ describe 'usuário vê quartos de uma pousada' do
     click_on 'Quartos'
     # Assert
     expect(page).to have_content 'Não existem quartos disponíveis no momento.'
+    expect(page).to_not have_link 'Clique aqui para cadastrar um quarto.'
   end
   it 'e é dono da pousada' do
     # Arrange

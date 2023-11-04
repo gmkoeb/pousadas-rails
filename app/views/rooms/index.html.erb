@@ -8,10 +8,13 @@
       </ul>
     <%end%>
     <% if @rooms.empty? %>
-      <h2>Não existem quartos disponíveis no momento. <%= link_to 'Clique aqui para cadastrar um', new_inn_room_path(@inn)%></h2>
+      <h2>Não existem quartos disponíveis no momento. <%= link_to 'Clique aqui para cadastrar um quarto.', new_inn_room_path(@inn)%></h2>
+    <% else %>
+      <%= link_to 'Cadastrar Quarto', new_inn_room_path(@inn) %> 
     <%end%>
   <%end%>
-<%else%>
+<% end %>
+<% if current_user.nil? || current_user.inn != @inn %>
   <% @rooms.each do |room| %>
       <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
       <ul>

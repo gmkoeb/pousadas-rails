@@ -16,7 +16,8 @@ describe 'dono de pousadas cadastra quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Cadastrar Quarto'
+    click_on 'Quartos'
+    click_on 'Clique aqui para cadastrar um quarto.'
     # Assert
     expect(page).to have_content 'Cadastro de Quarto'
     expect(page).to have_field 'Nome do quarto'
@@ -31,6 +32,7 @@ describe 'dono de pousadas cadastra quarto' do
     expect(page).to have_field 'Têm armário?'
     expect(page).to have_field 'Têm cofre?'
     expect(page).to have_field 'É acessível para pessoas com deficiência?'
+    expect(page).to have_button 'Criar Quarto'
   end
 
   it 'com sucesso' do
@@ -48,7 +50,8 @@ describe 'dono de pousadas cadastra quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Cadastrar Quarto'
+    click_on 'Quartos'
+    click_on 'Clique aqui para cadastrar um quarto.'
     fill_in 'Nome do quarto', with: 'Quarto Master'
     fill_in 'Descrição', with: 'É o maior quarto da pousada.'
     fill_in 'Área', with: '50'
@@ -83,6 +86,40 @@ describe 'dono de pousadas cadastra quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
+    click_on 'Quartos'
+    click_on 'Clique aqui para cadastrar um quarto.'
+    fill_in 'Nome do quarto', with: ''
+    fill_in 'Descrição', with: ''
+    fill_in 'Área', with: ''
+    fill_in 'Número máximo de hóspedes', with: ''
+    fill_in 'Preço padrão', with: 2000
+    click_on 'Criar Quarto'
+    # Assert
+    expect(page).to have_content 'Não foi possível cadastrar o quarto.'
+    expect(page).to have_content 'Verifique os erros abaixo:'
+    expect(page).to have_content 'Nome do quarto não pode ficar em branco'
+    expect(page).to have_content 'Descrição não pode ficar em branco'
+    expect(page).to have_content 'Área não pode ficar em branco'
+    expect(page).to have_content 'Número máximo de hóspedes não pode ficar em branco'
+  end
+
+  it 'em pousada que já têm quartos' do
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    login_as(user)
+    inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
+                      registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
+                      address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                      city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                      payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
+                      check_in_check_out_time: '12:00', user: user)
+    inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
+                      price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
+    # Act
+    visit root_path
+    within 'nav' do 
+      click_on 'Minha pousada'
+    end
+    click_on 'Quartos'
     click_on 'Cadastrar Quarto'
     fill_in 'Nome do quarto', with: ''
     fill_in 'Descrição', with: ''
