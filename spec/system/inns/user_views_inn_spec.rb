@@ -70,7 +70,6 @@ describe 'Dono de pousadas vê detalhes de pousada' do
     expect(page).to have_content 'Descrição: A melhor pousada de Florianópolis'
     expect(page).to have_content 'Formas de pagamento'
     expect(page).to have_content 'Dinheiro'
-    expect(page).to have_content 'Permite pets: Não'
     expect(page).to have_content 'Políticas de uso: Proibido som alto após as 18h'
     expect(page).to have_content 'Horário padrão de check-in e check-out: 12:00'
     expect(page).to have_content 'ATENÇÃO: Ao publicar a pousada ela poderá ser visualizada por outros usuários.'

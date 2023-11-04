@@ -20,11 +20,7 @@
         <%end%>
         </li>
         <li>
-          <% if @inn.accepts_pets? %>
-          <p>Permite pets: Sim</p>
-          <% else %>
-          <p>Permite pets: Não</p>
-          <%end%> 
+          <p><%= accepts_pets?(@inn.accepts_pets?) %></p>
         </li>
         <li>
           <p>Políticas de uso: <%= @inn.terms_of_service %></p>
@@ -63,11 +59,7 @@
       <%end%>
       </li>
       <li>
-        <% if @inn.accepts_pets? %>
-        <p>Essa pousada permite pets! 🐶</p>
-        <% else %>
-        <p>Essa pousada não permite pets. 😣</p>
-        <%end%> 
+        <p><%= accepts_pets?(@inn.accepts_pets?) %></p>
       </li>
       <li>
         <p>Políticas de uso: <%= @inn.terms_of_service %></p>

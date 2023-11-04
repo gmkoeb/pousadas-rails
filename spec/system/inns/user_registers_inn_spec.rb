@@ -80,7 +80,7 @@ describe 'Dono de pousadas cria uma pousada' do
     expect(page).to have_content 'Cartão de crédito'
     expect(page).to have_content 'PIX'
     expect(page).to have_content 'Dinheiro'
-    expect(page).to have_content 'Permite pets: Sim'
+    expect(page).to have_content 'Essa pousada permite pets! 🐶'
     expect(page).to have_content 'Políticas de uso: Não pode som alto após as 18h'
     expect(page).to have_content 'Horário padrão de check-in e check-out: 12:00'
   end

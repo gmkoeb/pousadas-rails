@@ -78,7 +78,7 @@ describe 'Dono de pousadas edita pousada' do
     expect(page).to have_content 'Cartão de crédito'
     expect(page).to have_content 'PIX'
     expect(page).to have_content 'Dinheiro'
-    expect(page).to have_content 'Permite pets: Sim'
+    expect(page).to have_content 'Essa pousada permite pets! 🐶'
   end
 
   it 'com dados faltando' do
