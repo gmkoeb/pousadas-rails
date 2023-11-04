@@ -27,6 +27,6 @@ Para executar a aplicação você deve:
 6. Agora o projeto deve estar instalado e funcionando em http://localhost:3000.
 ## Pré Requisitos
 Antes de começar, certifique-se que você têm as seguintes dependências:
-- Ruby (versão 3.0 ou superior)
-- Rails (versão 7.0 ou superior)
+- Ruby (versão 3.2.2)
+- Rails (versão 7.0.8)
 - SQLite
