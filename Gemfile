@@ -45,6 +45,8 @@ gem "bootsnap", require: false
 gem "devise"
 
 gem 'friendly_id', '~> 5.4.0'
+
+gem 'route_translator'
 # Use Sass to process CSS
 # gem "sassc-rails"
 
