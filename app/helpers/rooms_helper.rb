@@ -1,5 +1,4 @@
 module RoomsHelper
-  private
   def bathroom(has)
     if has
       'Possui banheiro próprio'

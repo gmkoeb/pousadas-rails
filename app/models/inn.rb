@@ -32,4 +32,5 @@ class Inn < ApplicationRecord
       errors.add(:user, "Você precisa ser um dono de pousadas para realizar essa ação.")
     end
   end
+  
 end

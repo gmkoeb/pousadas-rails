@@ -28,4 +28,5 @@ class PricePerPeriod < ApplicationRecord
       errors.add(:base, 'Data de ínicio precisa ser maior que a data de término')
     end
   end
+  
 end
