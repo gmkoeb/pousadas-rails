@@ -10,7 +10,7 @@ Para executar a aplicação você deve:
 
 2. No diretório: 
 
-        cd ruby_back_test
+        cd pousadas-rails
 
 3. Instale as dependências do projeto:
 
