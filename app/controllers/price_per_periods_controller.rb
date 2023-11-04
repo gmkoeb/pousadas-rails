@@ -1,5 +1,5 @@
 class PricePerPeriodsController < ApplicationController
-  before_action :set_room, :set_inn, :authenticate_admin!
+  before_action :set_room, :set_inn, :authenticate_admin!, :admin_has_inn?
 
   def new
     @price_per_period = @room.price_per_periods.build
