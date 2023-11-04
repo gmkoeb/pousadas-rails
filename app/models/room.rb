@@ -8,12 +8,22 @@ class Room < ApplicationRecord
   end
 
   belongs_to :inn
- 
+  
   has_many :price_per_periods
 
   validates :name, :description, :area, :maximum_guests, :price, presence: true
 
   validates :name, uniqueness:true
+  
+  validate :valid_inn
 
   enum status: {draft: 0, published: 2}
+
+  private
+  def valid_inn
+    user = User.where(inn: inn_id).first
+    unless self.inn && user == self.inn.user
+      errors.add(:rooms, "Essa operação não pode ser realizada.")
+    end
+  end
 end

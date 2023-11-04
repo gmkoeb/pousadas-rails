@@ -26,11 +26,9 @@ class Inn < ApplicationRecord
   enum status: {draft: 0, published: 2}
 
   private
-  
   def user_has_admin_role
-    unless user && user.admin?
+    unless self.user && self.user.admin?
       errors.add(:user, "Você precisa ser um dono de pousadas para realizar essa ação.")
     end
   end
-  
 end
