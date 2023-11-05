@@ -1,0 +1,21 @@
+<li><%= Inn.human_attribute_name(:name) %>: <%= inn.brand_name %></li>
+<li><%= Inn.human_attribute_name(:phone) %>: <%= inn.phone %></li>
+<li><%= Inn.human_attribute_name(:email)%>: <%= inn.email %></li>
+<li><%= Inn.human_attribute_name(:address)%> completo: <%= inn.address %>. <%= inn.district %>, <%= inn.city %> - <%= inn.state %>.</li>
+<li><%= Inn.human_attribute_name(:zip_code)%>: <%= inn.zip_code %></li>
+<li><%= Inn.human_attribute_name(:description)%>: <%= inn.description %></li>
+<li><%= Inn.human_attribute_name(:payment_methods)%>:
+<% eval(inn.payment_methods).each do |method| %>
+  <p><%= method %></p>
+<%end%>
+</li>
+<li>
+  <p><%= accepts_pets?(inn.accepts_pets?) %></p>
+</li>
+<li>
+  <p><%= Inn.human_attribute_name(:terms_of_service)%>: <%= inn.terms_of_service %></p>
+</li>
+<li>
+  <p><%= Inn.human_attribute_name(:check_in_check_out_time)%>: <%= inn.check_in_check_out_time.strftime("%H:%M") %></p>
+</li>
+<li>

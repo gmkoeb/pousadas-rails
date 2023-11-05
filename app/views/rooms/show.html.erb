@@ -1,97 +1,18 @@
-<% prices = sort_by_date(@room.price_per_periods) %>
 <% if current_user %>
   <% if current_user.inn == @inn %>
-    <h1><%= @room.name %></h1>
-    <h2>Detalhes do quarto:</h2>
-    <li><%= Room.human_attribute_name(:description)%>: <%= @room.description %></li>
-    <li><%= Room.human_attribute_name(:area)%>: <%= @room.area %> m²</li>
-    <li><%= Room.human_attribute_name(:maximum_guests)%>: <%= @room.maximum_guests %></li>
-    <li>Preço padrão da diária: R$ <%= @room.price %></li>
-    <li><%= bathroom(@room.has_bathroom) %></li>
-    <li><%= balcony(@room.has_balcony) %></li>
-    <li><%= air_conditioner(@room.has_air_conditioner) %></li>
-    <li><%= tv(@room.has_tv) %></li>
-    <li><%= wardrobe(@room.has_wardrobe) %></li>
-    <li><%= coffer(@room.has_coffer) %></li>
-    <li><%= accessibility(@room.accessible) %></li>
-    <%= link_to 'Definir Preços Por Período', new_inn_room_price_per_period_path(@inn, @room) %>
-    <% if @room.price_per_periods.any? %>
-      <aside>
-        <table>
-          <h2><%= PricePerPeriod.model_name.human %></h2>
-          <tr>
-            <th><%= PricePerPeriod.human_attribute_name(:special_price)%></th>
-            <th><%= PricePerPeriod.human_attribute_name(:starts_at)%></th>
-            <th><%= PricePerPeriod.human_attribute_name(:ends_at)%></th>
-          </tr>
-          <% prices.each do |price| %>
-            <tr>
-              <td>
-                R$ <%= price.special_price %>
-              </td>  
-              <td>
-                <%= I18n.localize(price.starts_at) %>
-              </td>  
-              <td>
-                <%= I18n.localize(price.ends_at) %>
-              </td>  
-              <td>
-                <%= button_to('Remover', inn_room_price_per_period_path(current_user.inn, @room, price.id), method: :delete) %>
-              </td>
-            </tr>
-          <% end %>
-        </table>
-      </aside>
-    <% end %>
+    <%= render 'room_details', room:@room, inn:@inn %>
     <% if @room.draft? %>
       <h4>ATENÇÃO: Ao publicar o quarto ele poderá ser visualizado por outros usuários, e aceitará reservas.</h4>
       <%= button_to 'Publicar Quarto', publish_inn_room_path(@inn, @room), {method: 'patch'}%>
     <% else %>
       <%= button_to 'Esconder Quarto', draft_inn_room_path(@inn, @room), {method: 'patch'}%>
     <%end%>
-
+    <%= link_to 'Definir Preços Por Período', new_inn_room_price_per_period_path(@inn, @room) %>
     <%= link_to 'Editar Quarto', edit_inn_room_path(@inn, @room) %>
   <% end %>
 <% end %>
 
 <% if current_user.nil? || current_user.inn != @inn %>
-  <h1><%= @room.name %></h1>
-  <h2>Detalhes do quarto:</h2>
-  <li>Descrição: <%= @room.description %></li>
-  <li>Área: <%= @room.area %> m²</li>
-  <li>Número máximo de hóspedes: <%= @room.maximum_guests %></li>
-  <li>Preço padrão da diária: R$ <%= @room.price %></li>
-  <li><%= bathroom(@room.has_bathroom) %></li>
-  <li><%= balcony(@room.has_balcony) %></li>
-  <li><%= air_conditioner(@room.has_air_conditioner) %></li>
-  <li><%= tv(@room.has_tv) %></li>
-  <li><%= wardrobe(@room.has_wardrobe) %></li>
-  <li><%= coffer(@room.has_coffer) %></li>
-  <li><%= accessibility(@room.accessible) %></li>
-  <% if @room.price_per_periods.any? %>
-    <aside>
-      <table>
-        <h2><%= PricePerPeriod.model_name.human %></h2>
-          <tr>
-            <th><%= PricePerPeriod.human_attribute_name(:special_price)%></th>
-            <th><%= PricePerPeriod.human_attribute_name(:starts_at)%></th>
-            <th><%= PricePerPeriod.human_attribute_name(:ends_at)%></th>
-          </tr>
-        <% prices.each do |price| %>
-        <tr>
-          <td>
-            R$ <%= price.special_price %>
-          </td>  
-          <td>
-            <%= I18n.localize(price.starts_at) %>
-          </td>  
-          <td>
-            <%= I18n.localize(price.ends_at) %>
-          </td>  
-        </tr>
-        <% end %>
-      </table>
-    </aside>
-  <% end %>
+  <%= render 'room_details', room:@room %>
 <% end %>
 
