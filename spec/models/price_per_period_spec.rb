@@ -36,10 +36,10 @@ RSpec.describe PricePerPeriod, type: :model do
         price_2 = room.price_per_periods.build(special_price: 12345, starts_at: Date.today + 1, ends_at: Date.tomorrow + 2)
         # Act
         price_2.valid?
-        result = price_2.errors.include?(:date)
+        result = price_2.errors.include?(:base)
         # Assert
         expect(result).to be true
-        expect(price_2.errors[:date]).to include 'Já existe um preço especial nessa data!'
+        expect(price_2.errors[:base]).to include 'Já existe um preço especial nessa data!'
       end
 
       it 'data inicial maior que data final' do
@@ -56,10 +56,10 @@ RSpec.describe PricePerPeriod, type: :model do
         price = room.price_per_periods.build(special_price: 1234, starts_at: Date.tomorrow, ends_at: Date.today)
         # Act
         price.valid?
-        result = price.errors.include?(:date)
+        result = price.errors.include?(:base)
         # Assert
         expect(result).to be true
-        expect(price.errors[:date]).to include 'Data de ínicio precisa ser maior que a data de término'
+        expect(price.errors[:base]).to include 'Data de ínicio precisa ser maior que a data de término'
       end
     end
     context 'presence' do

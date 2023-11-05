@@ -14,7 +14,7 @@ class PricePerPeriod < ApplicationRecord
       new_range = Range.new(self.starts_at, self.ends_at)
       overlaps = new_range.any?(range)
       if overlaps
-        errors.add(:date, 'Já existe um preço especial nessa data!')
+        errors.add(:base, 'Já existe um preço especial nessa data!')
       end
     end
   end
@@ -22,7 +22,7 @@ class PricePerPeriod < ApplicationRecord
   def invalid_date
     return if self.starts_at.nil? || self.ends_at.nil?
     if self.starts_at > self.ends_at  
-      errors.add(:date, 'Data de ínicio precisa ser maior que a data de término')
+      errors.add(:base, 'Data de ínicio precisa ser maior que a data de término')
     end
   end 
   
