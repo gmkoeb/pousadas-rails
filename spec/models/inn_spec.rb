@@ -14,7 +14,7 @@ RSpec.describe Inn, type: :model do
       # Act
       result = inn.valid?
       # Assert
-      expect(result).to eq true
+      expect(result).to be true
     end
 
     context 'presence' do
@@ -22,15 +22,16 @@ RSpec.describe Inn, type: :model do
         # Arrange
         user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
         inn = Inn.new(corporate_name: '', brand_name: 'Pousada do Luar', 
-                          registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
-                          address: 'Rua das pousadas, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
-                          city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
-                          payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
-                          check_in_check_out_time: '12:00', user: user)
+                      registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
+                      address: 'Rua das pousadas, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                      city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                      payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
+                      check_in_check_out_time: '12:00', user: user)
         # Act
         result = inn.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(inn.errors[:corporate_name]).to include("não pode ficar em branco")
       end
 
       it 'com nome fantasia em branco' do
@@ -45,7 +46,8 @@ RSpec.describe Inn, type: :model do
         # Act
         result = inn.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(inn.errors[:brand_name]).to include("não pode ficar em branco")
       end
 
       it 'com CNPJ em branco' do
@@ -60,7 +62,8 @@ RSpec.describe Inn, type: :model do
         # Act
         result = inn.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(inn.errors[:registration_number]).to include("não pode ficar em branco")
       end
 
       it 'com telefone em branco' do
@@ -75,7 +78,8 @@ RSpec.describe Inn, type: :model do
         # Act
         result = inn.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(inn.errors[:phone]).to include("não pode ficar em branco")
       end
 
       it 'com email em branco' do
@@ -90,7 +94,8 @@ RSpec.describe Inn, type: :model do
         # Act
         result = inn.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(inn.errors[:email]).to include("não pode ficar em branco")
       end
 
       it 'com endereço em branco' do
@@ -105,7 +110,8 @@ RSpec.describe Inn, type: :model do
         # Act
         result = inn.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(inn.errors[:address]).to include("não pode ficar em branco")
       end
 
       it 'com bairro em branco' do
@@ -120,7 +126,8 @@ RSpec.describe Inn, type: :model do
         # Act
         result = inn.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(inn.errors[:district]).to include("não pode ficar em branco")
       end
 
       it 'com estado em branco' do
@@ -135,7 +142,8 @@ RSpec.describe Inn, type: :model do
         # Act
         result = inn.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(inn.errors[:state]).to include("não pode ficar em branco")
       end
 
       it 'com cidade em branco' do
@@ -150,7 +158,8 @@ RSpec.describe Inn, type: :model do
         # Act
         result = inn.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(inn.errors[:city]).to include("não pode ficar em branco")
       end
 
       it 'com CEP em branco' do
@@ -165,7 +174,8 @@ RSpec.describe Inn, type: :model do
         # Act
         result = inn.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(inn.errors[:zip_code]).to include("não pode ficar em branco")
       end
 
       it 'com descrição em branco' do
@@ -180,7 +190,8 @@ RSpec.describe Inn, type: :model do
         # Act
         result = inn.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(inn.errors[:description]).to include("não pode ficar em branco")
       end
       
       it 'com formas de pagamento em branco' do
@@ -195,7 +206,8 @@ RSpec.describe Inn, type: :model do
         # Act
         result = inn.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(inn.errors[:payment_methods]).to include("não pode ficar em branco")
       end
 
       it 'com aceita pets em branco' do
@@ -226,6 +238,7 @@ RSpec.describe Inn, type: :model do
         result = inn.valid?
         # Assert
         expect(result).to eq false
+        expect(inn.errors[:terms_of_service]).to include("não pode ficar em branco")
       end
 
       it 'com horário de checkin e checkout em branco' do
@@ -241,6 +254,7 @@ RSpec.describe Inn, type: :model do
         result = inn.valid?
         # Assert
         expect(result).to eq false
+        expect(inn.errors[:check_in_check_out_time]).to include("não pode ficar em branco")
       end
     end
 
@@ -268,6 +282,7 @@ RSpec.describe Inn, type: :model do
         result = inn.valid?
         # Assert
         expect(result).to eq false
+        expect(inn.errors[:email]).to include("já está em uso")
       end
       
       it 'com nome fantasia repetido' do
@@ -293,6 +308,7 @@ RSpec.describe Inn, type: :model do
         result = inn.valid?
         # Assert
         expect(result).to eq false
+        expect(inn.errors[:brand_name]).to include("já está em uso")
       end
 
       it 'com CNPJ repetido' do
@@ -318,6 +334,7 @@ RSpec.describe Inn, type: :model do
         result = inn.valid?
         # Assert
         expect(result).to eq false
+        expect(inn.errors[:registration_number]).to include("já está em uso")
       end
 
       it 'com telefone repetido' do
@@ -343,6 +360,7 @@ RSpec.describe Inn, type: :model do
         result = inn.valid?
         # Assert
         expect(result).to eq false
+        expect(inn.errors[:phone]).to include("já está em uso")
       end
 
       it 'usuário já tem uma pousada' do
@@ -367,6 +385,7 @@ RSpec.describe Inn, type: :model do
         result = inn.valid?
         # Assert
         expect(result).to eq false
+        expect(inn.errors[:user_id]).to include("já possui uma pousada")
       end
 
       it 'usuário não tem uma pousada' do
@@ -408,6 +427,7 @@ RSpec.describe Inn, type: :model do
         result = inn.valid?
         # Assert
         expect(result).to eq false
+        expect(inn.errors[:user]).to include("Você precisa ser um dono de pousadas para realizar essa ação.")
       end
 
       it 'usuário é dono de pousadas' do

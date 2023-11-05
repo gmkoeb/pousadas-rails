@@ -17,7 +17,7 @@ RSpec.describe PricePerPeriod, type: :model do
       # Act
       result = price.valid?
       # Assert
-      expect(result).to eq true
+      expect(result).to be true
     end
     context 'dates validity' do
       it 'datas sobrepostas' do
@@ -37,7 +37,8 @@ RSpec.describe PricePerPeriod, type: :model do
         # Act
         result = price_2.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(price_2.errors[:date]).to include 'Já existe um preço especial nessa data!'
       end
 
       it 'data inicial maior que data final' do
@@ -55,7 +56,8 @@ RSpec.describe PricePerPeriod, type: :model do
         # Act
         result = price.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(price.errors[:date]).to include 'Data de ínicio precisa ser maior que a data de término'
       end
     end
     context 'presence' do
@@ -74,7 +76,8 @@ RSpec.describe PricePerPeriod, type: :model do
         # Act
         result = price.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(price.errors[:special_price]).to include 'não pode ficar em branco'
       end
 
       it 'data de ínicio em branco' do
@@ -92,7 +95,8 @@ RSpec.describe PricePerPeriod, type: :model do
         # Act
         result = price.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(price.errors[:starts_at]).to include 'não pode ficar em branco'
       end
 
       it 'data de término em branco' do
@@ -110,7 +114,8 @@ RSpec.describe PricePerPeriod, type: :model do
         # Act
         result = price.valid?
         # Assert
-        expect(result).to eq false
+        expect(result).to be false
+        expect(price.errors[:ends_at]).to include 'não pode ficar em branco'
       end
     end
   end
