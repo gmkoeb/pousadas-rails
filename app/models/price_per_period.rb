@@ -2,12 +2,8 @@ class PricePerPeriod < ApplicationRecord
   belongs_to :room
 
   validates :special_price, :starts_at, :ends_at, presence:true
-
-  validate :date_overlaps
-
-  validate :invalid_date
-
-  validate :valid_inn
+  
+  validate :valid_inn, :date_overlaps, :invalid_date
   private
 
   def date_overlaps
@@ -25,7 +21,7 @@ class PricePerPeriod < ApplicationRecord
 
   def invalid_date
     return if self.starts_at.nil? || self.ends_at.nil?
-    if self.starts_at > self.ends_at
+    if self.starts_at > self.ends_at  
       errors.add(:base, 'Data de ínicio precisa ser maior que a data de término')
     end
   end 
