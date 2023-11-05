@@ -1,4 +1,4 @@
-<h1>Room.model_name.human(count: @inn.rooms.count) da Inn.model_name.human</h1>
+<h1><%= Room.model_name.human(count: @inn.rooms.count) %> da <%= Inn.model_name.human %></h1>
 <% if current_user %>
   <% if @inn == current_user.inn%>
     <% @rooms.each do |room| %>
