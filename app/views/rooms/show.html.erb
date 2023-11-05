@@ -3,9 +3,9 @@
   <% if current_user.inn == @inn %>
     <h1><%= @room.name %></h1>
     <h2>Detalhes do quarto:</h2>
-    <li>Descrição: <%= @room.description %></li>
-    <li>Área: <%= @room.area %> m²</li>
-    <li>Número máximo de hóspedes: <%= @room.maximum_guests %></li>
+    <li><%= Room.human_attribute_name(:description)%>: <%= @room.description %></li>
+    <li><%= Room.human_attribute_name(:area)%>: <%= @room.area %> m²</li>
+    <li><%= Room.human_attribute_name(:maximum_guests)%>: <%= @room.maximum_guests %></li>
     <li>Preço padrão da diária: R$ <%= @room.price %></li>
     <li><%= bathroom(@room.has_bathroom) %></li>
     <li><%= balcony(@room.has_balcony) %></li>
@@ -18,11 +18,11 @@
     <% if @room.price_per_periods.any? %>
       <aside>
         <table>
-          <h2>Preços por Período</h2>
+          <h2><%= PricePerPeriod.model_name.human %></h2>
           <tr>
-            <th>Preço Especial</th>
-            <th>Data de Ínicio</th>
-            <th>Data de Término</th>
+            <th><%= PricePerPeriod.human_attribute_name(:special_price)%></th>
+            <th><%= PricePerPeriod.human_attribute_name(:starts_at)%></th>
+            <th><%= PricePerPeriod.human_attribute_name(:ends_at)%></th>
           </tr>
           <% prices.each do |price| %>
             <tr>
@@ -71,12 +71,12 @@
   <% if @room.price_per_periods.any? %>
     <aside>
       <table>
-        <h2>Preços por Período</h2>
-        <tr>
-          <th>Preço Especial</th>
-          <th>Data de Ínicio</th>
-          <th>Data de Término</th>
-        </tr>
+        <h2><%= PricePerPeriod.model_name.human %></h2>
+          <tr>
+            <th><%= PricePerPeriod.human_attribute_name(:special_price)%></th>
+            <th><%= PricePerPeriod.human_attribute_name(:starts_at)%></th>
+            <th><%= PricePerPeriod.human_attribute_name(:ends_at)%></th>
+          </tr>
         <% prices.each do |price| %>
         <tr>
           <td>

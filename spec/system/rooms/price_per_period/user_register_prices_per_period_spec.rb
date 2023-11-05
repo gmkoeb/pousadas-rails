@@ -58,7 +58,7 @@ describe 'usuário cadastra preços especiais' do
     # Assert
     expect(current_path).to eq inn_room_path(inn, room)
     expect(page).to have_content 'Preço por período cadastrado com sucesso.'
-    expect(page).to have_content 'Preços por Período'
+    expect(page).to have_content 'Preços Por Período'
     expect(page).to have_content 'Preço Especial'
     expect(page).to have_content 'Data de Ínicio'
     expect(page).to have_content 'Data de Término'

@@ -18,7 +18,7 @@ describe 'usuário vê preços por período' do
     click_on 'Quarto'
     click_on 'Quarto Master'
     # Assert
-    expect(page).to have_content 'Preços por Período'
+    expect(page).to have_content 'Preços Por Período'
     expect(page).to have_content 'R$ 1234'
     expect(page).to have_content I18n.localize(Date.today)
     expect(page).to have_content I18n.localize(Date.tomorrow)
