@@ -15,7 +15,6 @@ RSpec.describe Room, type: :model do
                              price: 5000, maximum_guests: 5)
       # Act
       result = room.valid?
-
       # Assert
       expect(result).to be true
     end
@@ -25,10 +24,10 @@ RSpec.describe Room, type: :model do
         room = Room.new(description: 'Melhor quarto da pousada.', area: 50, 
                         price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         # Act
-        result = room.valid?
-
+        room.valid?
+        result = room.errors.include?(:name)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(room.errors[:name]).to include 'não pode ficar em branco'
       end
 
@@ -37,9 +36,10 @@ RSpec.describe Room, type: :model do
         room = Room.new(name: 'Quarto Master', area: 50, 
                         price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         # Act
-        result = room.valid?
+        room.valid?
+        result = room.errors.include?(:description)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(room.errors[:description]).to include 'não pode ficar em branco'
       end
 
@@ -48,9 +48,10 @@ RSpec.describe Room, type: :model do
         room = Room.new(name: 'Quarto Master', description: 'Melhor quarto da pousada',
                         price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         # Act
-        result = room.valid?
+        room.valid?
+        result = room.errors.include?(:area)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(room.errors[:area]).to include 'não pode ficar em branco'
       end
 
@@ -59,10 +60,11 @@ RSpec.describe Room, type: :model do
         room = Room.new(name: 'Quarto Master', description: 'Melhor quarto da pousada', area: 50,
                         maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         # Act
-        result = room.valid?
+        room.valid?
+        result = room.errors.include?(:price)
         # Assert
+        expect(result).to be true
         expect(room.errors[:price]).to include 'não pode ficar em branco'
-        expect(result).to be false
       end
 
       it 'número de máximo hóspedes' do
@@ -70,9 +72,10 @@ RSpec.describe Room, type: :model do
         room = Room.new(name: 'Quarto Master', description: 'Melhor quarto da pousada', area: 50,
                         price: 5000, has_bathroom: true, has_balcony: true, accessible: true)
         # Act
-        result = room.valid?
+        room.valid?
+        result = room.errors.include?(:maximum_guests)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(room.errors[:maximum_guests]).to include 'não pode ficar em branco'
       end
 
@@ -81,9 +84,10 @@ RSpec.describe Room, type: :model do
         room = Room.new(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                         price: 5000, maximum_guests: 5)
         # Act
-        result = room.valid?
+        room.valid?
+        result = room.errors.include?(:inn_id)
         # Assert  
-        expect(result).to be false
+        expect(result).to be true
         expect(room.errors[:inn_id]).to include 'Essa operação não pode ser realizada.'
       end
     end

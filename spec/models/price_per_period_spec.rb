@@ -35,9 +35,10 @@ RSpec.describe PricePerPeriod, type: :model do
         price_1 = room.price_per_periods.create!(special_price: 1234, starts_at: Date.today, ends_at: Date.tomorrow + 2)
         price_2 = room.price_per_periods.build(special_price: 12345, starts_at: Date.today + 1, ends_at: Date.tomorrow + 2)
         # Act
-        result = price_2.valid?
+        price_2.valid?
+        result = price_2.errors.include?(:date)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(price_2.errors[:date]).to include 'Já existe um preço especial nessa data!'
       end
 
@@ -54,9 +55,10 @@ RSpec.describe PricePerPeriod, type: :model do
                                price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         price = room.price_per_periods.build(special_price: 1234, starts_at: Date.tomorrow, ends_at: Date.today)
         # Act
-        result = price.valid?
+        price.valid?
+        result = price.errors.include?(:date)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(price.errors[:date]).to include 'Data de ínicio precisa ser maior que a data de término'
       end
     end
@@ -74,9 +76,10 @@ RSpec.describe PricePerPeriod, type: :model do
                                price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         price = room.price_per_periods.build(starts_at: Date.today, ends_at: Date.tomorrow)
         # Act
-        result = price.valid?
+        price.valid?
+        result = price.errors.include?(:special_price)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(price.errors[:special_price]).to include 'não pode ficar em branco'
       end
 
@@ -93,9 +96,10 @@ RSpec.describe PricePerPeriod, type: :model do
                                price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         price = room.price_per_periods.build(special_price: 1, ends_at: Date.tomorrow)
         # Act
-        result = price.valid?
+        price.valid?
+        result = price.errors.include?(:starts_at)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(price.errors[:starts_at]).to include 'não pode ficar em branco'
       end
 
@@ -112,9 +116,10 @@ RSpec.describe PricePerPeriod, type: :model do
                                price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         price = room.price_per_periods.build(special_price: 1, starts_at: Date.today)
         # Act
-        result = price.valid?
+        price.valid?
+        result = price.errors.include?(:ends_at)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(price.errors[:ends_at]).to include 'não pode ficar em branco'
       end
     end

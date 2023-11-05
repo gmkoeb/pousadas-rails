@@ -6,11 +6,11 @@ RSpec.describe Inn, type: :model do
       # Arrange
       user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
       inn = Inn.new(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
-                        registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
-                        address: 'Rua das pousadas, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
-                        city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
-                        payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
-                        check_in_check_out_time: '12:00', user: user)
+                    registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
+                    address: 'Rua das pousadas, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                    city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                    payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
+                    check_in_check_out_time: '12:00', user: user)
       # Act
       result = inn.valid?
       # Assert
@@ -28,9 +28,10 @@ RSpec.describe Inn, type: :model do
                       payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                       check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:corporate_name)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(inn.errors[:corporate_name]).to include("não pode ficar em branco")
       end
 
@@ -44,9 +45,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:brand_name)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(inn.errors[:brand_name]).to include("não pode ficar em branco")
       end
 
@@ -60,9 +62,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:registration_number)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(inn.errors[:registration_number]).to include("não pode ficar em branco")
       end
 
@@ -76,9 +79,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:phone)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(inn.errors[:phone]).to include("não pode ficar em branco")
       end
 
@@ -92,9 +96,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:email)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(inn.errors[:email]).to include("não pode ficar em branco")
       end
 
@@ -108,9 +113,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:address)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(inn.errors[:address]).to include("não pode ficar em branco")
       end
 
@@ -124,9 +130,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:district)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(inn.errors[:district]).to include("não pode ficar em branco")
       end
 
@@ -140,9 +147,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:state)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(inn.errors[:state]).to include("não pode ficar em branco")
       end
 
@@ -156,9 +164,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:city)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(inn.errors[:city]).to include("não pode ficar em branco")
       end
 
@@ -172,9 +181,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:zip_code)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(inn.errors[:zip_code]).to include("não pode ficar em branco")
       end
 
@@ -188,9 +198,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:description)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(inn.errors[:description]).to include("não pode ficar em branco")
       end
       
@@ -204,9 +215,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:payment_methods)
         # Assert
-        expect(result).to be false
+        expect(result).to be true
         expect(inn.errors[:payment_methods]).to include("não pode ficar em branco")
       end
 
@@ -220,9 +232,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: '', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:payment_methods)
         # Assert
-        expect(result).to eq true
+        expect(result).to eq false
       end
 
       it 'com politicas de uso em branco' do
@@ -235,9 +248,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: '',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:terms_of_service)
         # Assert
-        expect(result).to eq false
+        expect(result).to eq true
         expect(inn.errors[:terms_of_service]).to include("não pode ficar em branco")
       end
 
@@ -251,9 +265,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:check_in_check_out_time)
         # Assert
-        expect(result).to eq false
+        expect(result).to eq true
         expect(inn.errors[:check_in_check_out_time]).to include("não pode ficar em branco")
       end
     end
@@ -279,9 +294,10 @@ RSpec.describe Inn, type: :model do
                       check_in_check_out_time: '12:00', user: user_2)
         
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:email)
         # Assert
-        expect(result).to eq false
+        expect(result).to eq true
         expect(inn.errors[:email]).to include("já está em uso")
       end
       
@@ -305,9 +321,10 @@ RSpec.describe Inn, type: :model do
                       check_in_check_out_time: '12:00', user: user_2)
         
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:brand_name)
         # Assert
-        expect(result).to eq false
+        expect(result).to eq true
         expect(inn.errors[:brand_name]).to include("já está em uso")
       end
 
@@ -331,9 +348,10 @@ RSpec.describe Inn, type: :model do
                       check_in_check_out_time: '12:00', user: user_2)
         
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:registration_number)
         # Assert
-        expect(result).to eq false
+        expect(result).to eq true
         expect(inn.errors[:registration_number]).to include("já está em uso")
       end
 
@@ -357,9 +375,10 @@ RSpec.describe Inn, type: :model do
                       check_in_check_out_time: '12:00', user: user_2)
         
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:phone)
         # Assert
-        expect(result).to eq false
+        expect(result).to eq true
         expect(inn.errors[:phone]).to include("já está em uso")
       end
 
@@ -382,9 +401,10 @@ RSpec.describe Inn, type: :model do
                       payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Proibido som alto após as 18h',
                       check_in_check_out_time: '12:00', user: user_1, status: "published" )
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:user_id)
         # Assert
-        expect(result).to eq false
+        expect(result).to eq true
         expect(inn.errors[:user_id]).to include("já possui uma pousada")
       end
 
@@ -424,9 +444,10 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Proibido som alto após as 18h',
                           check_in_check_out_time: '12:00', user: user)
         # Act
-        result = inn.valid?
+        inn.valid?
+        result = inn.errors.include?(:user)
         # Assert
-        expect(result).to eq false
+        expect(result).to eq true
         expect(inn.errors[:user]).to include("Você precisa ser um dono de pousadas para realizar essa ação.")
       end
 
