@@ -11,7 +11,7 @@ describe 'usuário vê preços por período' do
                       check_in_check_out_time: '12:00', user: user, status: 'published')                  
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                             price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true, status: 'published')
-    room.price_per_periods.create!(special_price: 1234, starts_at: 'Mon, 13 Nov 2023', ends_at: 'Mon, 20 Nov 2023')     
+    room.price_per_periods.create!(special_price: 1234, starts_at: Date.today, ends_at: Date.tomorrow)     
     # Act
     visit root_path
     click_on 'Pousada do Luar'
@@ -20,7 +20,7 @@ describe 'usuário vê preços por período' do
     # Assert
     expect(page).to have_content 'Preços por Período'
     expect(page).to have_content 'R$ 1234'
-    expect(page).to have_content '13/11/2023'
-    expect(page).to have_content '20/11/2023'
+    expect(page).to have_content I18n.localize(Date.today)
+    expect(page).to have_content I18n.localize(Date.tomorrow)
   end
 end

@@ -13,7 +13,7 @@ RSpec.describe PricePerPeriod, type: :model do
                         check_in_check_out_time: '12:00', user: user)
       room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                                price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-      price = room.price_per_periods.create!(special_price: 1234, starts_at: 'Mon, 13 Nov 2023', ends_at: 'Mon, 20 Nov 2023')
+      price = room.price_per_periods.create!(special_price: 1234, starts_at: Date.today, ends_at: Date.tomorrow)
       # Act
       result = price.valid?
       # Assert
@@ -32,8 +32,8 @@ RSpec.describe PricePerPeriod, type: :model do
                           check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                                  price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-        price_1 = room.price_per_periods.create!(special_price: 1234, starts_at: 'Mon, 13 Nov 2023', ends_at: 'Mon, 20 Nov 2023')
-        price_2 = room.price_per_periods.build(special_price: 12345, starts_at: 'Mon, 15 Nov 2023', ends_at: 'Mon, 20 Nov 2023')
+        price_1 = room.price_per_periods.create!(special_price: 1234, starts_at: Date.today, ends_at: Date.tomorrow + 2)
+        price_2 = room.price_per_periods.build(special_price: 12345, starts_at: Date.today + 1, ends_at: Date.tomorrow + 2)
         # Act
         result = price_2.valid?
         # Assert
@@ -51,7 +51,7 @@ RSpec.describe PricePerPeriod, type: :model do
                       check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.build(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                                price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-        price = room.price_per_periods.build(special_price: 1234, starts_at: 'Mon, 23 Nov 2023', ends_at: 'Mon, 20 Nov 2023')
+        price = room.price_per_periods.build(special_price: 1234, starts_at: Date.tomorrow, ends_at: Date.today)
         # Act
         result = price.valid?
         # Assert
@@ -70,7 +70,7 @@ RSpec.describe PricePerPeriod, type: :model do
                       check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.build(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                                price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-        price = room.price_per_periods.build(starts_at: 'Mon, 23 Nov 2023', ends_at: 'Mon, 20 Nov 2023')
+        price = room.price_per_periods.build(starts_at: Date.today, ends_at: Date.tomorrow)
         # Act
         result = price.valid?
         # Assert
@@ -88,7 +88,7 @@ RSpec.describe PricePerPeriod, type: :model do
                       check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.build(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                                price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-        price = room.price_per_periods.build(special_price: 1, ends_at: 'Mon, 20 Nov 2023')
+        price = room.price_per_periods.build(special_price: 1, ends_at: Date.tomorrow)
         # Act
         result = price.valid?
         # Assert
@@ -106,7 +106,7 @@ RSpec.describe PricePerPeriod, type: :model do
                       check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.build(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                                price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-        price = room.price_per_periods.build(special_price: 1, starts_at: 'Mon, 23 Nov 2023')
+        price = room.price_per_periods.build(special_price: 1, starts_at: Date.today)
         # Act
         result = price.valid?
         # Assert

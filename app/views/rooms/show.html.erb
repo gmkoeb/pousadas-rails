@@ -30,10 +30,10 @@
                 R$ <%= price.special_price %>
               </td>  
               <td>
-                <%= price.starts_at.strftime("%d/%m/%Y") %>
+                <%= I18n.localize(price.starts_at) %>
               </td>  
               <td>
-                <%= price.ends_at.strftime("%d/%m/%Y") %>
+                <%= I18n.localize(price.ends_at) %>
               </td>  
               <td>
                 <%= button_to('Remover', inn_room_price_per_period_path(current_user.inn, @room, price.id), method: :delete) %>
@@ -83,10 +83,10 @@
             R$ <%= price.special_price %>
           </td>  
           <td>
-            <%= price.starts_at.strftime("%d/%m/%Y") %>
+            <%= I18n.localize(price.starts_at) %>
           </td>  
           <td>
-            <%= price.ends_at.strftime("%d/%m/%Y") %>
+            <%= I18n.localize(price.ends_at) %>
           </td>  
         </tr>
         <% end %>

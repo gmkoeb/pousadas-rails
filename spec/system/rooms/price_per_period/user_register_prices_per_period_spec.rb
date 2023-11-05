@@ -51,8 +51,8 @@ describe 'usuário cadastra preços especiais' do
 
     # Act
     fill_in 'Preço Especial', with: '10000'
-    fill_in 'Data de Ínicio', with: '01/12/2023'
-    fill_in 'Data de Término', with: '01/01/2024'
+    fill_in 'Data de Ínicio', with: Date.today
+    fill_in 'Data de Término', with: Date.tomorrow
     click_on 'Enviar'
 
     # Assert
@@ -63,8 +63,8 @@ describe 'usuário cadastra preços especiais' do
     expect(page).to have_content 'Data de Ínicio'
     expect(page).to have_content 'Data de Término'
     expect(page).to have_content '10000'
-    expect(page).to have_content '01/12/2023'
-    expect(page).to have_content '01/01/2024'
+    expect(page).to have_content I18n.localize(Date.today)
+    expect(page).to have_content I18n.localize(Date.tomorrow)
   end
 
   it 'com dados faltando' do
@@ -109,7 +109,7 @@ describe 'usuário cadastra preços especiais' do
                       check_in_check_out_time: '12:00', user: user)                  
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-    room.price_per_periods.create!(special_price: 1234, starts_at: 'Mon, 13 Nov 2023', ends_at: 'Mon, 20 Nov 2023')                         
+    room.price_per_periods.create!(special_price: 1234, starts_at: Date.today - 4, ends_at: Date.tomorrow)                         
     # Act
     visit root_path
     within 'nav' do
@@ -119,8 +119,8 @@ describe 'usuário cadastra preços especiais' do
     click_on 'Quarto Master'
     click_on 'Definir Preços Por Período'
     fill_in 'Preço Especial', with: '10000'
-    fill_in 'Data de Ínicio', with: '01/01/2023'
-    fill_in 'Data de Término', with: '19/11/2023'
+    fill_in 'Data de Ínicio', with: Date.today-1
+    fill_in 'Data de Término', with: Date.tomorrow
     click_on 'Enviar'
 
     # Assert
@@ -150,8 +150,8 @@ describe 'usuário cadastra preços especiais' do
     click_on 'Quarto Master'
     click_on 'Definir Preços Por Período'
     fill_in 'Preço Especial', with: '10000'
-    fill_in 'Data de Ínicio', with: '01/01/2023'
-    fill_in 'Data de Término', with: '19/11/2022'
+    fill_in 'Data de Ínicio', with: Date.today
+    fill_in 'Data de Término', with: Date.today - 4
     click_on 'Enviar'
 
     # Assert
