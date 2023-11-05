@@ -1,20 +1,20 @@
 <h1><%= @inn.brand_name %></h1>
-
 <h2>Detalhes da pousada</h2>
-<%= link_to  t('activerecord.models.room', count: @inn.rooms.count), inn_rooms_path(@inn) %>
+<%= link_to Room.model_name.human(count: @inn.rooms.count), inn_rooms_path(@inn) %>
 <% if current_user && current_user.inn %>
   <% if @inn == current_user.inn %>
     <div>
       <ul>
-        <li>Razão social: <%= @inn.corporate_name %></li>
-        <li>Nome fantasia: <%= @inn.brand_name %></li>
-        <li>CNPJ: <%= @inn.registration_number %></li>
-        <li>Telefone para contato: <%= @inn.phone %></li>
-        <li>E-mail: <%= @inn.email %></li>
-        <li>Endereço completo: <%= @inn.address %>. <%= @inn.district %>, <%= @inn.city %> - <%= @inn.state %>. </li>
-        <li>CEP: <%= @inn.zip_code %></li>
-        <li>Descrição: <%= @inn.description %></li>
-        <li>Formas de pagamento:
+        <li><%= Inn.human_attribute_name(:corporate_name) %>: <%= @inn.corporate_name %></li>
+        <li><%= Inn.human_attribute_name(:brand_name) %>: <%= @inn.brand_name %></li>
+        <li><%= Inn.human_attribute_name(:registration_number) %>: <%= @inn.registration_number %></li>
+        <li><%= Inn.human_attribute_name(:name) %>: <%= @inn.brand_name %></li>
+        <li><%= Inn.human_attribute_name(:phone) %>: <%= @inn.phone %></li>
+        <li><%= Inn.human_attribute_name(:email)%>: <%= @inn.email %></li>
+        <li><%= Inn.human_attribute_name(:address)%> completo: <%= @inn.address %>. <%= @inn.district %>, <%= @inn.city %> - <%= @inn.state %>.</li>
+        <li><%= Inn.human_attribute_name(:zip_code)%>: <%= @inn.zip_code %></li>
+        <li><%= Inn.human_attribute_name(:description)%>: <%= @inn.description %></li>
+        <li><%= Inn.human_attribute_name(:payment_methods)%>:
         <% eval(@inn.payment_methods).each do |method| %>
           <p><%= method %></p>
         <%end%>
@@ -23,10 +23,10 @@
           <p><%= accepts_pets?(@inn.accepts_pets?) %></p>
         </li>
         <li>
-          <p>Políticas de uso: <%= @inn.terms_of_service %></p>
+          <p><%= Inn.human_attribute_name(:terms_of_service)%>: <%= @inn.terms_of_service %></p>
         </li>
         <li>
-          <p>Horário padrão de check-in e check-out: <%= @inn.check_in_check_out_time.strftime("%H:%M") %></p>
+          <p><%= Inn.human_attribute_name(:check_in_check_out_time)%>: <%= @inn.check_in_check_out_time.strftime("%H:%M") %></p>
         </li>
         <li>
           <% if @inn.draft? %>
@@ -46,13 +46,13 @@
 <% if current_user.nil? || current_user.inn != @inn %>
   <div>
     <ul>
-      <li>Nome: <%= @inn.brand_name %></li>
-      <li>Telefone para contato: <%= @inn.phone %></li>
-      <li>E-mail: <%= @inn.email %></li>
-      <li>Endereço completo: <%= @inn.address %>. <%= @inn.district %>, <%= @inn.city %> - <%= @inn.state %>.</li>
-      <li>CEP: <%= @inn.zip_code %></li>
-      <li>Descrição: <%= @inn.description %></li>
-      <li>Formas de pagamento:
+      <li><%= Inn.human_attribute_name(:name) %>: <%= @inn.brand_name %></li>
+      <li><%= Inn.human_attribute_name(:phone) %>: <%= @inn.phone %></li>
+      <li><%= Inn.human_attribute_name(:email)%>: <%= @inn.email %></li>
+      <li><%= Inn.human_attribute_name(:address)%> completo: <%= @inn.address %>. <%= @inn.district %>, <%= @inn.city %> - <%= @inn.state %>.</li>
+      <li><%= Inn.human_attribute_name(:zip_code)%>: <%= @inn.zip_code %></li>
+      <li><%= Inn.human_attribute_name(:description)%>: <%= @inn.description %></li>
+      <li><%= Inn.human_attribute_name(:payment_methods)%>:
       <% eval(@inn.payment_methods).each do |method| %>
         <p><%= method %></p>
       <%end%>
@@ -61,10 +61,10 @@
         <p><%= accepts_pets?(@inn.accepts_pets?) %></p>
       </li>
       <li>
-        <p>Políticas de uso: <%= @inn.terms_of_service %></p>
+        <p><%= Inn.human_attribute_name(:terms_of_service)%>: <%= @inn.terms_of_service %></p>
       </li>
       <li>
-        <p>Horário padrão de check-in e check-out: <%= @inn.check_in_check_out_time.strftime("%H:%M") %></p>
+        <p><%= Inn.human_attribute_name(:check_in_check_out_time)%>: <%= @inn.check_in_check_out_time.strftime("%H:%M") %></p>
       </li>
     </ul>
   </div>

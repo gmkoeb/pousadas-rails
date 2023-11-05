@@ -1,4 +1,4 @@
-<h1><%= t('activerecord.models.inn', count: @inns.count) %></h1>
+<h1><%= Inn.model_name.human(count: @inns.count) %></h1>
 <% if @inns.empty? %>
   <h2> Ainda não existem pousadas cadastradas. </h2>
 <%else%>
@@ -7,9 +7,9 @@
     <li>
       <%= link_to inn.brand_name, inn_path(inn) %>
     </li>
-    <li>Endereço: <%= inn.address %>. <%= inn.district %>, <%= inn.city %> - <%= inn.state %>. </li>
-    <li>Telefone para contato: <%= inn.phone %></li>
-    <li>E-mail: <%= inn.email %></li>
+    <li><%= Inn.human_attribute_name(:address) %>: <%= inn.address %>. <%= inn.district %>, <%= inn.city %> - <%= inn.state %>. </li>
+    <li><%= Inn.human_attribute_name(:phone) %>: <%= inn.phone %></li>
+    <li><%= Inn.human_attribute_name(:email) %>: <%= inn.email %></li>
   </ul>
   <%end%>
 <%end%>

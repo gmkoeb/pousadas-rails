@@ -1,10 +1,10 @@
-<h1>Quartos da Pousada</h1>
+<h1>Room.model_name.human(count: @inn.rooms.count) da Inn.model_name.human</h1>
 <% if current_user %>
   <% if @inn == current_user.inn%>
     <% @rooms.each do |room| %>
       <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
       <ul>
-        <li>Descrição: <%= room.description %></li>
+        <li><%= Room.human_attribute_name(:description)%>: <%= room.description %></li>
       </ul>
     <%end%>
     <% if @rooms.empty? %>
@@ -18,7 +18,7 @@
   <% @rooms.each do |room| %>
       <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
       <ul>
-        <li>Descrição: <%= room.description %></li>
+        <li><%= Room.human_attribute_name(:description)%>: <%= room.description %></li>
       </ul>
   <%end%>
   <% if @rooms.empty? %>
