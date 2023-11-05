@@ -1,26 +1,21 @@
 <h1><%= @inn.brand_name %></h1>
 <h2>Detalhes da pousada</h2>
 <%= link_to Room.model_name.human(count: @inn.rooms.count), inn_rooms_path(@inn) %>
-<% if current_user && current_user.inn %>
-  <% if @inn == current_user.inn %>
+<% if current_user && current_user.inn && @inn == current_user.inn %>
+  <div>
+    <ul>
+      <%= render 'inn_details', inn: @inn %>
+      <% if @inn.draft? %>
+        <h4>ATENÇÃO: Ao publicar a pousada ela poderá ser visualizada por outros usuários.</h4>
+        <%= button_to 'Publicar pousada', publish_inn_path(@inn.id), {method: 'patch'}%>
+      <% else %>
+        <%= button_to 'Esconder pousada', draft_inn_path(@inn.id), {method: 'patch'}%>
+      <%end%>
+    </ul>
     <div>
-      <ul>
-        <li><%= Inn.human_attribute_name(:corporate_name) %>: <%= @inn.corporate_name %></li>
-        <li><%= Inn.human_attribute_name(:brand_name) %>: <%= @inn.brand_name %></li>
-        <li><%= Inn.human_attribute_name(:registration_number) %>: <%= @inn.registration_number %></li>
-        <%= render 'inn_details', inn: @inn %>
-        <% if @inn.draft? %>
-          <h4>ATENÇÃO: Ao publicar a pousada ela poderá ser visualizada por outros usuários.</h4>
-          <%= button_to 'Publicar pousada', publish_inn_path(@inn.id), {method: 'patch'}%>
-        <% else %>
-          <%= button_to 'Esconder pousada', draft_inn_path(@inn.id), {method: 'patch'}%>
-        <%end%>
-      </ul>
-      <div>
-        <%= link_to 'Editar', edit_inn_path(@inn)%>
-      </div>
+      <%= link_to 'Editar', edit_inn_path(@inn)%>
     </div>
-  <%end%>
+  </div>
 <%end%>
 <% if current_user.nil? || current_user.inn != @inn %>
   <div>
