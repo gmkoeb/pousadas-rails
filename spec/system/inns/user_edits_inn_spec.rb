@@ -130,7 +130,7 @@ describe 'Dono de pousadas edita pousada' do
     visit edit_inn_path(inn.slug)
     # Assert
     expect(current_path).to eq(root_path)
-    expect(page).to have_content 'Você só pode editar as suas pousadas.'
+    expect(page).to have_content 'Você não pode realizar essa ação.'
   end
 end
 

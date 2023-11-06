@@ -1,23 +1,21 @@
 class InnsController < ApplicationController
   before_action :authenticate_admin!, except: [:show]
   before_action :admin_has_inn?, except: [:new, :create]
-  before_action :set_inn, only: [:show, :edit, :update]
+  before_action :set_inn, only: [:show, :edit, :update, :publish, :draft]
   before_action :inn_params, only: [:create, :update]
-  
+  before_action :inn_belongs_to_user?, only: [:edit, :update, :publish, :draft]
   def new
     @inn = Inn.new
   end
 
   def create
     @inn = Inn.new(inn_params)
-
     @inn.user = current_user
-    
     if @inn.save
       redirect_to inn_path(@inn), notice: 'Pousada cadastrada com sucesso!'
     else  
       @inn.user = nil
-      flash.now[:notice] = 'Não foi possível cadastrar pousada.'
+      flash.now[:alert] = 'Não foi possível cadastrar pousada.'
       render 'new', status: 422
     end
   end
@@ -30,16 +28,9 @@ class InnsController < ApplicationController
     end
   end
 
-  def edit
-    if current_user == @inn.user
-      render
-    else
-      redirect_to root_path, notice: "Você só pode editar as suas pousadas."
-    end
-  end
+  def edit;end
 
   def update
-    return unless current_user.inn == @inn
     inn_params = params.require(:inn).permit(:corporate_name, :brand_name, 
                                              :registration_number, :phone, :email, 
                                              :address, :district, :state, :city,
@@ -48,21 +39,19 @@ class InnsController < ApplicationController
     if @inn.update(inn_params)
       redirect_to inn_path(@inn), notice: 'Pousada atualizada com sucesso!'
     else
-      flash.now[:notice] = 'Não foi possível atualizar a pousada.'
+      flash.now[:alert] = 'Não foi possível atualizar a pousada.'
       render 'edit', status: '422'
     end
   end
 
   def publish
-    inn = Inn.find(params[:id])
-    inn.published!
-    redirect_to inn_path(inn)
+    @inn.published!
+    redirect_to inn_path(@inn)
   end
 
   def draft
-    inn = Inn.find(params[:id])
-    inn.draft!
-    redirect_to inn_path(inn)
+    @inn.draft!
+    redirect_to inn_path(@inn)
   end
 
   private
