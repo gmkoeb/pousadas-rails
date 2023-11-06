@@ -31,7 +31,6 @@ describe 'usuário cadastra preços especiais' do
   it 'com sucesso' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    login_as(user)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -41,6 +40,7 @@ describe 'usuário cadastra preços especiais' do
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
     # Act
+    login_as(user)
     visit root_path
     within 'nav' do
       click_on 'Minha pousada'

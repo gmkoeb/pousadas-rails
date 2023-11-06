@@ -12,8 +12,6 @@ class Room < ApplicationRecord
   has_many :price_per_periods
 
   validates :name, :description, :area, :maximum_guests, :price, presence: true
-
-  validates :name, uniqueness:true
   
   validate :valid_inn
 

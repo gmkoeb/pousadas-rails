@@ -1,27 +1,28 @@
 <h1><%= Room.model_name.human(count: @inn.rooms.count) %> da <%= Inn.model_name.human %></h1>
 <% if current_user %>
-  <% if @inn == current_user.inn%>
-    <% @rooms.each do |room| %>
-      <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
-      <ul>
-        <li><%= Room.human_attribute_name(:description)%>: <%= room.description %></li>
-      </ul>
-    <%end%>
+  <% if @inn == current_user.inn %>
     <% if @rooms.empty? %>
       <h2>Não existem quartos disponíveis no momento. <%= link_to 'Clique aqui para cadastrar um quarto.', new_inn_room_path(@inn)%></h2>
     <% else %>
+      <% @rooms.each do |room| %>
+        <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
+        <ul>
+          <li><%= Room.human_attribute_name(:description)%>: <%= room.description %></li>
+        </ul>
+      <%end%>
       <%= link_to 'Cadastrar Quarto', new_inn_room_path(@inn) %> 
     <%end%>
   <%end%>
 <% end %>
 <% if current_user.nil? || current_user.inn != @inn %>
-  <% @rooms.each do |room| %>
-      <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
-      <ul>
-        <li><%= Room.human_attribute_name(:description)%>: <%= room.description %></li>
-      </ul>
-  <%end%>
   <% if @rooms.empty? %>
     <h2>Não existem quartos disponíveis no momento.</h2>
+  <% else %>
+    <% @rooms.each do |room| %>
+        <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
+        <ul>
+          <li><%= Room.human_attribute_name(:description)%>: <%= room.description %></li>
+        </ul>
+    <%end%>
   <%end%>
 <% end %>
