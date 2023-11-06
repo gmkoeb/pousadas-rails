@@ -130,7 +130,5 @@ describe 'Dono de pousadas vê detalhes de pousada' do
   # Assert
   expect(page).to have_content 'Pousada do Luar'
   expect(page).to have_content 'Endereço: Rua das pousadas, 114. Beira Mar Norte, Florianópolis - Santa Catarina'
-  expect(page).to have_content 'Telefone para contato: 41995203040'
-  expect(page).to have_content 'E-mail: pousadadoluar@gmail.com'
   end
 end

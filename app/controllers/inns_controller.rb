@@ -4,6 +4,7 @@ class InnsController < ApplicationController
   before_action :set_inn, only: [:show, :edit, :update, :publish, :draft]
   before_action :inn_params, only: [:create, :update]
   before_action :inn_belongs_to_user?, only: [:edit, :update, :publish, :draft]
+  
   def new
     @inn = Inn.new
   end
