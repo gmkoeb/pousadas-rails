@@ -31,6 +31,6 @@ class PricePerPeriodsController < ApplicationController
   end
 
   def set_inn
-    @inn = current_user.inn
+    @inn = Inn.friendly.find(params[:inn_id])
   end
 end
