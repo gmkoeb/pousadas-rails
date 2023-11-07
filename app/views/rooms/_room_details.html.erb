@@ -34,7 +34,7 @@
             <%= I18n.localize(price.ends_at) %>
           </td>
           <td>
-            <%= button_to('Remover', inn_room_price_per_period_path(current_user.inn, @room, price.id), method: :delete) %>
+            <%= button_to('Remover', room_price_per_period_path(@room, price.id), method: :delete) %>
           </td>
         </tr>
         <% end %>

@@ -51,12 +51,12 @@ describe 'Usuario cria um quarto numa pousada' do
     # Act
     login_as(user)
     post(inn_rooms_path(inn_2), params:{ inn: {corporate_name: 'Pousada 2 LTDA', brand_name: 'Pousadas sem Dono', 
-                             registration_number: '1234', phone: '4230023004', email: 'pousada2@ghmail.com',
-                             address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
-                             city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
-                             payment_methods: 'Dinheiro', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h',
-                             check_in_check_out_time: '12:00'} })
-    # Assert
+                                                registration_number: '1234', phone: '4230023004', email: 'pousada2@ghmail.com',
+                                                address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                                                city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                                                payment_methods: 'Dinheiro', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h',
+                                                check_in_check_out_time: '12:00'} })
+                        # Assert
     expect(response).to redirect_to(root_path)
   end
 end

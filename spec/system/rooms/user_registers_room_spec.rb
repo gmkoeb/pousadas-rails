@@ -156,7 +156,7 @@ describe 'dono de pousadas cadastra quarto' do
                         check_in_check_out_time: '12:00', user: user_2)
     login_as(user_2)
     # Act
-    visit new_inn_room_path(inn.slug)
+    visit new_inn_room_path(inn)
     # Assert
     expect(current_path).to eq root_path
     expect(page).to have_content 'Você não pode realizar essa ação'

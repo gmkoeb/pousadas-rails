@@ -12,7 +12,7 @@ describe 'Usuario esconde o quarto de uma pousada' do
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                       price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
     # Act
-    patch(publish_inn_room_path(inn, room), params:{ inn: {status: 'published'} })
+    patch(publish_room_path(room), params:{ inn: {status: 'published'} })
     # Assert
     expect(response).to redirect_to(new_user_session_path)
   end
@@ -36,7 +36,7 @@ describe 'Usuario esconde o quarto de uma pousada' do
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)                    
     # Act
     login_as(user_2)
-    patch(publish_inn_room_path(inn, room), params:{ inn: {status: 'published'} })
+    patch(publish_room_path(room), params:{ inn: {status: 'published'} })
     # Assert
     expect(response).to redirect_to(root_path)
   end

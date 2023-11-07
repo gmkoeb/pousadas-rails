@@ -11,7 +11,7 @@ class PricePerPeriodsController < ApplicationController
     @price_per_period = @inn.rooms.friendly.find(params[:room_id]).price_per_periods.build(price_per_period_params)
 
     if @price_per_period.save
-      redirect_to inn_room_path(@inn, @room), notice: 'Preço por período cadastrado com sucesso.'
+      redirect_to room_path(@room), notice: 'Preço por período cadastrado com sucesso.'
     else
       flash.now[:alert] = "Não foi possível cadastrar preço especial."
       render 'new', status: 422
@@ -21,16 +21,15 @@ class PricePerPeriodsController < ApplicationController
   def destroy
     @price_per_period = PricePerPeriod.find(params[:id])
     @price_per_period.delete
-    redirect_to inn_room_path(@inn, @room), notice: 'Preço especial removido com sucesso.'
+    redirect_to room_path(@room), notice: 'Preço especial removido com sucesso.'
   end
 
   private
+  def set_inn
+    @inn = current_user.inn
+  end
 
   def set_room
     @room = Room.friendly.find(params[:room_id])
-  end
-
-  def set_inn
-    @inn = Inn.friendly.find(params[:inn_id])
   end
 end

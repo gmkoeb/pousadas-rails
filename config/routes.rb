@@ -5,11 +5,12 @@ Rails.application.routes.draw do
     resources :inns, only: [:show, :create, :new, :edit, :update] do
       patch :publish, on: :member
       patch :draft, on: :member
-      resources :rooms, except: [:destroy] do
-        patch :publish, on: :member
-        patch :draft, on: :member
-        resources :price_per_periods, only:[:new, :create, :destroy]
-      end
+      resources :rooms, only: [:index, :new, :create]
+    end
+    resources :rooms, only: [:show, :edit, :update] do
+      patch :publish, on: :member
+      patch :draft, on: :member
+      resources :price_per_periods, only:[:new, :create, :destroy]
     end
   end
 end

@@ -5,7 +5,7 @@
       <h2>Não existem quartos disponíveis no momento. <%= link_to 'Clique aqui para cadastrar um quarto.', new_inn_room_path(@inn)%></h2>
     <% else %>
       <% @rooms.each do |room| %>
-        <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
+        <h2> <%= link_to room.name, room_path(room) %> </h2>
         <ul>
           <li><%= Room.human_attribute_name(:description)%>: <%= room.description %></li>
         </ul>
@@ -19,7 +19,7 @@
     <h2>Não existem quartos disponíveis no momento.</h2>
   <% else %>
     <% @rooms.each do |room| %>
-        <h2> <%= link_to room.name, inn_room_path(@inn, room) %> </h2>
+        <h2> <%= link_to room.name, room_path(room) %> </h2>
         <ul>
           <li><%= Room.human_attribute_name(:description)%>: <%= room.description %></li>
         </ul>

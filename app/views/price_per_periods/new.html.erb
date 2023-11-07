@@ -7,7 +7,7 @@
     <%end%>
   </ul>
 <% end %>
-<%= form_for([@inn, @room, @price_per_period]) do |f| %>
+<%= form_for([@room, @price_per_period]) do |f| %>
   <div>
     <%= f.label :special_price %>
     <%= f.number_field :special_price %>

@@ -45,7 +45,7 @@ describe 'Usuário vê detalhes de um quarto' do
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true, status: 'draft')
     # Act
-    visit inn_room_path(inn, room)
+    visit room_path(room)
     # Assert
     expect(current_path).to eq inn_rooms_path(inn)
     expect(page).to have_content 'Este quarto não está aceitando reservas no momento.'

@@ -142,7 +142,7 @@ describe 'usuário edita quarto' do
                         check_in_check_out_time: '12:00', user: user_2)
     login_as(user_2)
     # Act
-    visit edit_inn_room_path(inn, room)
+    visit edit_room_path(room)
     # Assert
     expect(current_path).to eq root_path
     expect(page).to have_content 'Você não pode realizar essa ação'
