@@ -16,6 +16,7 @@ describe 'Usuario esconde o quarto de uma pousada' do
     # Assert
     expect(response).to redirect_to(new_user_session_path)
   end
+  
   it 'e não é dono da pousada' do
     # Arrange
     user = User.create!(email: 'gabriel@gmail.com', password: 'password', admin:true)
