@@ -16,14 +16,16 @@
     </ul>
     <div>
       <%= link_to 'Editar Pousada', edit_inn_path(@inn)%>
-      <%= link_to 'Cadastrar Quarto', new_inn_room_path(@inn) %> 
     </div>
     <% if @inn.rooms.empty? %>
       <h2>Não existem quartos disponíveis no momento. <%= link_to 'Clique aqui para cadastrar um.', new_inn_room_path(@inn)%></h2>
     <% else %>
-      <% @inn.rooms.each do |room| %> 
-        <%= render 'rooms/room_details', room: room, inn: @inn %>
-      <%end%>
+      <div>
+        <%= link_to 'Cadastrar Quarto', new_inn_room_path(@inn) %> 
+        <% @inn.rooms.each do |room| %> 
+          <%= render 'rooms/room_details', room: room, inn: @inn %>
+        <%end%>
+      </div>  
     <%end%>
   </div>
 <%end%>
