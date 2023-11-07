@@ -1,4 +1,4 @@
-<% if @inns.empty? %>
+<% if @recent_inns.empty? %>
   <h2> Ainda não existem pousadas cadastradas. </h2>
 <%else%>
   <div>
@@ -12,7 +12,6 @@
   </div>
   <h1><%= Inn.model_name.human(count: @inns.count) %></h1>
   <% @inns.each do |inn| %>
-  <% next if @recent_inns.include?(inn) %>
     <ul>
       <li>
         <%= link_to inn.brand_name, inn_path(inn) %>
