@@ -15,7 +15,6 @@ describe 'usuário vê detalhes de um quarto' do
     # Act
     visit root_path
     click_on 'Pousada do Luar'
-    click_on 'Quarto'
     click_on 'Quarto Master'
     # Assert
     expect(page).to_not have_content 'Preços Por Período'
@@ -40,7 +39,6 @@ describe 'usuário vê detalhes de um quarto' do
     login_as(user)
     visit root_path
     click_on 'Pousada do Luar'
-    click_on 'Quarto'
     click_on 'Quarto Master'
     # Assert
     expect(page).to have_content 'Preços Por Período'

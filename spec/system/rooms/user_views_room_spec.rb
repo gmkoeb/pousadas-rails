@@ -15,7 +15,6 @@ describe 'Usuário vê detalhes de um quarto' do
     # Act
     visit root_path
     click_on 'Pousada do Luar'
-    click_on 'Quarto'
     click_on 'Quarto Master'
     # Assert
     expect(page).to have_content 'Quarto Master'
@@ -47,7 +46,7 @@ describe 'Usuário vê detalhes de um quarto' do
     # Act
     visit room_path(room)
     # Assert
-    expect(current_path).to eq inn_rooms_path(inn)
+    expect(current_path).to eq inn_path(inn)
     expect(page).to have_content 'Este quarto não está aceitando reservas no momento.'
   end
 
@@ -66,7 +65,6 @@ describe 'Usuário vê detalhes de um quarto' do
     # Act
     visit root_path
     click_on 'Pousada do Luar'
-    click_on 'Quarto'
     click_on 'Quarto Master'
 
     # Assert

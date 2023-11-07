@@ -1,5 +1,9 @@
 <% prices = sort_by_date(room.price_per_periods) %>  
-<h1><%= room.name %></h1>
+<% if request.path == room_path(room) %>
+  <h1><%= room.name %></h1>
+<%else%>
+  <h2><%= link_to room.name, room_path(room) %></h2>
+<%end%>
 <h2>Detalhes do quarto:</h2>
 <li>Descrição: <%= room.description %></li>
 <li>Área: <%= room.area %> m²</li>
@@ -13,7 +17,7 @@
 <li><%= coffer(room.has_coffer) %></li>
 <li><%= accessibility(room.accessible) %></li>
 <% if current_user && current_user.inn == inn %>
-  <% if room.price_per_periods.any? %>
+  <% if room.price_per_periods.any? && request.path == room_path(room)%>
     <aside>
       <table>
         <h2><%= PricePerPeriod.model_name.human %></h2>
@@ -34,7 +38,7 @@
             <%= I18n.localize(price.ends_at) %>
           </td>
           <td>
-            <%= button_to('Remover', room_price_per_period_path(@room, price.id), method: :delete) %>
+            <%= button_to('Remover', room_price_per_period_path(room, price.id), method: :delete) %>
           </td>
         </tr>
         <% end %>

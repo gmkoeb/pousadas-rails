@@ -20,7 +20,6 @@ describe 'usuário vê quartos de uma pousada' do
     # Act
     visit root_path
     click_on 'Pousada do Luar'
-    click_on 'Quarto'
     # Assert
     expect(page).to have_link 'Quarto Master'
     expect(page).to have_link 'Quarto Economy'
@@ -49,9 +48,8 @@ describe 'usuário vê quartos de uma pousada' do
     # Act
     visit root_path
     click_on 'Pousada do Luar'
-    click_on 'Quarto'
     # Assert
-    expect(page).to have_content 'Não existem quartos disponíveis no momento.'
+    expect(page).to have_content 'Nenhum quarto dessa pousada está aceitando reservas no momento.'
     expect(page).to_not have_link 'Clique aqui para cadastrar um quarto.'
   end
 
@@ -72,7 +70,6 @@ describe 'usuário vê quartos de uma pousada' do
     within 'nav' do
       click_on 'Minha pousada'
     end
-    click_on 'Quarto'
     # Assert
     expect(page).to have_link 'Quarto Master Casal'
     expect(page).to_not have_content 'Quarto indisponível no momento.'

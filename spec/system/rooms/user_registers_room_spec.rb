@@ -16,8 +16,7 @@ describe 'dono de pousadas cadastra quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Quarto'
-    click_on 'Clique aqui para cadastrar um quarto.'
+    click_on 'Clique aqui para cadastrar um.'
     # Assert
     expect(page).to have_content 'Cadastro de Quarto'
     expect(page).to have_field 'Nome do quarto'
@@ -50,8 +49,7 @@ describe 'dono de pousadas cadastra quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Quarto'
-    click_on 'Clique aqui para cadastrar um quarto.'
+    click_on 'Clique aqui para cadastrar um.'
     fill_in 'Nome do quarto', with: 'Quarto Master'
     fill_in 'Descrição', with: 'É o maior quarto da pousada.'
     fill_in 'Área', with: '50'
@@ -66,7 +64,7 @@ describe 'dono de pousadas cadastra quarto' do
     check 'É acessível para pessoas com deficiência?'
     click_on 'Criar Quarto'
     # Assert
-    expect(current_path).to eq inn_rooms_path(inn.slug)
+    expect(current_path).to eq room_path('quarto-master')
     expect(page).to have_content 'Quarto cadastrado com sucesso!'
     expect(page).to have_content 'Quarto Master'
     expect(page).to have_content 'Descrição: É o maior quarto da pousada.'
@@ -86,8 +84,7 @@ describe 'dono de pousadas cadastra quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Quarto'
-    click_on 'Clique aqui para cadastrar um quarto.'
+    click_on 'Clique aqui para cadastrar um.'
     fill_in 'Nome do quarto', with: ''
     fill_in 'Descrição', with: ''
     fill_in 'Área', with: ''
@@ -119,7 +116,6 @@ describe 'dono de pousadas cadastra quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Quarto'
     click_on 'Cadastrar Quarto'
     fill_in 'Nome do quarto', with: ''
     fill_in 'Descrição', with: ''

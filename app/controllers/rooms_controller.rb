@@ -13,7 +13,7 @@ class RoomsController < ApplicationController
   def create                                             
     @room = @inn.rooms.build(room_params)
     if @room.save
-      redirect_to inn_rooms_path, notice: 'Quarto cadastrado com sucesso!'
+      redirect_to room_path(@room), notice: 'Quarto cadastrado com sucesso!'
     else
       flash.now[:alert] = "Não foi possível cadastrar o quarto."
       render 'new', status: 422
@@ -34,7 +34,7 @@ class RoomsController < ApplicationController
     @room = Room.friendly.find(params[:id])
     if @room.draft?
       if current_user.nil? || current_user.inn != @room.inn
-        redirect_to inn_rooms_path(@room.inn), alert: 'Este quarto não está aceitando reservas no momento.'
+        redirect_to inn_path(@room.inn), alert: 'Este quarto não está aceitando reservas no momento.'
       end
     end
   end

@@ -13,6 +13,6 @@
 <% end %>
 
 <% if current_user.nil? || current_user.inn != @room.inn %>
-  <%= render 'room_details', room:@room %>
+  <%= render 'room_details', room: @room, inn:@room.inn %>
 <% end %>
 

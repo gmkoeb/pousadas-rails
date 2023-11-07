@@ -1,6 +1,5 @@
 <h1><%= @inn.brand_name %></h1>
 <h2>Detalhes da pousada</h2>
-<%= link_to Room.model_name.human(count: @inn.rooms.count), inn_rooms_path(@inn) %>
 <% if current_user && current_user.inn && @inn == current_user.inn %>
   <div>
     <ul>
@@ -16,8 +15,16 @@
       <%end%>
     </ul>
     <div>
-      <%= link_to 'Editar', edit_inn_path(@inn)%>
+      <%= link_to 'Editar Pousada', edit_inn_path(@inn)%>
+      <%= link_to 'Cadastrar Quarto', new_inn_room_path(@inn) %> 
     </div>
+    <% if @inn.rooms.empty? %>
+      <h2>Não existem quartos disponíveis no momento. <%= link_to 'Clique aqui para cadastrar um.', new_inn_room_path(@inn)%></h2>
+    <% else %>
+      <% @inn.rooms.each do |room| %> 
+        <%= render 'rooms/room_details', room: room, inn: @inn %>
+      <%end%>
+    <%end%>
   </div>
 <%end%>
 <% if current_user.nil? || current_user.inn != @inn %>
@@ -25,5 +32,13 @@
     <ul>
       <%= render 'inn_details', inn: @inn %>
     </ul>
+  <% if @inn.rooms.published.present? %>
+    <h1><%= Room.model_name.human(count: @inn.rooms.count) %></h1>
+    <% @inn.rooms.published.each do |room| %> 
+      <%= render 'rooms/room_details', room: room, inn: @inn %>
+    <%end%>
+  <% else %>
+    <h2>Nenhum quarto dessa pousada está aceitando reservas no momento.</h2>
+  <% end %>
   </div>
 <%end%>

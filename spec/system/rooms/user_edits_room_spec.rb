@@ -18,7 +18,6 @@ describe 'usuário edita quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Quarto'
     click_on 'Quarto Master'
     click_on 'Editar Quarto'
     # Assert
@@ -54,7 +53,6 @@ describe 'usuário edita quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Quarto'
     click_on 'Quarto Master'
     click_on 'Editar Quarto'
 
@@ -103,7 +101,6 @@ describe 'usuário edita quarto' do
     within 'nav' do 
       click_on 'Minha pousada'
     end
-    click_on 'Quarto'
     click_on 'Quarto Master'
     click_on 'Editar Quarto'
 
