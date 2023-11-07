@@ -1,8 +1,3 @@
-<% if current_user && current_user.inn && inn == current_user.inn %>
-  <li><%= Inn.human_attribute_name(:corporate_name) %>: <%= @inn.corporate_name %></li>
-  <li><%= Inn.human_attribute_name(:brand_name) %>: <%= @inn.brand_name %></li>
-  <li><%= Inn.human_attribute_name(:registration_number) %>: <%= @inn.registration_number %></li>
-<% end %>
 <li><%= Inn.human_attribute_name(:name) %>: <%= inn.brand_name %></li>
 <li><%= Inn.human_attribute_name(:phone) %>: <%= inn.phone %></li>
 <li><%= Inn.human_attribute_name(:email)%>: <%= inn.email %></li>

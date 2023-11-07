@@ -1,13 +1,23 @@
-<h1><%= Inn.model_name.human(count: @inns.count) %></h1>
 <% if @inns.empty? %>
   <h2> Ainda não existem pousadas cadastradas. </h2>
 <%else%>
+  <div>
+    <h1>Pousadas Mais Recentes:</h1>
+    <% @recent_inns.each do |recent_inn|%>
+    <ul>
+      <li><%= link_to recent_inn.brand_name, inn_path(recent_inn) %></li>  
+      <li><%= Inn.human_attribute_name(:address) %>: <%= recent_inn.address %>. <%= recent_inn.district %>, <%= recent_inn.city %> - <%= recent_inn.state %>. </li>
+    </ul>
+    <% end %>
+  </div>
+  <h1><%= Inn.model_name.human(count: @inns.count) %></h1>
   <% @inns.each do |inn| %>
-  <ul>
-    <li>
-      <%= link_to inn.brand_name, inn_path(inn) %>
-    </li>
-    <li><%= Inn.human_attribute_name(:address) %>: <%= inn.address %>. <%= inn.district %>, <%= inn.city %> - <%= inn.state %>. </li>
-  </ul>
+  <% next if @recent_inns.include?(inn) %>
+    <ul>
+      <li>
+        <%= link_to inn.brand_name, inn_path(inn) %>
+      </li>
+      <li><%= Inn.human_attribute_name(:address) %>: <%= inn.address %>. <%= inn.district %>, <%= inn.city %> - <%= inn.state %>. </li>
+    </ul>
   <%end%>
 <%end%>
