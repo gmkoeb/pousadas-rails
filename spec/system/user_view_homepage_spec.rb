@@ -41,10 +41,10 @@ describe 'Usuário não autenticado visita página inicial' do
     visit root_path
     # Assert
     expect(page).to have_content 'Pousada do Luar'
-    expect(page).to have_content 'Endereço: Rua das pousadas, 114. Beira Mar Norte, Florianópolis - Santa Catarina'
+    expect(page).to have_content 'Cidade: Florianópolis - Santa Catarina'
 
     expect(page).to have_content 'Pousada do Sol'
-    expect(page).to have_content 'Endereço: Rua das pousadas, 124. Beira Mar Norte, Florianópolis - Santa Catarina'
+    expect(page).to have_content 'Cidade: Florianópolis - Santa Catarina'
   end
 
   it 'e não existem pousadas publicadas' do
@@ -102,9 +102,9 @@ describe 'Usuário não autenticado visita página inicial' do
     expect(page).to have_link 'Pousada do Luar'
     expect(page).to have_link 'Pousada do Sol'
     expect(page).to have_link 'Pousada da Chuva'
-    expect(page).to have_content 'Endereço: Rua das pousadas, 124. Beira Mar Norte, Florianópolis - Santa Catarina.'
-    expect(page).to have_content 'Endereço: Rua das pousadas, 114. Beira Mar Norte, Florianópolis - Santa Catarina.'
-    expect(page).to have_content 'Endereço: Avenida Paraná, 240. Juveve, Curitiba - Paraná.'
+    expect(page).to have_content 'Cidade: Florianópolis - Santa Catarina.'
+    expect(page).to have_content 'Cidade: Florianópolis - Santa Catarina.'
+    expect(page).to have_content 'Cidade: Curitiba - Paraná.'
   end
 
   it 'e vê as pousadas mais antigas publicadas separadamente' do
@@ -149,12 +149,12 @@ describe 'Usuário não autenticado visita página inicial' do
     expect(page).to have_link 'Pousada do Luar'
     expect(page).to have_link 'Pousada do Sol'
     expect(page).to have_link 'Pousada da Chuva'
-    expect(page).to have_content 'Endereço: Rua das pousadas, 124. Beira Mar Norte, Florianópolis - Santa Catarina.'
-    expect(page).to have_content 'Endereço: Rua das pousadas, 114. Beira Mar Norte, Florianópolis - Santa Catarina.'
-    expect(page).to have_content 'Endereço: Avenida Paraná, 240. Juveve, Curitiba - Paraná.'
+    expect(page).to have_content 'Cidade: Florianópolis - Santa Catarina.'
+    expect(page).to have_content 'Cidade: Florianópolis - Santa Catarina.'
+    expect(page).to have_content 'Cidade: Curitiba - Paraná.'
     expect(page).to have_content 'Pousada'
     expect(page).to have_link 'Pousada do Frio'
-    expect(page).to have_content 'Endereço: Avenida Paraná, 100. Santa Cândida, Curitiba - Paraná.'
+    expect(page).to have_content 'Cidade: Curitiba - Paraná.'
   end
 
   it 'e vê lista de cidades' do

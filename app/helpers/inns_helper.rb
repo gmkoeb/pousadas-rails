@@ -26,4 +26,7 @@ module InnsHelper
     cities.uniq
   end
   
+  def city_with_state(inn)
+    "#{inn.city} - #{inn.state}"
+  end
 end

@@ -1,6 +1,6 @@
 class InnsController < ApplicationController
-  before_action :authenticate_admin!, except: [:show]
-  before_action :admin_has_inn?, except: [:new, :create]
+  before_action :authenticate_admin!, except: [:show, :search]
+  before_action :admin_has_inn?, except: [:new, :create, :search]
   before_action :set_inn, only: [:show, :edit, :update, :publish, :draft]
   before_action :inn_params, only: [:create, :update]
   before_action :inn_belongs_to_user?, only: [:edit, :update, :publish, :draft]
@@ -55,7 +55,14 @@ class InnsController < ApplicationController
     redirect_to inn_path(@inn)
   end
 
+  def search
+    @query = params[:query]
+    @inns = Inn.where("brand_name LIKE ? OR city LIKE ? OR district LIKE ?", 
+                      "%#{@query}%", "%#{@query}%", "%#{@query}%").published.sort_by { |inn| inn[:brand_name] }   
+  end
+
   private
+
   def set_inn
     @inn = Inn.friendly.find(params[:id])
   end

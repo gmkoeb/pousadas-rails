@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :inns, only: [:show, :create, :new, :edit, :update] do
       patch :publish, on: :member
       patch :draft, on: :member
+      get 'search', on: :collection
       resources :rooms, only: [:index, :new, :create]
     end
     resources :rooms, only: [:show, :edit, :update] do

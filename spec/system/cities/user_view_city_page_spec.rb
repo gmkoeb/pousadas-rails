@@ -50,6 +50,8 @@ describe 'Usuário visita página de cidade' do
     expect(page).to have_content 'Pousadas em Curitiba'
     expect(page).to have_link 'Pousada da Chuva'
     expect(page).to have_link 'Pousada do Frio'
+    expect(page).to_not have_link 'Pousada do Luar'
+    expect(page).to_not have_link 'Pousada do Sol'
     expect(page).to_not have_link 'Pousada do Frio Não Publicada'
   end
 
