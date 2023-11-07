@@ -38,7 +38,7 @@ describe 'Usuario edita uma pousada' do
     expect(response).to redirect_to(root_path)
   end
 
-  it 'e não possui pousada' do
+  it 'e não têm pousada' do
     # Arrange
     user = User.create!(email: 'gabriel@gmail.com', password: 'password', admin:true)
     user_2 = User.create!(email: 'admin@gmail.com', password: 'password', admin: true)
@@ -48,8 +48,8 @@ describe 'Usuario edita uma pousada' do
       city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
       payment_methods: 'Dinheiro', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
       check_in_check_out_time: '12:00', user: user)
-    login_as(user_2)
     # Act
+    login_as(user_2)
     patch(inn_path(inn), params:{ inn: {brand_name: 'Pousadas sem Dono'} })
     # Assert
     expect(response).to redirect_to(new_inn_path)
