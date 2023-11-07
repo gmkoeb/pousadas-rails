@@ -1,6 +1,12 @@
 <% if @recent_inns.empty? %>
   <h2> Ainda não existem pousadas cadastradas. </h2>
 <%else%>
+  <aside>
+    <h2>Cidades com Pousadas</h2>
+    <%get_cities(@inns).each do |city| %>
+      <%= link_to city, "/cidades/#{city}"  %>
+    <%end%>
+  </aside>
   <div>
     <h1>Pousadas Mais Recentes:</h1>
     <% @recent_inns.each do |recent_inn|%>
@@ -11,7 +17,7 @@
     <% end %>
   </div>
   <h1><%= Inn.model_name.human(count: @inns.count) %></h1>
-  <% @inns.each do |inn| %>
+  <% @older_inns.each do |inn| %>
     <ul>
       <li>
         <%= link_to inn.brand_name, inn_path(inn) %>
@@ -20,3 +26,4 @@
     </ul>
   <%end%>
 <%end%>
+

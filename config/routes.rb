@@ -12,5 +12,6 @@ Rails.application.routes.draw do
       patch :draft, on: :member
       resources :price_per_periods, only:[:new, :create, :destroy]
     end
+    get '/cities/:city', to: 'city#index'
   end
 end
