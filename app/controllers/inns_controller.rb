@@ -1,6 +1,6 @@
 class InnsController < ApplicationController
-  before_action :authenticate_admin!, except: [:show, :search]
-  before_action :admin_has_inn?, except: [:new, :create, :search]
+  before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :publish, :draft]
+  before_action :admin_has_inn?, except: [:new, :create]
   before_action :set_inn, only: [:show, :edit, :update, :publish, :draft]
   before_action :inn_params, only: [:create, :update]
   before_action :inn_belongs_to_user?, only: [:edit, :update, :publish, :draft]
@@ -55,10 +55,23 @@ class InnsController < ApplicationController
     redirect_to inn_path(@inn)
   end
 
+  def search_by_city
+    @city = params[:city]
+    @inns = Inn.where(city: @city).published.sort_by { |inn| inn[:brand_name] }
+  end
+
   def search
     @query = params[:query]
-    @inns = Inn.where("brand_name LIKE ? OR city LIKE ? OR district LIKE ?", 
-                      "%#{@query}%", "%#{@query}%", "%#{@query}%").published.sort_by { |inn| inn[:brand_name] }   
+    @inns = Inn.search(@query)
+  end
+
+  def advanced_search
+    @accepts_pets = params[:accepts_pets]
+    @query = params[:query]
+    @payment_methods = params[:payment_methods]
+    @room_infos = params[:room_infos]
+    @price = params[:price]
+    @inns = Inn.advanced_search(@query, @accepts_pets, @payment_methods, @room_infos, @price)
   end
 
   private

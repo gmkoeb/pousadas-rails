@@ -4,7 +4,7 @@
   <aside>
     <h2>Cidades com Pousadas</h2>
     <%get_cities(@inns).each do |city| %>
-      <%= link_to city, "/cidades/#{city}"  %>
+      <%= link_to city, search_by_city_inns_path(city)  %>
     <%end%>
   </aside>
   <div>

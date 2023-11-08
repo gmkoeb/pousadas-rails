@@ -1,0 +1,49 @@
+<h1>Busca Avançada de Pousadas</h1>
+<%= form_with(url: advanced_search_inns_path, method: :get) do |f|%>
+  <div>
+    <%= f.label :query, 'Pousada' %>
+    <%= f.text_field :query, placeholder: 'Nome, cidade ou bairro' %>
+  </div>
+
+  <div>
+    <%= f.label :accepts_pets, 'Aceita Pets?' %>
+    <%= f.label :true, 'Sim' %>
+    <%= f.radio_button :accepts_pets, :true %>
+    <%= f.label :false, 'Não' %>
+    <%= f.radio_button :accepts_pets, :false %>
+  </div>
+
+  <div>
+    <%= f.label :payment_methods, 'Formas de Pagamento' %>
+    <% payment_methods.each do |payment_method| %>
+      <%= f.check_box :payment_methods, { multiple: true }, payment_method, nil %>
+      <%= label_tag :payment_methods, payment_method %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :room_infos, 'Especificações de quartos' %>
+    <%= f.check_box :room_infos, { multiple: true }, :has_bathroom, nil%>
+    <%= label_tag :has_bathroom, "Possui quarto com banheiro próprio" %>
+
+    <%= f.check_box :room_infos, { multiple: true }, :has_balcony, nil %>
+    <%= label_tag :has_balcony, "Possui quarto com varanda" %>
+
+    <%= f.check_box :room_infos, { multiple: true }, :has_air_conditioner, nil %>
+    <%= label_tag :has_air_conditioner, "Possui quarto ar condicionado" %>
+
+    <%= f.check_box :room_infos, { multiple: true }, :has_tv, nil %>
+    <%= label_tag :has_tv, "Possui quarto com TV" %>
+
+    <%= f.check_box :room_infos, { multiple: true }, :has_wardrobe, nil %>
+    <%= label_tag :has_wardrobe, "Possui quarto com armário" %>
+    
+    <%= f.check_box :room_infos, { multiple: true }, :has_coffer, nil%>
+    <%= label_tag :has_coffer, "Possui quarto com cofre" %>
+
+    <%= f.check_box :room_infos, { multiple: true }, :accessible, nil %>
+    <%= label_tag :accessible, "Possui quarto acessível para pessoas com deficiência" %>
+  </div>
+
+  <%= f.submit 'Busca Avançada' %>
+<% end %>

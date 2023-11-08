@@ -1,0 +1,7 @@
+<h1>Pousadas em <%= @city %></h1>
+<% @inns.each do |inn| %>
+  <ul>
+    <li><%= link_to inn.brand_name, inn_path(inn) %></li>  
+    <li><%= Inn.human_attribute_name(:address) %>: <%= inn.address %>. <%= inn.district %>, <%= inn.city %> - <%= inn.state %>. </li>
+  </ul>
+<% end %>

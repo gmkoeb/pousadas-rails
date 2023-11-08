@@ -1,0 +1,11 @@
+<h1>Busca Avançada</h1>
+<% if @inns.present? %>
+  <h2><%= @inns.count %> <%= Inn.model_name.human(count: @inns.count).downcase %> <%= t(:found, count: @inns.count) %></h2>
+  <ul>
+    <% @inns.each do |inn| %>
+      <%= render 'inn_details', inn: inn %>
+    <% end %>
+  </ul>
+<% else %>
+  <h2> Não foi possível encontrar nenhuma pousada com essas informações. </h2>
+<% end %>

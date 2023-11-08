@@ -26,6 +26,44 @@ class Inn < ApplicationRecord
   enum status: {draft: 0, published: 2}
 
   private
+  def self.sort_inns(inns)
+    inns.published.sort_by { |inn| inn[:brand_name] }
+  end
+
+  def self.search(query)
+    sort_inns(self.where("brand_name LIKE ? OR city LIKE ? OR district LIKE ?", 
+              "%#{query}%", "%#{query}%", "%#{query}%"))
+  end
+  
+  def self.advanced_search(query, accepts_pets, payment_methods, room_infos, price)
+    inns = Inn.all
+
+    inns = inns.where("brand_name LIKE ? OR city LIKE ? OR district LIKE ?", 
+                      "%#{query}%", "%#{query}%", "%#{query}%") if query.present?
+
+    inns = inns.where(accepts_pets: true) if accepts_pets == 'true'
+
+    inns = inns.where(accepts_pets: false) if accepts_pets == 'false'
+
+    if payment_methods.present?
+      payment_methods.each do |payment_method|
+        inns = inns.where("payment_methods LIKE ?", "%#{payment_method}%" )
+      end
+    end
+
+    if room_infos.present?
+      room_conditions = room_infos.map { |info| "rooms.#{info} = true" }
+      inn_ids_with_matching_rooms = Inn.joins(:rooms)
+                                       .where(room_conditions.join(' AND '))
+                                       .distinct
+                                       .pluck(:id)
+    
+      inns = inns.where(id: inn_ids_with_matching_rooms)
+    end
+    
+    return sort_inns(inns)
+  end 
+
   def user_has_admin_role
     unless self.user && self.user.admin?
       errors.add(:user, "Você precisa ser um dono de pousadas para realizar essa ação.")
