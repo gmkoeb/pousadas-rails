@@ -70,8 +70,7 @@ class InnsController < ApplicationController
     @query = params[:query]
     @payment_methods = params[:payment_methods]
     @room_infos = params[:room_infos]
-    @price = params[:price]
-    @inns = Inn.advanced_search(@query, @accepts_pets, @payment_methods, @room_infos, @price)
+    @inns = Inn.advanced_search(@query, @accepts_pets, @payment_methods, @room_infos)
   end
 
   private

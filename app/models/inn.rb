@@ -26,6 +26,13 @@ class Inn < ApplicationRecord
   enum status: {draft: 0, published: 2}
 
   private
+
+  def user_has_admin_role
+    unless self.user && self.user.admin?
+      errors.add(:user, "Você precisa ser um dono de pousadas para realizar essa ação.")
+    end
+  end
+
   def self.sort_inns(inns)
     inns.published.sort_by { |inn| inn[:brand_name] }
   end
@@ -35,7 +42,7 @@ class Inn < ApplicationRecord
               "%#{query}%", "%#{query}%", "%#{query}%"))
   end
   
-  def self.advanced_search(query, accepts_pets, payment_methods, room_infos, price)
+  def self.advanced_search(query, accepts_pets, payment_methods, room_infos)
     inns = Inn.all
 
     inns = inns.where("brand_name LIKE ? OR city LIKE ? OR district LIKE ?", 
@@ -63,10 +70,4 @@ class Inn < ApplicationRecord
     
     return sort_inns(inns)
   end 
-
-  def user_has_admin_role
-    unless self.user && self.user.admin?
-      errors.add(:user, "Você precisa ser um dono de pousadas para realizar essa ação.")
-    end
-  end
 end
