@@ -34,9 +34,9 @@
     <ul>
       <%= render 'inn_details', inn: @inn %>
     </ul>
-  <% if @inn.rooms.published.present? %>
+  <% if @rooms.present? %>
     <h1><%= Room.model_name.human(count: @inn.rooms.count) %></h1>
-    <% @inn.rooms.published.each do |room| %> 
+    <% @rooms.each do |room| %> 
       <%= render 'rooms/room_details', room: room, inn: @inn %>
     <%end%>
   <% else %>

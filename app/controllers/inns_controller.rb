@@ -23,9 +23,13 @@ class InnsController < ApplicationController
 
   def show     
     if @inn.draft?
-      if current_user.nil? || current_user.inn != @inn
+      if  current_user.nil? || current_user.inn != @inn
         redirect_to root_path, notice: 'Essa pousada não está aceitando reservas no momento.'
       end
+    end
+
+    if @inn.rooms.present?
+      @rooms = @inn.rooms.published
     end
   end
 
