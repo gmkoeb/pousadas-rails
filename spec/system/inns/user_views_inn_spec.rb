@@ -47,7 +47,6 @@ describe 'Dono de pousadas vê detalhes de pousada' do
   it 'e vê informações adicionais se a pousada é dele' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    login_as(user)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua das pousadas, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -55,6 +54,7 @@ describe 'Dono de pousadas vê detalhes de pousada' do
                       payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h',
                       check_in_check_out_time: '12:00', user: user, status: "draft")
     # Act
+    login_as(user)
     visit root_path
     within 'nav' do
       click_on 'Minha pousada'
@@ -95,9 +95,8 @@ describe 'Dono de pousadas vê detalhes de pousada' do
                         city: 'Curitiba', zip_code: '8230460', description: 'A melhor pousada de Curitiba',
                         payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
                         check_in_check_out_time: '12:00', user: user_2, status: 'published')
-
-    login_as(user_2)
     # Act
+    login_as(user_2)
     visit root_path
     click_on 'Pousada do Luar'
     # Assert

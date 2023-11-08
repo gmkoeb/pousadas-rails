@@ -4,8 +4,8 @@ describe 'Dono de pousadas cria uma pousada' do
   it 'a partir da home' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    login_as(user)
     # Act
+    login_as(user)
     visit root_path
     within 'nav' do
       click_on 'Cadastrar pousada'
@@ -36,9 +36,8 @@ describe 'Dono de pousadas cria uma pousada' do
   it 'com sucesso' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    login_as(user)
-
     # Act
+    login_as(user)
     visit root_path
     click_on 'Cadastrar pousada'
     fill_in 'Razão social', with: 'Pousadas Florianópolis LTDA'
@@ -89,7 +88,6 @@ describe 'Dono de pousadas cria uma pousada' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
     user_2 = User.create!(email: 'gmkoeb2@gmail.com', password: 'password', admin: 'true')
-    login_as(user_2)
     Inn.create!(corporate_name: 'Pousada Repetida LTDA', brand_name: 'Pousada do Luar', 
                 registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                 address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -97,6 +95,7 @@ describe 'Dono de pousadas cria uma pousada' do
                 payment_methods: 'Dinheiro', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
                 check_in_check_out_time: '12:00', user: user)
     # Act
+    login_as(user_2)
     visit root_path
     fill_in 'Razão social', with: 'Pousadas Florianópolis LTDA'
     fill_in 'Nome fantasia', with: 'Pousada do Luar'
@@ -126,8 +125,8 @@ describe 'Dono de pousadas cria uma pousada' do
   it 'com dados faltando' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    login_as(user)
     # Act
+    login_as(user)
     visit root_path
     click_on 'Cadastrar pousada'
     fill_in 'Razão social', with: 'Pousadas Florianópolis LTDA'
@@ -159,8 +158,8 @@ describe 'Usuário comum tenta criar uma pousada' do
   it 'a partir da home' do
     # Arrange
     user = User.create!(email: 'gmkoeb1@gmail.com', password: 'password')
-    login_as(user)
     # Act
+    login_as(user)
     visit new_inn_path
     # Assert
     expect(current_path).to eq(root_path)

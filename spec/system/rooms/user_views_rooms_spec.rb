@@ -28,6 +28,7 @@ describe 'usuário vê quartos de uma pousada' do
     expect(page).to_not have_content 'Quarto Master Casal'
     expect(page).to_not have_content 'Melhor quarto para casais'
   end
+
   it 'e não há nenhum quarto disponível' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
@@ -56,7 +57,6 @@ describe 'usuário vê quartos de uma pousada' do
   it 'e é dono da pousada' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    login_as(user)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -66,6 +66,7 @@ describe 'usuário vê quartos de uma pousada' do
     inn.rooms.create!(name: 'Quarto Master Casal', description: 'Melhor quarto para casais', area: 50, 
     price: 6000, maximum_guests: 2, has_bathroom: true, has_balcony: true, accessible: true, status: 'draft')
     # Act
+    login_as(user)
     visit root_path
     within 'nav' do
       click_on 'Minha pousada'
