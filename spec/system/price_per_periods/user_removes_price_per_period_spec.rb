@@ -3,7 +3,6 @@ describe 'usuário remove preço por período' do
   it 'com sucesso' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    login_as(user)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -14,6 +13,7 @@ describe 'usuário remove preço por período' do
                             price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
     room.price_per_periods.create!(special_price: 1234, starts_at: Date.today, ends_at: Date.tomorrow)     
     # Act
+    login_as(user)
     visit root_path
     click_on 'Minha pousada'
     click_on 'Quarto Master'
