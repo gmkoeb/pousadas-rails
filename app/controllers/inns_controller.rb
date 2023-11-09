@@ -61,7 +61,7 @@ class InnsController < ApplicationController
 
   def search_by_city
     @city = params[:city]
-    @inns = Inn.where(city: @city).published.sort_by { |inn| inn[:brand_name] }
+    @inns = Inn.where(city: @city).sort_inns
   end
 
   def advanced_search_form

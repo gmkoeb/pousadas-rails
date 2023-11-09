@@ -33,13 +33,13 @@ class Inn < ApplicationRecord
     end
   end
 
-  def self.sort_inns(inns)
-    inns.published.sort_by { |inn| inn[:brand_name] }
+  def self.sort_inns
+    self.published.sort_by { |inn| inn[:brand_name] }
   end
 
   def self.search(query)
-    sort_inns(self.where("brand_name LIKE ? OR city LIKE ? OR district LIKE ?", 
-              "%#{query}%", "%#{query}%", "%#{query}%"))
+    self.where("brand_name LIKE ? OR city LIKE ? OR district LIKE ?", 
+                         "%#{query}%", "%#{query}%", "%#{query}%").sort_inns
   end
   
   def self.advanced_search(query, accepts_pets, payment_methods, room_infos)
@@ -68,6 +68,6 @@ class Inn < ApplicationRecord
       inns = inns.where(id: inn_ids_with_matching_rooms)
     end
     
-    return sort_inns(inns)
+    return inns.sort_inns
   end 
 end
