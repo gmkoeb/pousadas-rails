@@ -1,7 +1,7 @@
 class InnsController < ApplicationController
   before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :publish, :draft]
   before_action :admin_has_inn?, except: [:new, :create]
-  before_action :set_inn_and_check_user, only: [:show, :edit, :update, :publish, :draft]
+  before_action :set_inn_and_check_user, only: [:edit, :update, :publish, :draft]
   before_action :inn_params, only: [:create, :update]
 
   
@@ -22,6 +22,7 @@ class InnsController < ApplicationController
   end
 
   def show     
+    @inn = Inn.friendly.find(params[:id])
     if @inn.draft?
       if current_user.nil? || current_user.inn != @inn
         redirect_to root_path, notice: 'Essa pousada não está aceitando reservas no momento.'
