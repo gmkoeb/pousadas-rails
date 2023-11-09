@@ -36,11 +36,6 @@ class InnsController < ApplicationController
   def edit;end
 
   def update
-    inn_params = params.require(:inn).permit(:corporate_name, :brand_name, 
-                                             :registration_number, :phone, :email, 
-                                             :address, :district, :state, :city,
-                                             :zip_code, :description, :accepts_pets, :terms_of_service, 
-                                             :check_in_check_out_time, payment_methods:[])
     if @inn.update(inn_params)
       redirect_to inn_path(@inn), notice: 'Pousada atualizada com sucesso!'
     else

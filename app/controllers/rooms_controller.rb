@@ -43,10 +43,6 @@ class RoomsController < ApplicationController
   end
 
   def update
-    room_params = params.require(:room).permit(:name, :description, :area, 
-                                               :maximum_guests, :price, :has_bathroom, 
-                                               :has_balcony, :has_air_conditioner, :has_tv,
-                                               :has_wardrobe, :has_coffer, :accessible)
     if @room.update(room_params)
       redirect_to room_path(@room), notice: 'Quarto atualizado com sucesso!'     
     else
