@@ -1,8 +1,7 @@
 class RoomsController < ApplicationController
   before_action :admin_has_inn?
   before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :publish, :draft]
-  before_action :set_inn, only: [:new, :create, :index]
-  before_action :inn_belongs_to_user?, only:[:new, :create]
+  before_action :set_inn_and_check_user, only: [:new, :create, :index]
   before_action :room_params, only: [:create, :update]
   before_action :set_room_and_check_user, only: [:edit, :update, :draft, :publish]
 
@@ -21,10 +20,8 @@ class RoomsController < ApplicationController
   end
 
   def index
-    if current_user
-      if current_user.inn == @inn
-        @rooms = @inn.rooms
-      end
+    if current_user && current_user.inn == @inn
+      @rooms = @inn.rooms
     else
       @rooms = @inn.rooms.published
     end
@@ -33,7 +30,7 @@ class RoomsController < ApplicationController
   def show
     @room = Room.friendly.find(params[:id])
     if @room.draft?
-      if current_user.nil? || current_user.inn != @room.inn
+      if current_user.nil? || current_user.rooms.exclude?(@room)
         redirect_to inn_path(@room.inn), alert: 'Este quarto não está aceitando reservas no momento.'
       end
     end
@@ -63,16 +60,14 @@ class RoomsController < ApplicationController
 
   private
 
-  def set_inn
+  def set_inn_and_check_user
     @inn = Inn.friendly.find(params[:inn_id])
+    return redirect_to root_path, alert: 'Você não pode realizar essa ação.' if current_user.inn != @inn
   end
 
   def set_room_and_check_user
     @room = Room.friendly.find(params[:id])
-    user_room = current_user.inn.rooms.where(id: @room.id)
-    if user_room.empty?
-      redirect_to root_path, alert: 'Você não pode realizar essa ação'
-    end
+    redirect_to root_path, alert: 'Você não pode realizar essa ação' if current_user.rooms.exclude?(@room)
   end
 
   def room_params

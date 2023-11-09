@@ -88,4 +88,9 @@ class InnsController < ApplicationController
                                              :zip_code, :description, :accepts_pets, :terms_of_service, 
                                              :check_in_check_out_time, payment_methods:[])
   end
+
+  def inn_belongs_to_user?
+    return redirect_to root_path, alert: 'Você não pode realizar essa ação.' if current_user.inn != @inn
+  end
+
 end

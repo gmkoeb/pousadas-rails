@@ -6,5 +6,5 @@ class User < ApplicationRecord
          
   has_one :inn
 
-  has_many :rooms
+  has_many :rooms, through: :inn
 end

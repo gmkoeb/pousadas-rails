@@ -19,10 +19,4 @@ class ApplicationController < ActionController::Base
         redirect_to new_inn_path, notice: 'Você não possui nenhuma pousada. Crie uma para continuar navegando' if current_user.inn.nil?
       end
   end
-
-  def inn_belongs_to_user?
-    if current_user.inn != @inn
-      return redirect_to root_path, alert: 'Você não pode realizar essa ação.'
-    end
-  end
 end
