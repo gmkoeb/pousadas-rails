@@ -23,8 +23,9 @@ class InnsController < ApplicationController
 
   def show     
     @inn = Inn.friendly.find(params[:id])
+
     if @inn.draft?
-      if current_user.nil? || current_user.inn != @inn
+      unless current_user && current_user.inn == @inn
         redirect_to root_path, notice: 'Essa pousada não está aceitando reservas no momento.'
       end
     end
