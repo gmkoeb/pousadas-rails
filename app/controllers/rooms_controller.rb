@@ -6,11 +6,11 @@ class RoomsController < ApplicationController
   before_action :set_room_and_check_user, only: [:edit, :update, :draft, :publish]
 
   def new
-    @room = @inn.rooms.build
+    @room = current_user.rooms.build
   end
 
   def create                                             
-    @room = @inn.rooms.build(room_params)
+    @room = current_user.rooms.build(room_params)
     if @room.save
       redirect_to room_path(@room), notice: 'Quarto cadastrado com sucesso!'
     else
@@ -20,8 +20,8 @@ class RoomsController < ApplicationController
   end
 
   def index
-    if current_user && current_user.inn == @inn
-      @rooms = @inn.rooms
+    if current_user.inn == @inn
+      @rooms = current_user.rooms
     else
       @rooms = @inn.rooms.published
     end

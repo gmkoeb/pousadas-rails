@@ -1,9 +1,9 @@
 class InnsController < ApplicationController
   before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :publish, :draft]
   before_action :admin_has_inn?, except: [:new, :create]
-  before_action :set_inn, only: [:show, :edit, :update, :publish, :draft]
+  before_action :set_inn_and_check_user, only: [:show, :edit, :update, :publish, :draft]
   before_action :inn_params, only: [:create, :update]
-  before_action :inn_belongs_to_user?, only: [:edit, :update, :publish, :draft]
+
   
   def new
     @inn = Inn.new
@@ -23,7 +23,7 @@ class InnsController < ApplicationController
 
   def show     
     if @inn.draft?
-      if  current_user.nil? || current_user.inn != @inn
+      if current_user.nil? || current_user.inn != @inn
         redirect_to root_path, notice: 'Essa pousada não está aceitando reservas no momento.'
       end
     end
@@ -77,10 +77,6 @@ class InnsController < ApplicationController
 
   private
 
-  def set_inn
-    @inn = Inn.friendly.find(params[:id])
-  end
-
   def inn_params
     inn_params = params.require(:inn).permit(:corporate_name, :brand_name, 
                                              :registration_number, :phone, :email, 
@@ -89,8 +85,10 @@ class InnsController < ApplicationController
                                              :check_in_check_out_time, payment_methods:[])
   end
 
-  def inn_belongs_to_user?
-    return redirect_to root_path, alert: 'Você não pode realizar essa ação.' if current_user.inn != @inn
+  def set_inn_and_check_user
+    @inn = Inn.friendly.find(params[:id])
+    if current_user
+      return redirect_to root_path, alert: 'Você não pode realizar essa ação.' if current_user.inn != @inn
+    end
   end
-
 end
