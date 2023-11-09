@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
   before_action :set_inn, only: [:new, :create, :index]
   before_action :inn_belongs_to_user?, only:[:new, :create]
   before_action :room_params, only: [:create, :update]
-  before_action :inn_room_belongs_to_user?, only: [:edit, :update, :draft, :publish]
+  before_action :set_room_and_check_user, only: [:edit, :update, :draft, :publish]
 
   def new
     @room = @inn.rooms.build
@@ -71,9 +71,9 @@ class RoomsController < ApplicationController
     @inn = Inn.friendly.find(params[:inn_id])
   end
 
-  def inn_room_belongs_to_user?
+  def set_room_and_check_user
     @room = Room.friendly.find(params[:id])
-    user_room = current_user.inn.rooms.where(slug: params[:id])
+    user_room = current_user.inn.rooms.where(id: @room.id)
     if user_room.empty?
       redirect_to root_path, alert: 'Você não pode realizar essa ação'
     end
