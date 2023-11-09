@@ -1,24 +1,29 @@
 <h1><%= @inn.brand_name %></h1>
 <h2>Detalhes da pousada</h2>
+
 <% if current_user && current_user.inn && @inn == current_user.inn %>
+
   <div>
     <ul>
       <li><%= Inn.human_attribute_name(:corporate_name) %>: <%= @inn.corporate_name %></li>
       <li><%= Inn.human_attribute_name(:brand_name) %>: <%= @inn.brand_name %></li>
       <li><%= Inn.human_attribute_name(:registration_number) %>: <%= @inn.registration_number %></li>
+
       <%= render 'inn_details', inn: @inn %>
+
       <% if @inn.draft? %>
         <h4>ATENÇÃO: Ao publicar a pousada ela poderá ser visualizada por outros usuários.</h4>
         <%= button_to 'Publicar pousada', publish_inn_path(@inn.id), {method: 'patch'}%>
       <% else %>
         <%= button_to 'Esconder pousada', draft_inn_path(@inn.id), {method: 'patch'}%>
-      <%end%>
+      <% end %>
     </ul>
     <div>
       <%= link_to 'Editar Pousada', edit_inn_path(@inn)%>
     </div>
+
     <% if @inn.rooms.empty? %>
-      <h2>Não existem quartos disponíveis no momento. <%= link_to 'Clique aqui para cadastrar um.', new_inn_room_path(@inn)%></h2>
+      <h2>Você ainda não cadastrou um quarto. <%= link_to 'Clique aqui para cadastrar um.', new_inn_room_path(@inn)%></h2>
     <% else %>
       <div>
         <%= link_to 'Cadastrar Quarto', new_inn_room_path(@inn) %> 
@@ -29,6 +34,7 @@
     <%end%>
   </div>
 <%end%>
+
 <% if current_user.nil? || current_user.inn != @inn %>
   <div>
     <ul>

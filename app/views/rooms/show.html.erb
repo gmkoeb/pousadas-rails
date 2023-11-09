@@ -1,18 +1,16 @@
-<% if current_user %>
-  <% if current_user.inn == @room.inn %>
-    <%= render 'room_details', room:@room, inn:@room.inn %>
-    <% if @room.draft? %>
-      <h4>ATENÇÃO: Ao publicar o quarto ele poderá ser visualizado por outros usuários, e aceitará reservas.</h4>
-      <%= button_to 'Publicar Quarto', publish_room_path(@room), {method: 'patch'}%>
-    <% else %>
-      <%= button_to 'Esconder Quarto', draft_room_path(@room), {method: 'patch'}%>
-    <%end%>
-    <%= link_to 'Definir Preços Por Período', new_room_price_per_period_path(@room) %>
-    <%= link_to 'Editar Quarto', edit_room_path(@room) %>
-  <% end %>
-<% end %>
+<% if current_user && current_user.rooms.include?(@room) %>
+  <%= render 'room_details', room:@room, inn:@room.inn %>
 
-<% if current_user.nil? || current_user.inn != @room.inn %>
+  <% if @room.draft? %>
+    <h4>ATENÇÃO: Ao publicar o quarto ele poderá ser visualizado por outros usuários, e aceitará reservas.</h4>
+    <%= button_to 'Publicar Quarto', publish_room_path(@room), {method: 'patch'}%>
+  <% else %>
+    <%= button_to 'Esconder Quarto', draft_room_path(@room), {method: 'patch'}%>
+  <%end%>
+  
+  <%= link_to 'Definir Preços Por Período', new_room_price_per_period_path(@room) %>
+  <%= link_to 'Editar Quarto', edit_room_path(@room) %>
+<% else %>
   <%= render 'room_details', room: @room, inn:@room.inn %>
 <% end %>
 

@@ -10,10 +10,11 @@ class Room < ApplicationRecord
   belongs_to :inn
   
   has_many :price_per_periods
+  
+  validate :valid_inn
 
   validates :name, :description, :area, :maximum_guests, :price, presence: true
   
-  validate :valid_inn
 
   enum status: {draft: 0, published: 2}
 
