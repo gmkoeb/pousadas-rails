@@ -7,20 +7,15 @@ class Inn < ApplicationRecord
   end
 
   belongs_to :user
-
   has_many :rooms
-
   validates :brand_name, :corporate_name, :registration_number, :phone, :email, 
             :address, :district, :state, :city, :zip_code, :description, 
             :payment_methods, :terms_of_service, 
             :check_in_check_out_time, presence: true
-
   validates :registration_number, :brand_name, :email, :phone, uniqueness: true
-
   validates :user_id, uniqueness: {
     message: "já possui uma pousada"
   }
-
   validate :user_has_admin_role
 
   enum status: {draft: 0, published: 2}
@@ -44,12 +39,9 @@ class Inn < ApplicationRecord
   
   def self.advanced_search(query, accepts_pets, payment_methods, room_infos)
     inns = Inn.all
-
     inns = inns.where("brand_name LIKE ? OR city LIKE ? OR district LIKE ?", 
                       "%#{query}%", "%#{query}%", "%#{query}%") if query.present?
-
     inns = inns.where(accepts_pets: true) if accepts_pets == 'true'
-
     inns = inns.where(accepts_pets: false) if accepts_pets == 'false'
 
     if payment_methods.present?
@@ -66,8 +58,7 @@ class Inn < ApplicationRecord
                                        .pluck(:id)
     
       inns = inns.where(id: inn_ids_with_matching_rooms)
-    end
-    
+    end 
     return inns.sort_inns
   end 
 end

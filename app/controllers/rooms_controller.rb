@@ -12,7 +12,7 @@ class RoomsController < ApplicationController
   def create                                             
     @room = current_user.rooms.build(room_params)
     if @room.save
-      redirect_to room_path(@room), notice: 'Quarto cadastrado com sucesso!'
+      redirect_to @room, notice: 'Quarto cadastrado com sucesso!'
     else
       flash.now[:alert] = "Não foi possível cadastrar o quarto."
       render 'new', status: 422
@@ -20,20 +20,17 @@ class RoomsController < ApplicationController
   end
 
   def index
-    if current_user.inn == @inn
-      @rooms = current_user.rooms
-    else
-      @rooms = @inn.rooms.published
-    end
+    @rooms = @inn.rooms.published
+    
+    @rooms = current_user.rooms if current_user.inn == @inn
   end
 
   def show
     @room = Room.friendly.find(params[:id])
-    if @room.draft?
-      if current_user.nil? || current_user.rooms.exclude?(@room)
-        redirect_to inn_path(@room.inn), alert: 'Este quarto não está aceitando reservas no momento.'
-      end
-    end
+    return unless @room.draft?
+
+    redirect_to inn_path(@room.inn), 
+    alert: 'Este quarto não está aceitando reservas no momento.' if current_user.nil? || current_user.rooms.exclude?(@room)
   end
 
   def edit
@@ -41,7 +38,7 @@ class RoomsController < ApplicationController
 
   def update
     if @room.update(room_params)
-      redirect_to room_path(@room), notice: 'Quarto atualizado com sucesso!'     
+      redirect_to @room, notice: 'Quarto atualizado com sucesso!'     
     else
       flash.now[:alert] = 'Não foi possível atualizar o quarto.'  
       render 'edit', status: 422
@@ -50,12 +47,12 @@ class RoomsController < ApplicationController
 
   def publish
     @room.published!
-    redirect_to room_path(@room)
+    redirect_to @room
   end
 
   def draft
     @room.draft!
-    redirect_to room_path(@room)
+    redirect_to @room
   end
 
   private

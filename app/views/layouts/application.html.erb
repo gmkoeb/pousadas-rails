@@ -24,7 +24,7 @@
           <% else %>
             <%= link_to 'Cadastrar pousada', new_inn_path %>
           <% end %> 
-        <%end%>
+        <% end %>
         <%= button_to 'Sair', destroy_user_session_path, method: :delete %> 
       <% else %>
         <%= link_to 'Entrar', new_user_session_path %>
@@ -42,10 +42,10 @@
     <div>
     <% if flash.alert %>
       <div id=”error_explanation”>
-      <p><%= flash.alert %></p>
+      <p> <%= flash.alert %> </p>
     </div>
     <% end %>
-      <p><%= notice %></p>
+      <p> <%= notice %> </p>
     </div>
     <main>
       <%= yield %>

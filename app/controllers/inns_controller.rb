@@ -15,23 +15,17 @@ class InnsController < ApplicationController
     if @inn.save
       redirect_to inn_path(@inn), notice: 'Pousada cadastrada com sucesso!'
     else  
-      @inn.user = nil
       flash.now[:alert] = 'Não foi possível cadastrar pousada.'
+      @inn.user = nil
       render 'new', status: 422
     end
   end
 
   def show     
     @inn = Inn.friendly.find(params[:id])
-
-    if @inn.draft?
-      unless current_user && current_user.inn == @inn
-        redirect_to root_path, notice: 'Essa pousada não está aceitando reservas no momento.'
-      end
-    end
-
-    if @inn.rooms.present?
-      @rooms = @inn.rooms.published
+    @rooms = @inn.rooms.published if @inn.rooms.present?
+    unless current_user && current_user.inn == @inn
+      return redirect_to root_path, notice: 'Essa pousada não está aceitando reservas no momento.' if @inn.draft?
     end
   end
 
@@ -39,7 +33,7 @@ class InnsController < ApplicationController
 
   def update
     if @inn.update(inn_params)
-      redirect_to inn_path(@inn), notice: 'Pousada atualizada com sucesso!'
+      redirect_to @inn, notice: 'Pousada atualizada com sucesso!'
     else
       flash.now[:alert] = 'Não foi possível atualizar a pousada.'
       render 'edit', status: '422'
@@ -48,12 +42,12 @@ class InnsController < ApplicationController
 
   def publish
     @inn.published!
-    redirect_to inn_path(@inn)
+    redirect_to @inn
   end
 
   def draft
     @inn.draft!
-    redirect_to inn_path(@inn)
+    redirect_to @inn
   end
 
   def search_by_city
@@ -61,14 +55,14 @@ class InnsController < ApplicationController
     @inns = Inn.where(city: @city).sort_inns
   end
 
-  def advanced_search_form
-  end
   
   def search
     @query = params[:query]
     @inns = Inn.search(@query)
   end
 
+  def advanced_search_form;end
+  
   def advanced_search
     @accepts_pets = params[:accepts_pets]
     @query = params[:query]
