@@ -57,12 +57,12 @@
 
   <div class="col-md-6">
     <h4><%= f.label :room_maximum_guests, 'Número de hóspedes', class: "form-label" %></h4>
-    <%= f.number_field :room_maximum_guests, placeholder:"1", class: "form-control" %>
+    <%= f.number_field :room_maximum_guests, :value => 1, class: "form-control" %>
   </div>
 
   <div class="col-md-6">
     <h4><%= f.label :room_price, 'Quartos com preços abaixo de:', class: "form-label" %></h4>
-    <%= f.number_field :room_price, placeholder:"1", class: "form-control" %>
+    <%= f.number_field :room_price, :value => 1, placeholder:"", class: "form-control" %>
   </div>
   <div>
     <%= f.submit 'Buscar', class:"btn btn-primary text-white w-100" %>

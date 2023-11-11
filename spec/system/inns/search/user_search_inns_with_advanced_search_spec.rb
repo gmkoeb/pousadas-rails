@@ -63,6 +63,8 @@ describe 'Usuário realiza busca avançada' do
     click_on 'busca avançada'
     within 'main form' do
       fill_in 'Pousada', with: 'Pousada do Frio'
+      fill_in 'Número de hóspedes', with: ''
+      fill_in 'Quartos com preços abaixo de:', with: ''
       click_on 'Buscar'
     end
     # Assert
