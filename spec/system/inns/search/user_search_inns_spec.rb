@@ -9,7 +9,7 @@ describe 'Usuário procura pousadas' do
     # Assert
     within 'nav' do
       expect(page).to have_content 'Buscar Pousadas'
-      expect(page).to have_button 'Buscar'
+      expect(page).to have_button 'search-button'
     end
   end
 
@@ -50,7 +50,7 @@ describe 'Usuário procura pousadas' do
     # Act
     visit root_path
     fill_in 'Buscar Pousadas', with: 'Pousada do Frio'
-    click_on 'Buscar'
+    click_on 'search-button'
     # Assert
     expect(page).to have_content 'Resultados da busca por: Pousada do Frio'
     expect(page).to have_content '1 pousada encontrada'
@@ -98,7 +98,7 @@ describe 'Usuário procura pousadas' do
     # Act
     visit root_path
     fill_in 'Buscar Pousadas', with: 'beira mar'
-    click_on 'Buscar'
+    click_on 'search-button'
     # Assert
     expect(page).to have_content 'Resultados da busca por: beira mar'
     expect(page).to have_content '2 pousadas encontrada'
@@ -147,7 +147,7 @@ describe 'Usuário procura pousadas' do
     # Act
     visit root_path
     fill_in 'Buscar Pousadas', with: 'florianópolis'
-    click_on 'Buscar'
+    click_on 'search-button'
     # Assert
     expect(page).to have_content 'Resultados da busca por: florianópolis'
     expect(page).to have_content '2 pousadas encontrada'

@@ -1,49 +1,70 @@
-<h1>Busca Avançada de Pousadas</h1>
-<%= form_with(url: advanced_search_inns_path, method: :get) do |f|%>
-  <div>
-    <%= f.label :query, 'Pousada' %>
-    <%= f.text_field :query, placeholder: 'Nome, cidade ou bairro' %>
+<h1>Busca Avançada</h1>
+<%= form_with(url: advanced_search_inns_path, method: :get, html: {class: "row g-3 w-75 mt-3"}) do |f|%>
+  <div class="col-md-12">
+    <h4><%= f.label :query, 'Pousada', class: "form-label" %></h4>
+    <%= f.text_field :query, placeholder: 'Nome, cidade ou bairro', class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :accepts_pets, 'Aceita Pets?' %>
-    <%= f.label :true, 'Sim' %>
-    <%= f.radio_button :accepts_pets, :true %>
-    <%= f.label :false, 'Não' %>
-    <%= f.radio_button :accepts_pets, :false %>
+  <div class="col-md-12">
+    <h4><%= f.label :accepts_pets, 'Aceita Pets?', class: "form-label" %></h4>
+    <%= f.label :true, 'Sim', class: "form-check-label" %>
+    <%= f.radio_button :accepts_pets, :true, class: "form-check-input" %>
+    <%= f.label :false, 'Não', class: "form-check-label" %>
+    <%= f.radio_button :accepts_pets, :false, class: "form-check-input" %>
   </div>
 
-  <div>
-    <%= f.label :payment_methods, 'Formas de Pagamento' %>
+  <div class="col-md-12">
+    <h4><%= f.label :payment_methods, 'Formas de Pagamento' %></h4>
     <% payment_methods.each do |payment_method| %>
-      <%= f.check_box :payment_methods, { multiple: true }, payment_method, nil %>
-      <%= label_tag :payment_methods, payment_method %>
+      <%= f.check_box :payment_methods, { multiple: true, class: "form-check-input" }, payment_method, nil %>
+      <%= label_tag :payment_methods, payment_method, class: "form-check-label" %>
     <% end %>
   </div>
 
-  <div>
-    <%= f.label :room_infos, 'Especificações de quartos' %>
-    <%= f.check_box :room_infos, { multiple: true }, :has_bathroom, nil%>
-    <%= label_tag :has_bathroom, "Possui quarto com banheiro próprio" %>
-
-    <%= f.check_box :room_infos, { multiple: true }, :has_balcony, nil %>
-    <%= label_tag :has_balcony, "Possui quarto com varanda" %>
-
-    <%= f.check_box :room_infos, { multiple: true }, :has_air_conditioner, nil %>
-    <%= label_tag :has_air_conditioner, "Possui quarto ar condicionado" %>
-
-    <%= f.check_box :room_infos, { multiple: true }, :has_tv, nil %>
-    <%= label_tag :has_tv, "Possui quarto com TV" %>
-
-    <%= f.check_box :room_infos, { multiple: true }, :has_wardrobe, nil %>
-    <%= label_tag :has_wardrobe, "Possui quarto com armário" %>
-    
-    <%= f.check_box :room_infos, { multiple: true }, :has_coffer, nil%>
-    <%= label_tag :has_coffer, "Possui quarto com cofre" %>
-
-    <%= f.check_box :room_infos, { multiple: true }, :accessible, nil %>
-    <%= label_tag :accessible, "Possui quarto acessível para pessoas com deficiência" %>
+  <div class="col-md-12 d-flex flex-column">
+    <h4> <%= f.label :room_infos, 'Especificações de quartos:', class: "mb-3" %> </h4>
+    <div class="d-flex flex-column">
+      <div>
+        <%= f.check_box :room_infos, { multiple: true, class: "form-check-input" }, :has_bathroom, nil%>
+        <%= label_tag :has_bathroom, "Possui quarto com banheiro próprio", class: "form-label" %>
+      </div>
+      <div>
+        <%= f.check_box :room_infos, { multiple: true, class: "form-check-input" }, :has_balcony, nil %>
+        <%= label_tag :has_balcony, "Possui quarto com varanda", class: "form-label" %> 
+      </div>
+      <div>
+        <%= f.check_box :room_infos, { multiple: true, class: "form-check-input" }, :has_air_conditioner, nil %>
+        <%= label_tag :has_air_conditioner, "Possui quarto ar condicionado", class: "form-label" %> 
+      </div>
+      <div>  
+        <%= f.check_box :room_infos, { multiple: true, class: "form-check-input" }, :has_tv, nil %>
+        <%= label_tag :has_tv, "Possui quarto com TV", class: "form-label" %> 
+      </div>
+      <div>
+        <%= f.check_box :room_infos, { multiple: true, class: "form-check-input" }, :has_wardrobe, nil %>
+        <%= label_tag :has_wardrobe, "Possui quarto com armário", class: "form-label" %>
+      </div>
+      <div>
+        <%= f.check_box :room_infos, { multiple: true, class: "form-check-input" }, :has_coffer, nil%>
+        <%= label_tag :has_coffer, "Possui quarto com cofre", class: "form-label" %>
+      </div>
+      <div>   
+        <%= f.check_box :room_infos, { multiple: true, class: "form-check-input" }, :accessible, nil %>
+        <%= label_tag :accessible, "Possui quarto acessível para pessoas com deficiência", class: "form-label" %>
+      </div>
+    </div>
   </div>
 
-  <%= f.submit 'Busca Avançada' %>
+  <div class="col-md-6">
+    <h4><%= f.label :room_maximum_guests, 'Número de hóspedes', class: "form-label" %></h4>
+    <%= f.number_field :room_maximum_guests, placeholder:"1", class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <h4><%= f.label :room_price, 'Quartos com preços abaixo de:', class: "form-label" %></h4>
+    <%= f.number_field :room_price, placeholder:"1", class: "form-control" %>
+  </div>
+  <div>
+    <%= f.submit 'Buscar', class:"btn btn-primary text-white w-100" %>
+  </div>
 <% end %>

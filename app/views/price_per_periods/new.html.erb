@@ -1,10 +1,10 @@
 <h1>Registrar Preço Por Período</h1>
 <% if @price_per_period.errors.any? %>
-<div class="rounded p-2 border border-1 fw-bold text-danger mt-3">
+<div class="rounded p-2 border border-1 fw-bold mt-3">
   <p class="text-center">Verifique os erros abaixo:</p>
   <ul>
     <% @price_per_period.errors.full_messages.each do |msg| %>
-    <li><%=msg%></li>
+    <li class="text-danger"><%=msg%></li>
     <%end%>
   </ul>
 </div>
@@ -24,6 +24,6 @@
     <%= f.date_field :ends_at,  class: "form-control" %>
   </div>
 <div class="text-center px-3">
-  <%= f.submit 'Enviar', class: "btn btn-primary w-50" %>
+  <%= f.submit 'Enviar', class: "btn btn-primary w-50 text-white" %>
 </div>
 <% end %>

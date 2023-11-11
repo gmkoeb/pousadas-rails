@@ -8,7 +8,7 @@ describe 'Usuário realiza busca avançada' do
     visit root_path
     click_on 'busca avançada'
     # Arrange
-    expect(page).to have_content "Busca Avançada de Pousadas"
+    expect(page).to have_content "Busca Avançada"
     expect(page).to have_content "Pousada"
     expect(page).to have_content "Aceita Pets"
     expect(page).to have_content "Dinheiro"
@@ -63,7 +63,7 @@ describe 'Usuário realiza busca avançada' do
     click_on 'busca avançada'
     within 'main form' do
       fill_in 'Pousada', with: 'Pousada do Frio'
-      click_on 'Busca Avançada'
+      click_on 'Buscar'
     end
     # Assert
     expect(page).to have_content 'Busca Avançada'

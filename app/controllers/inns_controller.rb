@@ -64,11 +64,13 @@ class InnsController < ApplicationController
   def advanced_search_form;end
   
   def advanced_search
-    @accepts_pets = params[:accepts_pets]
-    @query = params[:query]
-    @payment_methods = params[:payment_methods]
-    @room_infos = params[:room_infos]
-    @inns = Inn.advanced_search(@query, @accepts_pets, @payment_methods, @room_infos)
+    accepts_pets = params[:accepts_pets]
+    query = params[:query]
+    payment_methods = params[:payment_methods]
+    room_infos = params[:room_infos]
+    room_maximum_guests = params[:room_maximum_guests] 
+    room_price = params[:room_price]
+    @inns = Inn.advanced_search(query, accepts_pets, payment_methods, room_infos, room_maximum_guests, room_price)
   end
 
   private

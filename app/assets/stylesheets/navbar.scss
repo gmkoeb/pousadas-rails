@@ -7,6 +7,9 @@
   padding: 0.1rem;
 }
 
+.authentication.btn:hover{
+  color: white !important;
+}
 a{
   text-decoration: none;
 }
@@ -15,6 +18,30 @@ a{
   margin-left: 6rem;
 }
 
+#search-button{
+  display: contents;
+}
+
+.search-container {
+  position: relative;
+  display: inline-block;
+}
+
+.search-input {
+  padding: 10px;
+  padding-right: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #555;
+  cursor: pointer;
+}
 
 .dropdown-toggle img{
   width: 2.5rem;
@@ -41,7 +68,6 @@ a{
     margin-left: 0;
   }
 
-  
   .navbar-nav{
     margin-right: 5rem;
   }

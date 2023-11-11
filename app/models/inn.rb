@@ -37,7 +37,7 @@ class Inn < ApplicationRecord
                          "%#{query}%", "%#{query}%", "%#{query}%").sort_inns
   end
   
-  def self.advanced_search(query, accepts_pets, payment_methods, room_infos)
+  def self.advanced_search(query, accepts_pets, payment_methods, room_infos, room_maximum_guests, room_price)
     inns = Inn.all
     inns = inns.where("brand_name LIKE ? OR city LIKE ? OR district LIKE ?", 
                       "%#{query}%", "%#{query}%", "%#{query}%") if query.present?
@@ -59,6 +59,11 @@ class Inn < ApplicationRecord
     
       inns = inns.where(id: inn_ids_with_matching_rooms)
     end 
+
+    inns = inns.joins(:rooms).where("maximum_guests >= #{room_maximum_guests}") if room_maximum_guests.present?
+
+    inns = inns.joins(:rooms).where("price <= #{room_price}") if room_price.present?
+    
     return inns.sort_inns
   end 
 end

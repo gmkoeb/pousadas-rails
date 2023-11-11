@@ -1,16 +1,16 @@
 <h1>Cadastro de Quarto</h1>
 <% if @room.errors.any? %>
-<div class="rounded p-2 border border-1 fw-bold text-danger mt-3">
+<div class="rounded p-2 border border-1 fw-bold mt-3">
   <p class="text-center">Verifique os erros abaixo:</p>
   <ul>
     <% @room.errors.full_messages.each do |msg| %>
-    <li><%=msg%></li>
+    <li class="text-danger"><%=msg%></li>
     <%end%>
   </ul>
 </div>
 <% end %>
 
-<%= form_with model: [@inn, @room], html: {class: "row g-3 mt-3 w-50 row-no-padding"} do |f| %>
+<%= form_with model: [@inn, @room], html: {class: "row g-3 mt-3 w-50"} do |f| %>
   <div class="col-md-4">
     <%= f.label :name, class: "form-label" %>
     <%= f.text_field :name, class: "form-control" %>
@@ -38,41 +38,41 @@
 
   <div class="d-flex flex-column">
     <div>
+      <%= f.check_box :has_bathroom, class: "form-check-input" %>
       <%= f.label :has_bathroom, class: "form-check-label" %>
-      <%= f.check_box :has_bathroom, class: "form-check-input mx-2" %>
     </div>
 
     <div>
+      <%= f.check_box :has_balcony, class: "form-check-input" %>
       <%= f.label :has_balcony, class: "form-check-label" %>
-      <%= f.check_box :has_balcony, class: "form-check-input mx-2" %>
     </div>
     
     <div>
+      <%= f.check_box :has_air_conditioner, class: "form-check-input" %>
       <%= f.label :has_air_conditioner, class: "form-check-label" %>
-      <%= f.check_box :has_air_conditioner, class: "form-check-input mx-2" %>
     </div>
     
     <div>
+      <%= f.check_box :has_tv, class: "form-check-input" %>
       <%= f.label :has_tv, class: "form-check-label" %>
-      <%= f.check_box :has_tv, class: "form-check-input mx-2" %>
     </div>
     
     <div>
+      <%= f.check_box :has_wardrobe,  class: "form-check-input" %>
       <%= f.label :has_wardrobe, class: "form-check-label" %>
-      <%= f.check_box :has_wardrobe, class: "form-check-input mx-2" %>
     </div>
 
     <div>
+      <%= f.check_box :has_coffer, class: "form-check-input" %>
       <%= f.label :has_coffer, class: "form-check-label" %>
-      <%= f.check_box :has_coffer, class: "form-check-input mx-2" %>
     </div>
 
     <div>
+      <%= f.check_box :accessible, class: "form-check-input" %>
       <%= f.label :accessible, class: "form-check-label" %>
-      <%= f.check_box :accessible, class: "form-check-input mx-2" %>
     </div>
   </div>  
   <div>
-    <%= f.submit class: "btn btn-primary w-100" %>
+    <%= f.submit class: "btn btn-primary w-100 text-white" %>
   </div>
 <% end %>

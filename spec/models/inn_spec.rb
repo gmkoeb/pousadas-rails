@@ -528,7 +528,7 @@ RSpec.describe Inn, type: :model do
                         payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Proibido som alto após as 18h',
                         check_in_check_out_time: '12:00', user: user, status: 'published')
       # Act
-      result = Inn.advanced_search('pousada do luar', '', '', '')
+      result = Inn.advanced_search('pousada do luar', '', '', '', '', '')
       # Assert
       expect(result).to eq ([inn])
     end
@@ -553,7 +553,7 @@ RSpec.describe Inn, type: :model do
                                payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
                                check_in_check_out_time: '12:00', user: user_2, status: 'published')  
       # Act
-      result = Inn.advanced_search('', 'true', '', '')
+      result = Inn.advanced_search('', 'true', '', '', '', '')
       # Assert
       expect(result).to include pet_inn
       expect(result).not_to include no_pet_inn
@@ -579,7 +579,7 @@ RSpec.describe Inn, type: :model do
                                payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
                                check_in_check_out_time: '12:00', user: user_2, status: 'published')  
       # Act
-      result = Inn.advanced_search('', 'false', '', '')
+      result = Inn.advanced_search('', 'false', '', '', '', '')
       # Assert
       expect(result).to include no_pet_inn
       expect(result).not_to include pet_inn
@@ -605,7 +605,7 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
                           check_in_check_out_time: '12:00', user: user_2, status: 'published')                 
       # Act
-      result = Inn.advanced_search('', '', ["Dinheiro"], '')
+      result = Inn.advanced_search('', '', ["Dinheiro"], '', '', '')
       # Assert
       expect(result).to include inn, inn_2
     end
@@ -629,7 +629,7 @@ RSpec.describe Inn, type: :model do
                           payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
                           check_in_check_out_time: '12:00', user: user_2, status: 'published')                 
       # Act
-      result = Inn.advanced_search('', '', ["Dinheiro, PIX, Cartão de débito, Cartão de crédito"], '')
+      result = Inn.advanced_search('', '', ["Dinheiro, PIX, Cartão de débito, Cartão de crédito"], '', '', '')
       # Assert
       expect(result).to include inn
       expect(result).not_to include inn_2
@@ -659,7 +659,7 @@ RSpec.describe Inn, type: :model do
       no_bathroom_inn.rooms.create!(name: 'Quarto Sem Banheiro', description: 'Melhor quarto da pousada.', area: 50, 
                                         price: 5000, maximum_guests: 5, has_bathroom: false)                                                     
       # Act
-      result = Inn.advanced_search('', '', '', ['has_bathroom'])
+      result = Inn.advanced_search('', '', '', ['has_bathroom'], '', '')
       # Assert
       expect(result).to include bathroom_inn
       expect(result).not_to include no_bathroom_inn
@@ -689,7 +689,7 @@ RSpec.describe Inn, type: :model do
       no_balcony_inn.rooms.create!(name: 'Quarto Sem Varanda', description: 'Melhor quarto da pousada.', area: 50, 
                                         price: 1000, maximum_guests: 5, has_balcony: false)                                                     
       # Act
-      result = Inn.advanced_search('', '', '', ['has_balcony'])
+      result = Inn.advanced_search('', '', '', ['has_balcony'], '', '')
       # Assert
       expect(result).to include balcony_inn
       expect(result).not_to include no_balcony_inn
@@ -719,7 +719,7 @@ RSpec.describe Inn, type: :model do
       no_air_con_inn.rooms.create!(name: 'Quarto Sem Ar condicionado', description: 'Melhor quarto da pousada.', area: 50, 
                                    price: 1000, maximum_guests: 5, has_air_conditioner: false)                                                     
       # Act
-      result = Inn.advanced_search('', '', '', ['has_air_conditioner'])
+      result = Inn.advanced_search('', '', '', ['has_air_conditioner'], '', '')
       # Assert
       expect(result).to include air_con_inn
       expect(result).not_to include no_air_con_inn
@@ -750,7 +750,7 @@ RSpec.describe Inn, type: :model do
       inn_2.rooms.create!(name: 'Quarto Simples', description: 'Melhor quarto da pousada.', area: 50, 
                                 price: 5000, maximum_guests: 5, has_air_conditioner: true, accessible: true)
       # Act
-      result = Inn.advanced_search('', '', '', ['has_air_conditioner', 'has_balcony', 'accessible'])
+      result = Inn.advanced_search('', '', '', ['has_air_conditioner', 'has_balcony', 'accessible'], '', '')
       # Assert
       expect(result).to include inn
       expect(result).not_to include inn_2

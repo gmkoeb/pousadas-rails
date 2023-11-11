@@ -13,21 +13,28 @@
  *= require_tree .
  *= require_self
  */
-
+ $theme-colors: (
+  "primary":    #f84d4f,
+  "secondary":  #2a3348,
+  "success":    #198754,
+  "info":       #0dcaf0,
+  "warning":    #ffc107,
+  "danger":     #dc3545,
+  "light":      #b9b8b8,
+  "dark":       #3a3a3a
+);
+ 
 @import "bootstrap";
 @import "navbar.scss";
 @import "forms.scss";
+@import "font-awesome";
+
 main{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 1rem;
-}
-
-main img{
-  width: 6rem;
-  height: 6rem;
 }
 
 form img{
@@ -38,8 +45,23 @@ form img{
 *{
   padding: 0;
   margin: 0;
+  color: #1b1b1b;
+}
+label{
+  color: #2a3348;
+}
+h1, h2{
+  color: #2a3348
 }
 
 .field_with_errors input{
   border: 1px solid red !important;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #f84d4f;
+}
+
+input[type="radio"]:checked {
+  background-color: #f84d4f;
 }

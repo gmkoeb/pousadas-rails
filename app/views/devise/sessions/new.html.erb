@@ -1,4 +1,4 @@
-<%= image_tag "user_icon.png" %>
+<i class="fa-regular fa-user fa-2xl mt-5"></i>
 <div class="container w-25">
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field mb-3">
@@ -19,7 +19,7 @@
     <% end %>
 
     <div class="actions mt-2">
-      <%= f.submit "Entrar", class:"btn btn-primary mb-2 w-100" %>
+      <%= f.submit "Entrar", class:"btn btn-primary mb-2 w-100 text-white" %>
     </div>
   <% end %>
 

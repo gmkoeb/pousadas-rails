@@ -110,6 +110,9 @@ GEM
     diff-lcs (1.5.0)
     erubi (1.12.0)
     execjs (2.9.1)
+    ffi (1.16.3)
+    font-awesome-sass (6.4.2)
+      sassc (~> 2.0)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
     globalid (1.2.1)
@@ -226,6 +229,8 @@ GEM
     rubyzip (2.3.2)
     sass-embedded (1.66.1-x86_64-linux-gnu)
       google-protobuf (~> 3.23)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     selenium-webdriver (4.14.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -275,6 +280,7 @@ DEPENDENCIES
   dartsass-sprockets
   debug
   devise
+  font-awesome-sass (~> 6.4.2)
   friendly_id (~> 5.4.0)
   importmap-rails
   jbuilder
