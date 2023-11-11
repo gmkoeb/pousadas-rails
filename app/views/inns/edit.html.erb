@@ -1,11 +1,13 @@
 <h1>Editar Pousada</h1>
 <% if @inn.errors.any? %>
-  <p>Verifique os erros abaixo:</p>
+<div class="rounded p-2 border border-1 fw-bold text-danger mt-3">
+  <p class="text-center">Verifique os erros abaixo:</p>
   <ul>
     <% @inn.errors.full_messages.each do |msg| %>
     <li><%=msg%></li>
     <%end%>
   </ul>
+</div>
 <% end %>
 
 <%= render 'form' %>

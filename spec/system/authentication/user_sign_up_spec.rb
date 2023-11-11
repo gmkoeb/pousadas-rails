@@ -13,7 +13,7 @@ describe 'Usuario cria uma conta' do
     click_on 'Criar conta'
 
     # Assert
-    expect(page).to have_content 'Boas vindas! Você realizou seu cadastro com sucesso.'
+    expect(page).to have_content 'Boas vindas 👋 Você realizou seu cadastro com sucesso.'
     expect(page).to have_content 'email@email.com'
     expect(page).to have_button 'Sair'
   end
@@ -33,7 +33,7 @@ describe 'Usuario cria uma conta' do
 
     # Assert
     expect(current_path).to eq new_inn_path
-    expect(page).to have_content 'Boas vindas! Você realizou seu cadastro com sucesso.'
+    expect(page).to have_content 'Boas vindas 👋 Você realizou seu cadastro com sucesso.'
     expect(page).to have_content 'Cadastrar pousada'
     expect(page).to have_content 'email@email.com'
     expect(page).to have_button 'Sair'
@@ -52,7 +52,7 @@ describe 'Usuario cria uma conta' do
     click_on 'Criar conta'
 
     # Assert
-    expect(page).to have_content 'Boas vindas! Você realizou seu cadastro com sucesso.'
+    expect(page).to have_content 'Boas vindas 👋 Você realizou seu cadastro com sucesso.'
     expect(page).to_not have_content 'Cadastrar pousada'
     expect(page).to have_content 'email@email.com'
     expect(page).to have_button 'Sair'

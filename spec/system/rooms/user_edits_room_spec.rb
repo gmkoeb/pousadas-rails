@@ -27,13 +27,13 @@ describe 'usuário edita quarto' do
     expect(page).to have_field 'Área', with: 50
     expect(page).to have_field 'Número máximo de hóspedes', with: 5
     expect(page).to have_field 'Preço', with: 5000
-    expect(page).to have_field 'Têm banheiro?'
-    expect(page).to have_field 'Têm varanda?'
-    expect(page).to have_field 'Têm ar condicionado?'
-    expect(page).to have_field 'Têm TV?'
-    expect(page).to have_field 'Têm armário?'
-    expect(page).to have_field 'Têm cofre?'
-    expect(page).to have_field 'É acessível para pessoas com deficiência?'
+    expect(page).to have_field 'Têm banheiro'
+    expect(page).to have_field 'Têm varanda'
+    expect(page).to have_field 'Têm ar condicionado'
+    expect(page).to have_field 'Têm TV'
+    expect(page).to have_field 'Têm armário'
+    expect(page).to have_field 'Têm cofre'
+    expect(page).to have_field 'É acessível para pessoas com deficiência'
   end
 
   it 'com sucesso' do
@@ -61,13 +61,13 @@ describe 'usuário edita quarto' do
     fill_in 'Área', with: 500
     fill_in 'Número máximo de hóspedes', with: 50
     fill_in 'Preço', with: 200000
-    check 'Têm banheiro?'
-    check 'Têm varanda?'
-    check 'Têm ar condicionado?'
-    check 'Têm TV?'
-    check 'Têm armário?'
-    check 'Têm cofre?'
-    check 'É acessível para pessoas com deficiência?'
+    check 'Têm banheiro'
+    check 'Têm varanda'
+    check 'Têm ar condicionado'
+    check 'Têm TV'
+    check 'Têm armário'
+    check 'Têm cofre'
+    check 'É acessível para pessoas com deficiência'
     click_on 'Atualizar Quarto'
     # Assert
     expect(page).to have_content 'Quarto atualizado com sucesso!'

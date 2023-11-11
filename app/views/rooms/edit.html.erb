@@ -1,72 +1,77 @@
 <h1>Editar Quarto</h1>
 <% if @room.errors.any? %>
-  <p>Verifique os erros abaixo:</p>
+<div class="rounded p-2 border border-1 fw-bold text-danger mt-3">
+  <p class="text-center">Verifique os erros abaixo:</p>
   <ul>
     <% @room.errors.full_messages.each do |msg| %>
     <li><%=msg%></li>
     <%end%>
   </ul>
+</div>
 <% end %>
-
-<%= form_with model:@room do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
+<%= form_with model:@room, html: {class: "row g-3 mt-3 w-50"} do |f| %>
+  <div class="col-md-4">
+    <%= f.label :name, class: "form-label" %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
   
-  <div>
-    <%= f.label :area %>
-    <%= f.number_field :area %>
+  <div class="col-md-2">
+    <%= f.label :area, class: "form-label" %>
+    <%= f.number_field :area, class: "form-control", placeholder: "em m²" %>
   </div>
   
-  <div>
-    <%= f.label :maximum_guests %>
-    <%= f.number_field :maximum_guests %>
+  <div class="col-md-4">
+    <%= f.label :maximum_guests, class: "form-label" %>
+    <%= f.number_field :maximum_guests, class: "form-control" %>
   </div>
   
-  <div>
-    <%= f.label :price %>
-    <%= f.number_field :price %>
-  </div>
-  
-  <div>
-    <%= f.label :has_bathroom %>
-    <%= f.check_box :has_bathroom %>
-  </div>
-  
-  <div>
-    <%= f.label :has_balcony %>
-    <%= f.check_box :has_balcony %>
-  </div>
-  
-  <div>
-    <%= f.label :has_air_conditioner %>
-    <%= f.check_box :has_air_conditioner %>
-  </div>
-  
-  <div>
-    <%= f.label :has_tv %>
-    <%= f.check_box :has_tv %>
-  </div>
-  
-  <div>
-    <%= f.label :has_wardrobe %>
-    <%= f.check_box :has_wardrobe %>
+  <div class="col-md-2">
+    <%= f.label :price, class: "form-label" %>
+    <%= f.number_field :price, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :has_coffer %>
-    <%= f.check_box :has_coffer %>
+  <div class="col-md-12">
+    <%= f.label :description, class: "form-label" %>
+    <%= f.text_area :description, class: "form-control" %>
   </div>
 
+  <div class="d-flex flex-column">
+    <div>
+      <%= f.label :has_bathroom, class: "form-check-label" %>
+      <%= f.check_box :has_bathroom, class: "form-check-input mx-2" %>
+    </div>
+
+    <div>
+      <%= f.label :has_balcony, class: "form-check-label" %>
+      <%= f.check_box :has_balcony, class: "form-check-input mx-2" %>
+    </div>
+    
+    <div>
+      <%= f.label :has_air_conditioner, class: "form-check-label" %>
+      <%= f.check_box :has_air_conditioner, class: "form-check-input mx-2" %>
+    </div>
+    
+    <div>
+      <%= f.label :has_tv, class: "form-check-label" %>
+      <%= f.check_box :has_tv, class: "form-check-input mx-2" %>
+    </div>
+    
+    <div>
+      <%= f.label :has_wardrobe, class: "form-check-label" %>
+      <%= f.check_box :has_wardrobe, class: "form-check-input mx-2" %>
+    </div>
+
+    <div>
+      <%= f.label :has_coffer, class: "form-check-label" %>
+      <%= f.check_box :has_coffer, class: "form-check-input mx-2" %>
+    </div>
+
+    <div>
+      <%= f.label :accessible, class: "form-check-label" %>
+      <%= f.check_box :accessible, class: "form-check-input mx-2" %>
+    </div>
+  </div>  
   <div>
-    <%= f.label :accessible %>
-    <%= f.check_box :accessible %>
+    <%= f.submit class: "btn btn-primary w-100" %>
   </div>
-  <%= f.submit %>
 <% end %>

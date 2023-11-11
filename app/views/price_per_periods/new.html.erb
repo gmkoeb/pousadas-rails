@@ -1,26 +1,29 @@
 <h1>Registrar Preço Por Período</h1>
 <% if @price_per_period.errors.any? %>
-  <p>Verifique os erros abaixo:</p>
+<div class="rounded p-2 border border-1 fw-bold text-danger mt-3">
+  <p class="text-center">Verifique os erros abaixo:</p>
   <ul>
     <% @price_per_period.errors.full_messages.each do |msg| %>
     <li><%=msg%></li>
     <%end%>
   </ul>
+</div>
 <% end %>
-<%= form_with model: [@room, @price_per_period] do |f| %>
-  <div>
-    <%= f.label :special_price %>
-    <%= f.number_field :special_price %>
+<%= form_with model: [@room, @price_per_period], html: {class: "row g-3 w-50 mt-3 d-flex justify-content-center"} do |f| %>
+  <div class="col-md-2">
+    <%= f.label :special_price, class: "form-label" %>
+    <%= f.number_field :special_price,  class: "form-control" %>
   </div>
-  <div>
-    <%= f.label :starts_at %>
-    <%= f.date_field :starts_at %>
-  </div>
-
-  <div>
-    <%= f.label :ends_at %>
-    <%= f.date_field :ends_at %>
+  <div class="col-md-2">
+    <%= f.label :starts_at, class: "form-label" %>
+    <%= f.date_field :starts_at,  class: "form-control" %>
   </div>
 
-  <%= f.submit 'Enviar' %>
+  <div class="col-md-2">
+    <%= f.label :ends_at, class: "form-label" %>
+    <%= f.date_field :ends_at,  class: "form-control" %>
+  </div>
+<div class="text-center px-3">
+  <%= f.submit 'Enviar', class: "btn btn-primary w-50" %>
+</div>
 <% end %>
