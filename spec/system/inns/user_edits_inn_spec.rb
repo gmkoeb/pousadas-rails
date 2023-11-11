@@ -35,7 +35,8 @@ describe 'Dono de pousadas edita pousada' do
     expect(page).to have_unchecked_field 'inn_payment_methods_cartão_de_crédito'
     expect(page).to have_unchecked_field 'inn_payment_methods_pix'
     expect(page).to have_checked_field 'inn_payment_methods_dinheiro'
-    expect(page).to have_field 'Permite pets'
+    expect(page).to have_content 'Sua pousada permite pets?'
+    expect(page).to have_checked_field 'inn_accepts_pets_true'
     expect(page).to have_field 'Políticas de uso', with: 'Não pode som alto após as 18h'
     expect(page).to have_content 'Horário padrão para check-in e check-out'
   end
@@ -63,7 +64,7 @@ describe 'Dono de pousadas edita pousada' do
     check 'inn_payment_methods_cartão_de_crédito'
     check 'inn_payment_methods_pix'
     check 'inn_payment_methods_dinheiro'
-    check 'Permite pets'
+    choose 'inn_accepts_pets_true'
     fill_in 'Políticas de uso', with: 'Não pode som alto após as 18h'
     select '12', from: 'inn[check_in_check_out_time(4i)]'
     select '00', from: 'inn[check_in_check_out_time(5i)]'
@@ -98,7 +99,7 @@ describe 'Dono de pousadas edita pousada' do
     end
     click_on 'Editar'
     fill_in 'Razão social', with: ''
-    check 'Permite pets'
+    choose 'inn_accepts_pets_true'
     fill_in 'Políticas de uso', with: 'Não pode som alto após as 18h'
     select '12', from: 'inn[check_in_check_out_time(4i)]'
     select '00', from: 'inn[check_in_check_out_time(5i)]'

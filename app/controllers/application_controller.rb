@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def admin_has_inn?
     return if current_user.nil?
       if current_user.admin?
-        redirect_to new_inn_path, notice: 'Você não possui nenhuma pousada. Crie uma para continuar navegando' if current_user.inn.nil?
+        redirect_to new_inn_path, alert: 'Você não possui nenhuma pousada. Crie uma para continuar navegando' if current_user.inn.nil?
       end
   end
 end

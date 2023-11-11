@@ -15,8 +15,15 @@ a{
   margin-left: 6rem;
 }
 
-.navbar-nav{
-  margin-right: 10rem;
+
+.dropdown-toggle img{
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.inn-icon{
+  width: 2rem;
+  height: 2rem;
 }
 
 @media (max-width: 1000px) {
@@ -32,5 +39,10 @@ a{
 
   .navbar-brand span{
     margin-left: 0;
+  }
+
+  
+  .navbar-nav{
+    margin-right: 5rem;
   }
 }

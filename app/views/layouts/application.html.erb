@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-    
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>  
+
   </head>
 
   <body>
@@ -17,11 +16,13 @@
     </header>
     <% if flash.alert %>
       <div id=”error_explanation”>
-        <p> <%= flash.alert %> </p>
+        <p class="alert alert-danger text-center fw-bold" role="alert"> <%= flash.alert %> </p>
       </div>
     <% end %>
-      <p> <%= notice %> </p>
-    </div>
+
+    <% if flash.notice %>
+      <p class="alert alert-success text-center fw-bold" role="alert"> <%= notice %> </p>
+    <% end %>
     <main>
       <%= yield %>
     </main>

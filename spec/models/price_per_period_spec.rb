@@ -19,7 +19,7 @@ RSpec.describe PricePerPeriod, type: :model do
       # Assert
       expect(result).to be true
     end
-    context 'dates validity' do
+    context 'validação de datas' do
       it 'datas sobrepostas' do
         # Arrange
         user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
