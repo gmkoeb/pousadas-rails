@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary px-3 py-3 border">
+  <div class="container-fluid">
+    <%= link_to root_path do %>
+      <h1 class="navbar-brand text-secondary fw-bold fs-1">Pousadas <br> <span class="text-danger">Rails</span></h1>
+    <% end %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                  data-bs-target="#navbarNavDropdown" 
+                  aria-controls="navbarNavDropdown" 
+                  aria-expanded="false" 
+                  aria-label="Toggle navigation">                 
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <div class="container-fluid">
+        <%= form_with(url: search_inns_path, method: :get, html: {class: "d-flex gap-2"}) do |f|%>
+          <%= f.label :query, 'Buscar Pousadas' %>
+          <%= f.text_field :query, placeholder: 'Nome, cidade ou bairro', class: "form-control me-2" %>
+          <%= f.submit 'Buscar', class: "btn btn-outline-success" %>
+          <%= link_to 'busca avançada', advanced_search_form_inns_path %>
+        <% end %>
+      </div>
+      
+      <ul class="navbar-nav d-flex align-items-center">
+        <% if user_signed_in? %>
+        <div class="px-4 collapse navbar-collapse" id="navbarNavDropdown">
+          <li class="nav-item dropdown text-center">
+              <a class="nav-link dropdown-toggle mx-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Usuário
+              </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><%= current_user.email %></li>
+                <% if current_user.admin? %>
+                  <% if current_user.inn %>
+                    <li class="nav-item text-center"><%= link_to 'Minha pousada', inn_path(current_user.inn), class: "dropdown-item" %></li>
+                  <% else %>
+                    <li class="nav-item"><%= link_to 'Cadastrar pousada', new_inn_path, class: "dropdown-item" %></li>
+                  <% end %> 
+                <% end %>
+              <li class="nav-item"><%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "btn btn-danger authentication dropdown-item mx-auto" %></li>
+            </ul>
+          </li>
+        </div> 
+        <% else %>
+        <div class="d-flex gap-3">
+          <li class="nav-item">
+            <%= link_to 'Entrar', new_user_session_path, class: "text-dark text-decoration-none authentication btn btn-outline-success" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Criar Conta', new_user_registration_path, class: "text-white text-decoration-none btn btn-primary authentication" %>
+          </li>
+        </div>
+        <% end %>
+      </ul>
+    </div> 
+  </div>
+</nav>
