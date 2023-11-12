@@ -79,9 +79,29 @@ input[type="radio"]:checked {
   padding-bottom: 1rem;
 }
 
-.inn-card img{
+.inn-card img, .inn-image{
   width: 100%;
   height: 112px;
   object-fit: cover;
   margin-bottom: 1rem; 
+}
+
+.admin-control{
+  position: fixed;
+  float: right;
+  top: 40%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  
+}
+
+@media (max-width: 1000px) {
+  .admin-control{
+    width: 100px;
+    padding: 0;
+  }
 }

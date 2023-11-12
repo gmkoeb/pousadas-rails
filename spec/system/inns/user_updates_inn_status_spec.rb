@@ -22,7 +22,7 @@ describe 'Usuário dono da pousada muda status de pousada' do
     end
     # Assert
     expect(page).to have_content 'Pousada do Luar'
-    expect(page).to have_content 'Cidade: Florianópolis - Santa Catarina'
+    expect(page).to have_content 'Florianópolis - Santa Catarina'
   end
 
   it 'e a esconde' do
@@ -47,6 +47,6 @@ describe 'Usuário dono da pousada muda status de pousada' do
     end
     # Assert
     expect(page).to_not have_content 'Pousada do Luar'
-    expect(page).to_not have_content 'Cidade: Florianópolis - Santa Catarina'
+    expect(page).to_not have_content 'Florianópolis - Santa Catarina'
   end
 end

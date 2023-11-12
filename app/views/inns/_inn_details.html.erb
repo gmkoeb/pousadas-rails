@@ -1,20 +1,44 @@
-<li><%= Inn.human_attribute_name(:name) %>: <%= inn.brand_name %></li>
-<li><%= Inn.human_attribute_name(:phone) %>: <%= inn.phone %></li>
-<li><%= Inn.human_attribute_name(:email)%>: <%= inn.email %></li>
-<li><%= Inn.human_attribute_name(:address)%> completo: <%= inn.address %>. <%= inn.district %>, <%= inn.city %> - <%= inn.state %>.</li>
-<li><%= Inn.human_attribute_name(:zip_code)%>: <%= inn.zip_code %></li>
-<li><%= Inn.human_attribute_name(:description)%>: <%= inn.description %></li>
-<li><%= Inn.human_attribute_name(:payment_methods)%>:
-<% eval(inn.payment_methods).each do |method| %>
-  <p><%= method %></p>
-<%end%>
-</li>
-<li>
-  <p><%= accepts_pets?(inn.accepts_pets?) %></p>
-</li>
-<li>
-  <p><%= Inn.human_attribute_name(:terms_of_service)%>: <%= inn.terms_of_service %></p>
-</li>
-<li>
-  <p><%= Inn.human_attribute_name(:check_in_check_out_time)%>: <%= inn.check_in_check_out_time.strftime("%H:%M") %></p>
-</li>
+<%= image_tag 'inn.jpg', class: "inn-image h-25" %>
+<div class="px-5">
+  <h4><i class="fa-solid fa-phone"></i> Informações Para Contato</h4>
+  <li><%= Inn.human_attribute_name(:phone) %>: <%= inn.phone %></li>
+  <li><%= Inn.human_attribute_name(:email)%>: <%= inn.email %></li>
+</div>
+<div class="px-5">
+  <h4>   
+    <i class="fa-solid fa-location-dot"></i> Localização
+  </h4>
+  <li>
+    <%= Inn.human_attribute_name(:address)%> completo: <%= inn.address %>. <%= inn.district %>, <%= inn.city %> - <%= inn.state %>
+  </li>
+  <li><%= Inn.human_attribute_name(:zip_code)%>: <%= inn.zip_code %></li>
+  <li><%= Inn.human_attribute_name(:description)%>: <%= inn.description %></li>
+</div>
+<div class="px-5">
+  <h4 class="mb-3"><i class="fa-solid fa-money-check-dollar"></i> <%= Inn.human_attribute_name(:payment_methods)%></h4>
+  <% eval(inn.payment_methods).each do |method| %>
+    <li class="mb-1">
+      <% case method %>
+        <% when 'Dinheiro' %>
+        <i class="fa-solid fa-money-bill-wave" style="color: #18ec1f;"></i> 
+        <% when 'Cartão de crédito', 'Cartão de débito' %>
+        <i class="fa-regular fa-credit-card"></i>
+        <% when 'PIX' %>
+        <i class="fa-brands fa-pix" style="color: #44ab9a;"></i>
+      <%end%>
+      <%= method %>
+    </li>
+  <%end%>
+</div>
+<div class="px-5">
+  <h4><i class="fa-solid fa-clipboard-question"></i> Informações Adicionais</h4>
+  <li>
+    <p><%= accepts_pets?(inn.accepts_pets?) %></p>
+  </li>
+  <li>
+    <p><%= Inn.human_attribute_name(:terms_of_service)%>: <%= inn.terms_of_service %></p>
+  </li>
+  <li>
+    <p><%= Inn.human_attribute_name(:check_in_check_out_time)%>: <%= inn.check_in_check_out_time.strftime("%H:%M") %></p>
+  </li>
+</div>

@@ -75,7 +75,7 @@ describe 'Usuário visita página de cidade' do
     expect(page).to have_content 'Detalhes da pousada'
     expect(page).to have_content 'Telefone para contato: 411203040'
     expect(page).to have_content 'E-mail: pousadadachuva@gmail.com'
-    expect(page).to have_content 'Endereço completo: Avenida Paraná, 240. Juveve, Curitiba - Paraná.'
+    expect(page).to have_content 'Endereço completo: Avenida Paraná, 240. Juveve, Curitiba - Paraná'
     expect(page).to have_content 'CEP: 82830460'
     expect(page).to have_content 'Descrição: A melhor pousada de Curitiba!'
     expect(page).to have_content 'Formas de pagamento'

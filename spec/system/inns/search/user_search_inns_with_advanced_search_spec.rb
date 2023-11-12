@@ -71,7 +71,7 @@ describe 'Usuário realiza busca avançada' do
     expect(page).to have_content 'Busca Avançada'
     expect(page).to have_content '1 pousada encontrada'
     expect(page).to have_link 'Pousada do Frio'
-    expect(page).to have_content 'Cidade: Curitiba - Paraná.'
+    expect(page).to have_content 'Curitiba - Paraná'
     expect(page).to_not have_link 'Pousada do Luar'
     expect(page).to_not have_link 'Pousada da Chuva'
     expect(page).to_not have_link 'Pousada do Sol'

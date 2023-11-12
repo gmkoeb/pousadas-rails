@@ -16,10 +16,10 @@ describe 'usuário vê detalhes de uma pousada' do
     # Assert
     expect(page).to have_content 'Pousada do Luar'
     expect(page).to have_content 'Detalhes da pousada'
-    expect(page).to have_content 'Formas de pagamento:'
+    expect(page).to have_content 'Formas de pagamento'
     expect(page).to have_content 'Dinheiro'
     expect(page).to have_content 'Essa pousada não permite pets. 😣'
-    expect(page).to have_content 'Endereço completo: Rua das pousadas, 114. Beira Mar Norte, Florianópolis - Santa Catarina.'
+    expect(page).to have_content 'Endereço completo: Rua das pousadas, 114. Beira Mar Norte, Florianópolis - Santa Catarina'
     expect(page).to have_content 'Horário padrão para check-in e check-out: 12:00'
     expect(page).to have_content 'Políticas de uso: Proibido som alto após as 18h'
     expect(page).to have_content 'Descrição: A melhor pousada de Florianópolis'
@@ -60,12 +60,13 @@ describe 'Dono de pousadas vê detalhes de pousada' do
       click_on 'Minha pousada'
     end
     # Assert
+    expect(page).to have_content 'Painel de Controle'
     expect(page).to have_content 'Razão social: Pousadas Florianópolis LTDA'
     expect(page).to have_content 'Nome fantasia: Pousada do Luar'
     expect(page).to have_content 'CNPJ: 4333123'
     expect(page).to have_content 'Telefone para contato: 41995203040'
     expect(page).to have_content 'E-mail: pousadadoluar@gmail.com'
-    expect(page).to have_content 'Endereço completo: Rua das pousadas, 114. Beira Mar Norte, Florianópolis - Santa Catarina.'
+    expect(page).to have_content 'Endereço completo: Rua das pousadas, 114. Beira Mar Norte, Florianópolis - Santa Catarina'
     expect(page).to have_content 'CEP: 42830460'
     expect(page).to have_content 'Descrição: A melhor pousada de Florianópolis'
     expect(page).to have_content 'Formas de pagamento'

@@ -12,6 +12,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <div class="container-fluid">
+        
         <%= form_with(url: search_inns_path, method: :get, html: {class: "d-flex gap-2"}) do |f|%>
             <div class="search-container w-75 mx-auto">
               <%= f.label :query, 'Buscar Pousadas' %>
@@ -22,21 +23,22 @@
               <%= link_to 'busca avançada', advanced_search_form_inns_path %>
             </div>
         <% end %>
+
       </div>
-      
       <ul class="navbar-nav d-flex align-items-center mx-5">
         <% if user_signed_in? %>
+
         <div class="px-4 collapse navbar-collapse mx-5" id="navbarNavDropdown">
           <li class="nav-item dropdown text-center">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle mx-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <% if current_user.admin? %>
-                  <i class="fa-solid fa-user-tie fa-2xl" style="color: #f84d4f;"></i>
+                  <h4><i class="fa-solid fa-user-tie fa-xl" style="color: #f84d4f;"></i></h4>
                 <% else %>
-                  <i class="fa-solid fa-user fa-2xl" style="color: #f84d4f;"></i>
+                  <h4><i class="fa-solid fa-user fa-xl" style="color: #f84d4f;"></i></h4>
                 <% end %>
               </a>
             <ul class="dropdown-menu text-center">
-              <li class="dropdown-item"><%= current_user.email %></li>
+              <li class="dropdown-item mb-2"><%= current_user.email %></li>
                 <% if current_user.admin? %>
                   <% if current_user.inn %>
                     <li class="nav-item text-center">
@@ -54,6 +56,7 @@
           </li>
         </div> 
         <% else %>
+
         <div class="d-flex gap-3">
           <li class="nav-item">
             <%= link_to 'Entrar', new_user_session_path, class: "text-dark text-decoration-none authentication btn btn-outline-primary"%>

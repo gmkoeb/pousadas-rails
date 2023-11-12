@@ -73,7 +73,7 @@ describe 'Dono de pousadas cria uma pousada' do
     expect(page).to have_content 'CNPJ: 34133123'
     expect(page).to have_content 'Telefone para contato: 45995320332'
     expect(page).to have_content 'E-mail: pousadadoluar@gmail.com'
-    expect(page).to have_content 'Endereço completo: Rua da pousada, 114. Beira Mar Norte, Florianópolis - Santa Catarina.'
+    expect(page).to have_content 'Endereço completo: Rua da pousada, 114. Beira Mar Norte, Florianópolis - Santa Catarina'
     expect(page).to have_content 'CEP: 42830460'
     expect(page).to have_content 'Descrição: A melhor pousada de Florianópolis'
     expect(page).to have_content 'Formas de pagamento'
