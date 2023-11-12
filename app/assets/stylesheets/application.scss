@@ -21,7 +21,7 @@
   "warning":    #ffc107,
   "danger":     #dc3545,
   "light":      #b9b8b8,
-  "dark":       #3a3a3a
+  "dark":       #1b1b1b
 );
  
 @import "bootstrap";
@@ -47,11 +47,16 @@ form img{
   margin: 0;
   color: #1b1b1b;
 }
+
 label{
   color: #2a3348;
 }
 h1, h2{
   color: #2a3348
+}
+
+.link:hover{
+  color: white !important;
 }
 
 .field_with_errors input{
@@ -64,4 +69,19 @@ input[type="checkbox"]:checked {
 
 input[type="radio"]:checked {
   background-color: #f84d4f;
+}
+
+.inn-card{
+  border: 2px solid #f84d4f !important;
+  border-radius: 6px;
+  text-align: center;
+  width: 20rem;
+  padding-bottom: 1rem;
+}
+
+.inn-card img{
+  width: 100%;
+  height: 112px;
+  object-fit: cover;
+  margin-bottom: 1rem; 
 }

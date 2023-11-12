@@ -1,25 +1,41 @@
 <% if @recent_inns.empty? %>
   <h2> Ainda não existem pousadas cadastradas. </h2>
 <%else%>
-  <aside>
-    <h2>Cidades com Pousadas</h2>
-    <%get_cities(@inns).each do |city| %>
-      <%= link_to city, search_by_city_inns_path(city)  %>
+  <section>
+    <h2 class="text-center">Cidades com Pousadas</h2>
+      <div class="d-flex justify-content-center gap-3">
+        <%get_cities(@inns).each do |city| %>
+          <%= link_to search_by_city_inns_path(city) do %>
+            <h4 class="btn btn-outline-success"><%=city%></h4>
+          <%end%>
+        <% end %>
+      </div>
+  </section>
+
+  <section class="mt-5 mb-5">
+    <h1 class="text-center mb-3"><%= Inn.model_name.human(count: @recent_inns.count) %> Mais <%= t(:recent, count: @recent_inns.count) %>:</h1>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <% @recent_inns.each do |recent_inn|%>
+        <%= link_to inn_path(recent_inn) do %> 
+          <div class="inn-card">
+            <%= render 'shared/inn_card', inn: recent_inn %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+
+  <section>
+    <h1 class="text-center mb-3"><%= Inn.model_name.human(count: @inns.count) %></h1>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+    <% @inns.each do |inn| %>
+      <%= link_to inn_path(inn) do %> 
+        <div class="inn-card">
+          <%= render 'shared/inn_card', inn:inn %>
+        </div>
+      <% end %>
     <%end%>
-  </aside>
-  <div>
-    <h1>Pousadas Mais Recentes:</h1>
-    <% @recent_inns.each do |recent_inn|%>
-    <ul>
-      <%= render 'inns/inn_details', inn: recent_inn %>
-    </ul>
-    <% end %>
-  </div>
-  <h1><%= Inn.model_name.human(count: @inns.count) %></h1>
-  <% @inns.each do |inn| %>
-    <ul>
-      <%= render 'inns/inn_details', inn: inn %>
-    </ul>
-  <%end%>
+    </div>
+  </section>
 <%end%>
 

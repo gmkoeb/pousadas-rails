@@ -1,11 +1,16 @@
 <h1>Resultados da busca por: <%= @query %></h1>
 <% if @inns.present? %>
-  <h2><%= @inns.count %> <%= Inn.model_name.human(count: @inns.count).downcase %> <%= t(:found, count: @inns.count) %></h2>
-  <ul>
+   <h2 class="text-center mb-5 mt-3"><%= @inns.count %> <%= Inn.model_name.human(count: @inns.count).downcase %> <%= t(:found, count: @inns.count) %></h2>
+    <div class="d-flex justify-content-center gap-3 flex-column">
     <% @inns.each do |inn| %>
-      <%= render 'inn_details', inn: inn %>
-    <% end %>
-  </ul>
+      <%= link_to inn_path(inn) do %> 
+        <div class="inn-card">
+          <%= render 'shared/inn_card', inn:inn %>
+        </div>
+      <% end %>
+    <%end%>
+    </div>
+  </section>
 <% else %>
   <h2> Não foi possível encontrar nenhuma pousada com essas informações. </h2>
 <% end %>

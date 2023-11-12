@@ -2,3 +2,6 @@ pt-BR:
   found:
     one: 'encontrada'
     other: 'encontradas'
+  recent:
+    one: 'Recente'
+    other: 'Recentes'

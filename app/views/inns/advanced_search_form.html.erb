@@ -7,16 +7,16 @@
 
   <div class="col-md-12 text-center">
     <h4><%= f.label :accepts_pets, 'Aceita Pets?', class: "form-label" %></h4>
-    <%= f.label :true, 'Sim', class: "form-check-label" %>
+    <%= f.label :true, 'Sim', class: "form-check-label mx-1" %>
     <%= f.radio_button :accepts_pets, :true, class: "form-check-input" %>
-    <%= f.label :false, 'Não', class: "form-check-label" %>
+    <%= f.label :false, 'Não', class: "form-check-label mx-1" %>
     <%= f.radio_button :accepts_pets, :false, class: "form-check-input" %>
   </div>
 
   <div class="col-md-12 text-center">
     <h4><%= f.label :payment_methods, 'Formas de Pagamento' %></h4>
     <% payment_methods.each do |payment_method| %>
-      <%= f.check_box :payment_methods, { multiple: true, class: "form-check-input" }, payment_method, nil %>
+      <%= f.check_box :payment_methods, { multiple: true, class: "form-check-input mx-1" }, payment_method, nil %>
       <%= label_tag :payment_methods, payment_method, class: "form-check-label" %>
     <% end %>
   </div>
