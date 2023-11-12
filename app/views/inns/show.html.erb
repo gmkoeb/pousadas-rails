@@ -1,12 +1,10 @@
 <h1><%= @inn.brand_name %></h1>
 <h2 class="mb-5 mt-5">Detalhes da pousada</h2>
-
 <% if current_user && current_user.inn && @inn == current_user.inn %>
-
   <article>
     <section>
       
-      <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border rounded flex-column p-0 mb-5 w-100">
+      <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border rounded flex-column p-0 mb-5 w-50">
         <%= render 'inn_details', inn: @inn %>
       </ul>
 
@@ -28,35 +26,52 @@
       </aside>
     </section>
 
+    <section class="d-flex flex-wrap gap-3 justify-content-center mb-5">
     <% if @inn.rooms.empty? %>
       <h2>Você ainda não cadastrou um quarto. <%= link_to 'Clique aqui para cadastrar um.', new_inn_room_path(@inn)%></h2>
     <% else %>
-      <div>
-        <% @inn.rooms.each do |room| %> 
-          <%= render 'rooms/room_details', room: room, inn: @inn %>
-        <%end%>
-      </div>  
+      <% @inn.rooms.each do |room| %>
+        <div class="room-card d-flex flex-column flex-wrap">
+          <%= link_to room_path(room) do%>
+            <%= image_tag 'room.jpg', class: "room-image h-25" %>
+            <h2 class="text-center"><%= room.name %></h2>
+            <h4 class="text-center">Detalhes do quarto:</h4> 
+            <ul class="px-0">  
+            <%= render 'rooms/room_details', room: room, inn: @inn %>
+          <% end %> 
+          </ul>     
+        </div> 
+      <%end%> 
     <%end%>
+    </section>
   </article>
 <%end%>
 
 <% if current_user.nil? || current_user.inn != @inn %>
   <article>
     <section>
-      <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border rounded flex-column p-0 mb-5">
+      <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border w-50 rounded flex-column p-0 mb-5">
         <%= render 'inn_details', inn: @inn %>
       </ul>
     </section>
 
-    <section class="mb-5">
+    <section class="d-flex flex-wrap gap-3 justify-content-center mb-5">
     <% if @rooms.present? %>
-      <h1><%= Room.model_name.human(count: @inn.rooms.count) %></h1>
-      <% @rooms.each do |room| %> 
-        <%= render 'rooms/room_details', room: room, inn: @inn %>
-      <%end%>
+      <% @rooms.each do |room| %>
+        <div class="room-card d-flex flex-column flex-wrap">
+          <%= link_to room_path(room) do %>
+            <%= image_tag 'room.jpg', class: "room-image h-25" %>
+            <h2 class="text-center"><%= room.name %></h2>
+            <h4 class="text-center">Detalhes do quarto:</h4> 
+            <ul class="px-0">  
+              <%= render 'rooms/room_details', room: room, inn: @inn %>
+            </ul>     
+          <% end %> 
+        </div> 
+      <%end%> 
     <% else %>
       <h2>Nenhum quarto dessa pousada está aceitando reservas no momento.</h2>
-    <% end %>
+    <%end%>
     </section>
   </article>
 <%end%>

@@ -1,48 +1,50 @@
 <% prices = sort_by_date(room.price_per_periods) %>  
-<% if request.path == room_path(room) %>
-  <h1><%= room.name %></h1>
-<%else%>
-  <h2><%= link_to room.name, room_path(room) %></h2>
-<%end%>
-<h2>Detalhes do quarto:</h2>
-<li>Descrição: <%= room.description %></li>
-<li>Área: <%= room.area %> m²</li>
-<li>Número máximo de hóspedes: <%= room.maximum_guests %></li>
-<li>Preço padrão da diária: R$ <%= room.price %></li>
-<li><%= bathroom(room.has_bathroom) %></li>
-<li><%= balcony(room.has_balcony) %></li>
-<li><%= air_conditioner(room.has_air_conditioner) %></li>
-<li><%= tv(room.has_tv) %></li>
-<li><%= wardrobe(room.has_wardrobe) %></li>
-<li><%= coffer(room.has_coffer) %></li>
-<li><%= accessibility(room.accessible) %></li>
+<div class="mx-2 mt-2 text-center">
+  <h5><i class="fa-solid fa-circle-info"></i> Especificações</h5>
+  <li>Descrição: <%= room.description %></li>
+  <li>Área: <%= room.area %> m²</li>
+  <li><i class="fa-solid fa-users"></i> Número máximo de hóspedes: <%= room.maximum_guests %></li>
+</div>
+<div class="mx-2 mt-3 text-center">
+  <h5><i class="fa-solid fa-money-bill-wave"></i> Preço</h5>
+  <li>Preço padrão da diária: R$ <%= room.price %></li>
+</div>
+<h5 class="text-center mt-3"> <i class="fa-solid fa-clipboard-question"></i> Informações Adicionais</h5>
+<div class="d-flex flex-wrap gap-3 mx-2 align-items-center justify-content-center">
+  <li><%= bathroom(room.has_bathroom) %><i class="fa-solid fa-toilet mx-2"></i></li>
+  <li><%= balcony(room.has_balcony) %></li>
+  <li><%= air_conditioner(room.has_air_conditioner) %><i class="fa-solid fa-wind mx-2"></i></li>
+  <li><%= tv(room.has_tv) %><i class="fa-solid fa-tv mx-2"></i></li>
+  <li><%= wardrobe(room.has_wardrobe) %></li>
+  <li><%= coffer(room.has_coffer) %><i class="fa-solid fa-lock mx-2"></i></li>
+  <li><%= accessibility(room.accessible) %><i class="fa-brands fa-accessible-icon mx-2"></i></li>
+</div>
+
 <% if current_user && current_user.inn == inn %>
   <% if room.price_per_periods.any? && request.path == room_path(room)%>
-    <aside>
-      <table>
-        <h2><%= PricePerPeriod.model_name.human %></h2>
-          <tr>
-            <th><%= PricePerPeriod.human_attribute_name(:special_price)%></th>
-            <th><%= PricePerPeriod.human_attribute_name(:starts_at)%></th>
-            <th><%= PricePerPeriod.human_attribute_name(:ends_at)%></th>
-          </tr>
-        <% prices.each do |price| %>
+    <table class="mx-auto text-center">
+      <h2 class="text-center mt-5"><%= PricePerPeriod.model_name.human %></h2>
         <tr>
-          <td>
-            R$ <%= price.special_price %>
-          </td>  
-          <td>
-            <%= I18n.localize(price.starts_at) %>
-          </td>  
-          <td>
-            <%= I18n.localize(price.ends_at) %>
-          </td>
-          <td>
-            <%= button_to('Remover', room_price_per_period_path(room, price.id), method: :delete) %>
-          </td>
+          <th><p><%= PricePerPeriod.human_attribute_name(:special_price)%></p></th>
+          <th><p class="mx-5"><%= PricePerPeriod.human_attribute_name(:starts_at)%></p></th>
+          <th><p><%= PricePerPeriod.human_attribute_name(:ends_at)%></p></th>
         </tr>
-        <% end %>
-      </table>
-    </aside>
+      <% prices.each do |price| %>
+      <tr>
+        <td>
+          R$ <%= price.special_price %>
+        </td>  
+        <td>
+          <%= I18n.localize(price.starts_at) %>
+        </td>  
+        <td>
+          <%= I18n.localize(price.ends_at) %>
+        </td>
+        <td>
+          <%= button_to('Remover', room_price_per_period_path(room, price.id), method: :delete, class: "btn btn-danger") %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
   <% end %>
 <%end%>
