@@ -1,7 +1,7 @@
 <h1>Cadastro de Quarto</h1>
 <% if @room.errors.any? %>
 <div class="rounded p-2 border border-1 fw-bold mt-3">
-  <p class="text-center">Verifique os erros abaixo:</p>
+  <h4 class="text-center">Verifique os erros abaixo:</h4>
   <ul>
     <% @room.errors.full_messages.each do |msg| %>
     <li class="text-danger"><%=msg%></li>

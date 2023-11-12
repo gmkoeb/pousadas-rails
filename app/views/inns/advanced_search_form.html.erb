@@ -1,6 +1,6 @@
 <h1>Busca Avançada</h1>
 <%= form_with(url: advanced_search_inns_path, method: :get, html: {class: "row g-3 w-75 mt-3"}) do |f|%>
-  <div class="col-md-12">
+  <div class="col-md-2">
     <h4><%= f.label :query, 'Pousada', class: "form-label" %></h4>
     <%= f.text_field :query, placeholder: 'Nome, cidade ou bairro', class: "form-control" %>
   </div>

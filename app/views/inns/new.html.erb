@@ -1,7 +1,7 @@
 <h1>Cadastre sua Pousada</h1>
 <% if @inn.errors.any? %>
 <div class="rounded p-2 border border-1 fw-bold mt-3">
-  <p class="text-center">Verifique os erros abaixo:</p>
+  <h4 class="text-center">Verifique os erros abaixo:</h4>
   <ul>
     <% @inn.errors.full_messages.each do |msg| %>
     <li class="text-danger"><%=msg%></li>

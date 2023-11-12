@@ -1,7 +1,7 @@
 <h1>Registrar Preço Por Período</h1>
 <% if @price_per_period.errors.any? %>
 <div class="rounded p-2 border border-1 fw-bold mt-3">
-  <p class="text-center">Verifique os erros abaixo:</p>
+  <h4 class="text-center">Verifique os erros abaixo:</h4>
   <ul>
     <% @price_per_period.errors.full_messages.each do |msg| %>
     <li class="text-danger"><%=msg%></li>
