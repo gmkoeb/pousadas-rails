@@ -25,24 +25,31 @@
       </div>
       
       <ul class="navbar-nav d-flex align-items-center mx-5">
-        <% if user_signed_in? || current_user%>
+        <% if user_signed_in? %>
         <div class="px-4 collapse navbar-collapse mx-5" id="navbarNavDropdown">
           <li class="nav-item dropdown text-center">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-regular fa-user fa-xl" style="color: #f84d4f;"></i>
+                <% if current_user.admin? %>
+                  <i class="fa-solid fa-user-tie fa-2xl" style="color: #f84d4f;"></i>
+                <% else %>
+                  <i class="fa-solid fa-user fa-2xl" style="color: #f84d4f;"></i>
+                <% end %>
               </a>
             <ul class="dropdown-menu text-center">
               <li class="dropdown-item"><%= current_user.email %></li>
                 <% if current_user.admin? %>
                   <% if current_user.inn %>
-                    <li class="nav-item text-center d-flex">
-                      <%= link_to 'Minha pousada', inn_path(current_user.inn), class: "dropdown-item" %>
+                    <li class="nav-item text-center">
+                      <%= link_to inn_path(current_user.inn), class: "dropdown-item d-flex" do %>
+                        <p class="mx-2">Minha pousada</p>   
+                        <i class="fa-solid fa-pen-to-square pl-3 mt-1"></i>
+                      <%end%>
                     </li>
                   <% else %>
                     <li class="nav-item"><%= link_to 'Cadastrar pousada', new_inn_path, class: "dropdown-item" %></li>
                   <% end %> 
                 <% end %>
-              <li class="nav-item w-50 rounded mx-auto"><%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "authentication dropdown-item mx-auto btn btn-danger" %></li>
+              <li class="nav-item w-50 rounded mx-auto"><%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "p-0 dropdown-item mx-auto btn btn-danger" %></li>
             </ul>
           </li>
         </div> 

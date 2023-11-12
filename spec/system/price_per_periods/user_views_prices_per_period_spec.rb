@@ -1,6 +1,6 @@
 require 'rails_helper'
-describe 'usuário vê detalhes de um quarto' do
-  it 'e não vê preços por período se não é dono da pousada' do
+describe 'usuário vê preços por período' do
+  it 'e não se não é dono da pousada' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
@@ -14,7 +14,7 @@ describe 'usuário vê detalhes de um quarto' do
     room.price_per_periods.create!(special_price: 1234, starts_at: Date.today, ends_at: Date.tomorrow)     
     # Act
     visit root_path
-    click_on 'Pousada do Luar'
+    click_on 'Pousada do Luar', :match => :first
     click_on 'Quarto Master'
     # Assert
     expect(page).to_not have_content 'Preços Por Período'
@@ -38,7 +38,7 @@ describe 'usuário vê detalhes de um quarto' do
     # Act
     login_as(user)
     visit root_path
-    click_on 'Pousada do Luar'
+    click_on 'Pousada do Luar', :match => :first
     click_on 'Quarto Master'
     # Assert
     expect(page).to have_content 'Preços Por Período'

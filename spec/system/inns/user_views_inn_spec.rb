@@ -12,7 +12,7 @@ describe 'usuário vê detalhes de uma pousada' do
                       check_in_check_out_time: '12:00', user: user, status: 'published' )
     # Act
     visit root_path
-    click_on 'Pousada do Luar'
+    click_on 'Pousada do Luar', :match => :first
     # Assert
     expect(page).to have_content 'Pousada do Luar'
     expect(page).to have_content 'Detalhes da pousada'
@@ -98,7 +98,7 @@ describe 'Dono de pousadas vê detalhes de pousada' do
     # Act
     login_as(user_2)
     visit root_path
-    click_on 'Pousada do Luar'
+    click_on 'Pousada do Luar', :match => :first
     # Assert
     expect(page).to_not have_button 'Editar'
     expect(page).to_not have_button 'Publicar pousada'

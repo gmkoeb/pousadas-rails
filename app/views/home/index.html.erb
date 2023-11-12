@@ -16,9 +16,9 @@
     <% end %>
   </div>
   <h1><%= Inn.model_name.human(count: @inns.count) %></h1>
-  <% @older_inns.each do |older_inn| %>
+  <% @inns.each do |inn| %>
     <ul>
-      <%= render 'inns/inn_details', inn: older_inn %>
+      <%= render 'inns/inn_details', inn: inn %>
     </ul>
   <%end%>
 <%end%>

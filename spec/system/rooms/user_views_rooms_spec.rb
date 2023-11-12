@@ -19,7 +19,7 @@ describe 'usuário vê quartos de uma pousada' do
                       price: 6000, maximum_guests: 2, has_bathroom: true, has_balcony: true, accessible: true, status: 'draft')
     # Act
     visit root_path
-    click_on 'Pousada do Luar'
+    click_on 'Pousada do Luar', :match => :first
     # Assert
     expect(page).to have_link 'Quarto Master'
     expect(page).to have_link 'Quarto Economy'
@@ -48,7 +48,7 @@ describe 'usuário vê quartos de uma pousada' do
                       price: 6000, maximum_guests: 2, has_bathroom: true, has_balcony: true, accessible: true, status: 'draft')
     # Act
     visit root_path
-    click_on 'Pousada do Luar'
+    click_on 'Pousada do Luar', :match => :first
     # Assert
     expect(page).to have_content 'Nenhum quarto dessa pousada está aceitando reservas no momento.'
     expect(page).to_not have_link 'Clique aqui para cadastrar um quarto.'

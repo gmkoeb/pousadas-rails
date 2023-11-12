@@ -14,7 +14,7 @@ describe 'Usuário vê detalhes de um quarto' do
                       price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true, status: 'published')
     # Act
     visit root_path
-    click_on 'Pousada do Luar'
+    click_on 'Pousada do Luar', :match => :first
     click_on 'Quarto Master'
     # Assert
     expect(page).to have_content 'Quarto Master'
@@ -64,7 +64,7 @@ describe 'Usuário vê detalhes de um quarto' do
     login_as(user)
     # Act
     visit root_path
-    click_on 'Pousada do Luar'
+    click_on 'Pousada do Luar', :match => :first
     click_on 'Quarto Master'
 
     # Assert

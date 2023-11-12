@@ -1,11 +1,11 @@
 <h1>Busca Avançada</h1>
 <%= form_with(url: advanced_search_inns_path, method: :get, html: {class: "row g-3 w-75 mt-3"}) do |f|%>
-  <div class="col-md-2">
-    <h4><%= f.label :query, 'Pousada', class: "form-label" %></h4>
+  <div class="col-md-2 mx-auto">
+    <h4 class="text-center"><%= f.label :query, 'Pousada', class: "form-label" %></h4>
     <%= f.text_field :query, placeholder: 'Nome, cidade ou bairro', class: "form-control" %>
   </div>
 
-  <div class="col-md-12">
+  <div class="col-md-12 text-center">
     <h4><%= f.label :accepts_pets, 'Aceita Pets?', class: "form-label" %></h4>
     <%= f.label :true, 'Sim', class: "form-check-label" %>
     <%= f.radio_button :accepts_pets, :true, class: "form-check-input" %>
@@ -13,7 +13,7 @@
     <%= f.radio_button :accepts_pets, :false, class: "form-check-input" %>
   </div>
 
-  <div class="col-md-12">
+  <div class="col-md-12 text-center">
     <h4><%= f.label :payment_methods, 'Formas de Pagamento' %></h4>
     <% payment_methods.each do |payment_method| %>
       <%= f.check_box :payment_methods, { multiple: true, class: "form-check-input" }, payment_method, nil %>
@@ -22,8 +22,8 @@
   </div>
 
   <div class="col-md-12 d-flex flex-column">
-    <h4> <%= f.label :room_infos, 'Especificações de quartos:', class: "mb-3" %> </h4>
-    <div class="d-flex flex-column">
+    <h4 class= "mb-3 text-center"> <%= f.label :room_infos, 'Especificações de quartos:' %> </h4>
+    <div class="d-flex flex-column mx-auto">
       <div>
         <%= f.check_box :room_infos, { multiple: true, class: "form-check-input" }, :has_bathroom, nil%>
         <%= label_tag :has_bathroom, "Possui quarto com banheiro próprio", class: "form-label" %>
@@ -54,17 +54,19 @@
       </div>
     </div>
   </div>
+  <div class="d-flex justify-content-center gap-3">
+    <div class="col-md-3 text-center">
+      <h4><%= f.label :room_maximum_guests, 'Número de hóspedes', class: "form-label" %></h4>
+      <%= f.number_field :room_maximum_guests, :value => 1, class: "form-control" %>
+    </div>
 
-  <div class="col-md-6">
-    <h4><%= f.label :room_maximum_guests, 'Número de hóspedes', class: "form-label" %></h4>
-    <%= f.number_field :room_maximum_guests, :value => 1, class: "form-control" %>
+    <div class="col-md-3 text-center">
+      <h4><%= f.label :room_price, 'Quartos com preços abaixo de:', class: "form-label" %></h4>
+      <%= f.number_field :room_price, :value => 1, placeholder:"", class: "form-control" %>
+    </div>
   </div>
 
-  <div class="col-md-6">
-    <h4><%= f.label :room_price, 'Quartos com preços abaixo de:', class: "form-label" %></h4>
-    <%= f.number_field :room_price, :value => 1, placeholder:"", class: "form-control" %>
-  </div>
-  <div>
-    <%= f.submit 'Buscar', class:"btn btn-primary text-white w-100" %>
-  </div>
+
+  <%= f.submit 'Buscar', class:"btn btn-primary text-white w-25 mx-auto" %>
+
 <% end %>
