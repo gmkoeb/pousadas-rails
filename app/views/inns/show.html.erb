@@ -4,7 +4,7 @@
   <article>
     <section>
       
-      <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border rounded flex-column p-0 mb-5 w-50">
+      <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border rounded-4 flex-column p-0 mb-5 align-items-center">
         <%= render 'inn_details', inn: @inn %>
       </ul>
 
@@ -36,10 +36,8 @@
             <%= image_tag 'room.jpg', class: "room-image h-25" %>
             <h2 class="text-center"><%= room.name %></h2>
             <h4 class="text-center">Detalhes do quarto:</h4> 
-            <ul class="px-0">  
             <%= render 'rooms/room_details', room: room, inn: @inn %>
           <% end %> 
-          </ul>     
         </div> 
       <%end%> 
     <%end%>
@@ -50,7 +48,7 @@
 <% if current_user.nil? || current_user.inn != @inn %>
   <article>
     <section>
-      <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border w-50 rounded flex-column p-0 mb-5">
+      <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border rounded-4 flex-column p-0 mb-5 align-items-center">
         <%= render 'inn_details', inn: @inn %>
       </ul>
     </section>

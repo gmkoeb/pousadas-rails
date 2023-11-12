@@ -1,31 +1,31 @@
-<% if current_user && current_user.rooms.include?(@room) %>
-  <div class="w-50 d-flex flex-column flex-wrap border border-primary rounded-4">
-    <%= image_tag 'room.jpg', class: "room-image h-25" %>
-    <h2 class="text-center"><%= @room.name %></h2>
-    <h4 class="text-center">Detalhes do quarto:</h4> 
-    <ul class="px-0 room">  
-      <%= render 'room_details', room: @room, inn:@room.inn %>
-    </ul>      
-  </div> 
-  <aside class="admin-room-control text-center mt-3">
-    <% if @room.draft? %>
-      <h4>ATENÇÃO: Ao publicar o quarto ele poderá ser visualizado por outros usuários, e aceitará reservas.</h4>
-      <%= button_to 'Publicar Quarto', publish_room_path(@room), {method: 'patch', class:"btn btn-primary text-white mb-2"}%>
-    <% else %>
-      <%= button_to 'Esconder Quarto', draft_room_path(@room), {method: 'patch', class:"btn btn-primary text-white mb-2"} %>
-    <%end%>
-    <%= link_to 'Definir Preços Por Período', new_room_price_per_period_path(@room), class: "btn btn-primary text-white mb-2"%>
-    <%= link_to 'Editar Quarto', edit_room_path(@room), class: "btn btn-primary text-white" %>
-  </aside>
-<% else %>
-  <div class="w-75 d-flex flex-column flex-wrap">
-    <%= image_tag 'room.jpg', class: "room-image h-25" %>
-    <h2 class="text-center"><%= @room.name %></h2>
-    <h4 class="text-center">Detalhes do quarto:</h4> 
-    <ul class="px-0 room">  
-      <%= render 'room_details', room: @room, inn:@room.inn %>
-    </ul>      
-  </div> 
-
-<% end %>
-
+<article>
+  <% if current_user && current_user.rooms.include?(@room) %>
+    <div class="w-50 d-flex flex-column flex-wrap border border-primary rounded-4 mx-auto mb-5">
+      <%= image_tag 'room.jpg', class: "room-image h-25" %>
+      <h2 class="text-center"><%= @room.name %></h2>
+      <h4 class="text-center">Detalhes do quarto:</h4> 
+      <ul class="px-0 room">  
+        <%= render 'room_details', room: @room, inn:@room.inn %>
+      </ul>      
+    </div> 
+    <aside class="admin-room-control text-center mt-3">
+      <% if @room.draft? %>
+        <h4>ATENÇÃO: Ao publicar o quarto ele poderá ser visualizado por outros usuários, e aceitará reservas.</h4>
+        <%= button_to 'Publicar Quarto', publish_room_path(@room), {method: 'patch', class:"btn btn-primary text-white mb-2"}%>
+      <% else %>
+        <%= button_to 'Esconder Quarto', draft_room_path(@room), {method: 'patch', class:"btn btn-primary text-white mb-2"} %>
+      <%end%>
+      <%= link_to 'Definir Preços Por Período', new_room_price_per_period_path(@room), class: "btn btn-primary text-white mb-2"%>
+      <%= link_to 'Editar Quarto', edit_room_path(@room), class: "btn btn-primary text-white" %>
+    </aside>
+  <% else %>
+    <div class="w-75 d-flex flex-column flex-wrap">
+      <%= image_tag 'room.jpg', class: "room-image h-25" %>
+      <h2 class="text-center"><%= @room.name %></h2>
+      <h4 class="text-center">Detalhes do quarto:</h4> 
+      <ul class="px-0 room">  
+        <%= render 'room_details', room: @room, inn:@room.inn %>
+      </ul>      
+    </div> 
+  <% end %>
+</article>

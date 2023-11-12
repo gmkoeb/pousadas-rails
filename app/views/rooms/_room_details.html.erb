@@ -1,23 +1,23 @@
 <% prices = sort_by_date(room.price_per_periods) %>  
 <div class="mx-2 mt-2 text-center">
   <h5><i class="fa-solid fa-circle-info"></i> Especificações</h5>
-  <li>Descrição: <%= room.description %></li>
-  <li>Área: <%= room.area %> m²</li>
-  <li><i class="fa-solid fa-users"></i> Número máximo de hóspedes: <%= room.maximum_guests %></li>
+  <p>Descrição: <%= room.description %></p>
+  <p>Área: <%= room.area %> m²</p>
+  <p><i class="fa-solid fa-users"></i> Número máximo de hóspedes: <%= room.maximum_guests %></p>
 </div>
 <div class="mx-2 mt-3 text-center">
   <h5><i class="fa-solid fa-money-bill-wave"></i> Preço</h5>
-  <li>Preço padrão da diária: R$ <%= room.price %></li>
+  <p>Preço padrão da diária: R$ <%= room.price %></p>
 </div>
 <h5 class="text-center mt-3"> <i class="fa-solid fa-clipboard-question"></i> Informações Adicionais</h5>
 <div class="d-flex flex-wrap gap-3 mx-2 align-items-center justify-content-center">
-  <li><%= bathroom(room.has_bathroom) %><i class="fa-solid fa-toilet mx-2"></i></li>
-  <li><%= balcony(room.has_balcony) %></li>
-  <li><%= air_conditioner(room.has_air_conditioner) %><i class="fa-solid fa-wind mx-2"></i></li>
-  <li><%= tv(room.has_tv) %><i class="fa-solid fa-tv mx-2"></i></li>
-  <li><%= wardrobe(room.has_wardrobe) %></li>
-  <li><%= coffer(room.has_coffer) %><i class="fa-solid fa-lock mx-2"></i></li>
-  <li><%= accessibility(room.accessible) %><i class="fa-brands fa-accessible-icon mx-2"></i></li>
+  <p><%= bathroom(room.has_bathroom) %><i class="fa-solid fa-toilet mx-2"></i></p>
+  <p><%= balcony(room.has_balcony) %></p>
+  <p><%= air_conditioner(room.has_air_conditioner) %><i class="fa-solid fa-wind mx-2"></i></p>
+  <p><%= tv(room.has_tv) %><i class="fa-solid fa-tv mx-2"></i></p>
+  <p><%= wardrobe(room.has_wardrobe) %></li>
+  <p><%= coffer(room.has_coffer) %><i class="fa-solid fa-lock mx-2"></i></p>
+  <p><%= accessibility(room.accessible) %><i class="fa-brands fa-accessible-icon mx-2"></i></p>
 </div>
 
 <% if current_user && current_user.inn == inn %>

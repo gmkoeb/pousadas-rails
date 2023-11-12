@@ -1,11 +1,11 @@
 <%= image_tag 'inn.jpg', class: "inn-image h-25" %>
 <div class="px-5">
-  <h4><i class="fa-solid fa-phone"></i> Informações Para Contato</h4>
+  <h4 class="text-center"><i class="fa-solid fa-phone"></i> Informações Para Contato</h4>
   <li><%= Inn.human_attribute_name(:phone) %>: <%= inn.phone %></li>
   <li><%= Inn.human_attribute_name(:email)%>: <%= inn.email %></li>
 </div>
-<div class="px-5">
-  <h4>   
+<div class="px-5 d-flex flex-column justify-content-center align-items-center">
+  <h4 class="text-center">   
     <i class="fa-solid fa-location-dot"></i> Localização
   </h4>
   <li>
@@ -15,7 +15,7 @@
   <li><%= Inn.human_attribute_name(:description)%>: <%= inn.description %></li>
 </div>
 <div class="px-5">
-  <h4 class="mb-3"><i class="fa-solid fa-money-check-dollar"></i> <%= Inn.human_attribute_name(:payment_methods)%></h4>
+  <h4 class="mb-3 text-center"><i class="fa-solid fa-money-check-dollar"></i> <%= Inn.human_attribute_name(:payment_methods)%></h4>
   <% eval(inn.payment_methods).each do |method| %>
     <li class="mb-1">
       <% case method %>
@@ -31,7 +31,7 @@
   <%end%>
 </div>
 <div class="px-5">
-  <h4><i class="fa-solid fa-clipboard-question"></i>Informações Adicionais</h4>
+  <h4 class="text-center"><i class="fa-solid fa-clipboard-question"></i>Informações Adicionais</h4>
   <li>
     <p><%= accepts_pets?(inn.accepts_pets?) %></p>
   </li>
