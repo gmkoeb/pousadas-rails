@@ -85,6 +85,7 @@ describe 'usuário cadastra preços especiais' do
     click_on 'Quarto Master'
     click_on 'Definir Preços Por Período'
     # Act
+    fill_in 'Preço Especial', with: ''
     click_on 'Enviar'
     # Assert
     expect(page).to have_content 'Não foi possível cadastrar preço especial.'
