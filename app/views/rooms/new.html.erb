@@ -13,7 +13,7 @@
 <%= form_with model: [@inn, @room], html: {class: "row g-3 mt-3 w-50"} do |f| %>
   <div class="col-md-4">
     <%= f.label :name, class: "form-label" %>
-    <%= f.text_field :name, class: "form-control" %>
+    <%= f.text_field :name, placeholder:'Nome do quarto' , class: "form-control" %>
   </div>
   
   <div class="col-md-2">
@@ -23,17 +23,17 @@
   
   <div class="col-md-4">
     <%= f.label :maximum_guests, class: "form-label" %>
-    <%= f.number_field :maximum_guests, class: "form-control" %>
+    <%= f.number_field :maximum_guests, :value => 1, class: "form-control" %>
   </div>
   
   <div class="col-md-2">
     <%= f.label :price, class: "form-label" %>
-    <%= f.number_field :price, class: "form-control" %>
+    <%= f.number_field :price, :value => 1, class: "form-control" %>
   </div>
 
   <div class="col-md-12">
     <%= f.label :description, class: "form-label" %>
-    <%= f.text_area :description, class: "form-control" %>
+    <%= f.text_area :description, placeholder: "Faça uma breve descrição do quarto", class: "form-control" %>
   </div>
 
   <div class="d-flex flex-column">
