@@ -748,9 +748,71 @@ RSpec.describe Inn, type: :model do
                         price: 1000, maximum_guests: 5, has_air_conditioner: true, 
                         accessible: true, has_balcony: true )                                                     
       inn_2.rooms.create!(name: 'Quarto Simples', description: 'Melhor quarto da pousada.', area: 50, 
-                                price: 5000, maximum_guests: 5, has_air_conditioner: true, accessible: true)
+                          price: 5000, maximum_guests: 5, has_air_conditioner: true, accessible: true)
       # Act
       result = Inn.advanced_search('', '', '', ['has_air_conditioner', 'has_balcony', 'accessible'], '', '')
+      # Assert
+      expect(result).to include inn
+      expect(result).not_to include inn_2
+    end
+
+    it 'usuário busca pousadas por número de hóspedes em quartos' do
+      # Arrange
+      user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+      user_2 = User.create!(email: 'joao@gmail.com', password: 'password', admin: 'true')
+      inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
+                        registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
+                        address: 'Florianópolis', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                        city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                        payment_methods: '["Dinheiro, PIX, Cartão de débito, Cartão de crédito"]', 
+                        accepts_pets: 'true', terms_of_service: 'Proibido som alto após as 18h',
+                        check_in_check_out_time: '12:00', user: user, status: 'published')
+
+      inn_2 = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Sol', 
+                          registration_number: '2333123', phone: '45995203040', email: 'pousadadosol@gmail.com', 
+                          address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                          city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                          payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
+                          check_in_check_out_time: '12:00', user: user_2, status: 'published')  
+
+      inn.rooms.create!(name: 'Quarto Com Tudo', description: 'Melhor quarto da pousada.', area: 50, 
+                        price: 1000, maximum_guests: 5, has_air_conditioner: true, 
+                        accessible: true, has_balcony: true )                                                     
+      inn_2.rooms.create!(name: 'Quarto Simples', description: 'Melhor quarto da pousada.', area: 50, 
+                          price: 5000, maximum_guests: 4, has_air_conditioner: true, accessible: true)
+      # Act
+      result = Inn.advanced_search('', '', '', '', '5', '')
+      # Assert
+      expect(result).to include inn
+      expect(result).not_to include inn_2
+    end
+
+    it 'usuário busca pousadas por preços' do
+      # Arrange
+      user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+      user_2 = User.create!(email: 'joao@gmail.com', password: 'password', admin: 'true')
+      inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
+                        registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
+                        address: 'Florianópolis', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                        city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                        payment_methods: '["Dinheiro, PIX, Cartão de débito, Cartão de crédito"]', 
+                        accepts_pets: 'true', terms_of_service: 'Proibido som alto após as 18h',
+                        check_in_check_out_time: '12:00', user: user, status: 'published')
+
+      inn_2 = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Sol', 
+                          registration_number: '2333123', phone: '45995203040', email: 'pousadadosol@gmail.com', 
+                          address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                          city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                          payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
+                          check_in_check_out_time: '12:00', user: user_2, status: 'published')  
+
+      inn.rooms.create!(name: 'Quarto Com Tudo', description: 'Melhor quarto da pousada.', area: 50, 
+                        price: 1000, maximum_guests: 5, has_air_conditioner: true, 
+                        accessible: true, has_balcony: true )                                                     
+      inn_2.rooms.create!(name: 'Quarto Simples', description: 'Melhor quarto da pousada.', area: 50, 
+                          price: 1001, maximum_guests: 4, has_air_conditioner: true, accessible: true)
+      # Act
+      result = Inn.advanced_search('', '', '', '', '', '1000')
       # Assert
       expect(result).to include inn
       expect(result).not_to include inn_2
