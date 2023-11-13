@@ -78,7 +78,6 @@ RSpec.describe Room, type: :model do
         expect(result).to be true
         expect(room.errors[:maximum_guests]).to include 'não pode ficar em branco'
       end
-
     end
   end
 end
