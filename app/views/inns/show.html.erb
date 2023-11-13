@@ -1,10 +1,8 @@
-<h1><%= @inn.brand_name %></h1>
-<h2 class="mb-5 mt-5">Detalhes da pousada</h2>
 <% if current_user && current_user.inn && @inn == current_user.inn %>
   <article>
     <section>
       
-      <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border rounded-4 flex-column p-0 mb-5 align-items-center">
+      <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border rounded-4 flex-column p-0 mb-5">
         <%= render 'inn_details', inn: @inn %>
       </ul>
 
@@ -16,12 +14,12 @@
         <div>
           <% if @inn.draft? %>
             <p class="fw-bold">**ATENÇÃO: Ao publicar a pousada ela poderá ser visualizada por outros usuários.</p>
-            <%= button_to 'Publicar pousada', publish_inn_path(@inn.id), {method: 'patch', class:"btn btn-primary text-white mb-2"}%>
+            <%= button_to 'Publicar pousada', publish_inn_path(@inn.id), {method: 'patch', class:"btn btn-info text-white mb-2"}%>
           <% else %>
             <%= button_to 'Esconder pousada', draft_inn_path(@inn.id), {method: 'patch', class:"btn btn-dark text-white mb-2"}%>
           <% end %>
-          <%= link_to 'Editar Pousada', edit_inn_path(@inn), class:"btn btn-primary text-white"%>
-          <%= link_to 'Cadastrar Quarto', new_inn_room_path(@inn), class:"btn btn-primary text-white" %> 
+          <%= link_to 'Editar Pousada', edit_inn_path(@inn), class:"btn btn-info text-white"%>
+          <%= link_to 'Cadastrar Quarto', new_inn_room_path(@inn), class:"btn btn-info text-white" %> 
         </div>
       </aside>
     </section>
@@ -33,9 +31,6 @@
       <% @inn.rooms.each do |room| %>
         <div class="room-card d-flex flex-column flex-wrap">
           <%= link_to room_path(room) do%>
-            <%= image_tag 'room.jpg', class: "room-image h-25" %>
-            <h2 class="text-center"><%= room.name %></h2>
-            <h4 class="text-center">Detalhes do quarto:</h4> 
             <%= render 'rooms/room_details', room: room, inn: @inn %>
           <% end %> 
         </div> 
@@ -48,7 +43,7 @@
 <% if current_user.nil? || current_user.inn != @inn %>
   <article>
     <section>
-      <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border rounded-4 flex-column p-0 mb-5 align-items-center">
+      <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border rounded-4 flex-column p-0 mb-5">
         <%= render 'inn_details', inn: @inn %>
       </ul>
     </section>
@@ -58,9 +53,6 @@
       <% @rooms.each do |room| %>
         <div class="room-card d-flex flex-column flex-wrap">
           <%= link_to room_path(room) do %>
-            <%= image_tag 'room.jpg', class: "room-image h-25" %>
-            <h2 class="text-center"><%= room.name %></h2>
-            <h4 class="text-center">Detalhes do quarto:</h4> 
             <ul class="px-0">  
               <%= render 'rooms/room_details', room: room, inn: @inn %>
             </ul>     

@@ -17,7 +17,7 @@
   "primary":    #f84d4f,
   "secondary":  #2a3348,
   "success":    #198754,
-  "info":       #0dcaf0,
+  "info":       #0d6efd,
   "warning":    #ffc107,
   "danger":     #dc3545,
   "light":      #b9b8b8,
@@ -71,8 +71,12 @@ input[type="radio"]:checked {
   background-color: #f84d4f;
 }
 
+ul.inn-details{
+  width: 35vw !important;
+}
+
 .inn-card{
-  border: 2px solid  !important;
+  border: 1px solid  !important;
   border-radius: 12px;
   text-align: center;
   width: 20rem;
@@ -85,7 +89,7 @@ input[type="radio"]:checked {
 }
 
 .room-card{
-  border: 2px solid #f84d4f  !important;
+  border: 1px solid  !important;
   border-radius: 12px;
   width: 25%;
   height: fit-content;
@@ -126,10 +130,6 @@ input[type="radio"]:checked {
 
 .admin-room-control{
   top: 25%;
-}
-
-ul.inn-details{
-  width: 50vw !important;
 }
 
 @media (max-width: 1000px) {
