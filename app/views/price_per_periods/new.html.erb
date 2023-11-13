@@ -12,7 +12,7 @@
 <%= form_with model: [@room, @price_per_period], html: {class: "row g-3 w-50 mt-3 d-flex justify-content-center"} do |f| %>
   <div class="col-md-2">
     <%= f.label :special_price, class: "form-label" %>
-    <%= f.number_field :special_price, :value => 1,  class: "form-control" %>
+    <%= f.number_field :special_price,  class: "form-control" %>
   </div>
   <div class="col-md-2">
     <%= f.label :starts_at, class: "form-label" %>

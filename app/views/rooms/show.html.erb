@@ -5,7 +5,7 @@
         <%= render 'room_details', room: @room, inn:@room.inn %>
       </ul>      
     </div> 
-    <aside class="admin-room-control text-center mt-4 px-5">
+    <aside class="admin-room-control text-center mt-5 px-5">
       <% if @room.draft? %>
         <h4>Painel de Controle</h4>
         <p class="fw-bold text-danger">ATENÇÃO: Ao publicar o quarto ele poderá ser visualizado por outros usuários, e aceitará reservas.</p>
