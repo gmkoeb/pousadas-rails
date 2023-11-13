@@ -5,12 +5,15 @@
       <ul class="inn-details d-flex flex-wrap gap-5 mx-auto border rounded-4 flex-column p-0 mb-5">
         <%= render 'inn_details', inn: @inn %>
       </ul>
-
-      <aside class="admin-control text-center">
+      <% if @inn.rooms.present? %>  
+        <h2 class="text-center mb-4"><%= Room.model_name.human(count: @rooms.count) %></h2>
+      <% end %>   
+      
+      <aside class="admin-control text-center text-primary">
         <h3>Painel de Controle </h3> <span class="fw-bold">*Essas informações não aparecem para os outros usuários</span>
-        <p class="mt-3"><%= Inn.human_attribute_name(:corporate_name) %>: <%= @inn.corporate_name %></p>
-        <p><%= Inn.human_attribute_name(:brand_name) %>: <%= @inn.brand_name %></p>
-        <p><%= Inn.human_attribute_name(:registration_number) %>: <%= @inn.registration_number %></p>
+        <h5 class="mt-3"><%= Inn.human_attribute_name(:corporate_name) %>: <%= @inn.corporate_name %></h5>
+        <h5><%= Inn.human_attribute_name(:brand_name) %>: <%= @inn.brand_name %></h5>
+        <h5><%= Inn.human_attribute_name(:registration_number) %>: <%= @inn.registration_number %></h5>
         <div>
           <% if @inn.draft? %>
             <p class="fw-bold">**ATENÇÃO: Ao publicar a pousada ela poderá ser visualizada por outros usuários.</p>
@@ -29,7 +32,7 @@
       <h2>Você ainda não cadastrou um quarto. <%= link_to 'Clique aqui para cadastrar um.', new_inn_room_path(@inn)%></h2>
     <% else %>
       <% @inn.rooms.each do |room| %>
-        <div class="room-card d-flex flex-column flex-wrap">
+        <div class="room-card">
           <%= link_to room_path(room) do%>
             <%= render 'rooms/room_details', room: room, inn: @inn %>
           <% end %> 
@@ -51,7 +54,7 @@
     <section class="d-flex flex-wrap gap-3 justify-content-center mb-5">
     <% if @rooms.present? %>
       <% @rooms.each do |room| %>
-        <div class="room-card d-flex flex-column flex-wrap">
+        <div class="room-card">
           <%= link_to room_path(room) do %>
             <ul class="px-0">  
               <%= render 'rooms/room_details', room: room, inn: @inn %>

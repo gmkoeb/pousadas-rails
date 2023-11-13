@@ -1,6 +1,6 @@
-<%= image_tag 'inn.jpg', class: "inn-image h-25" %>
-<h1 class="text-center"><%= @inn.brand_name %></h1>
-<h2 class="text-center">Detalhes da pousada</h2>
+<%= image_tag 'inn.jpg', class: "inn-image h-25 py-0 my-0" %>
+<h1 class="text-center py-0 my-0"><%= @inn.brand_name %></h1>
+<h2 class="text-center py-0 my-0">Detalhes da pousada</h2>
 <div class="px-5">
   <h4><i class="fa-solid fa-phone"></i> Informações Para Contato</h4>
   <li><%= Inn.human_attribute_name(:phone) %>: <%= inn.phone %></li>

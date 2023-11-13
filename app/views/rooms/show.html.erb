@@ -5,9 +5,10 @@
         <%= render 'room_details', room: @room, inn:@room.inn %>
       </ul>      
     </div> 
-    <aside class="admin-room-control text-center mt-3 p-5">
+    <aside class="admin-room-control text-center mt-4 px-5">
       <% if @room.draft? %>
-        <h4>ATENÇÃO: Ao publicar o quarto ele poderá ser visualizado por outros usuários, e aceitará reservas.</h4>
+        <h4>Painel de Controle</h4>
+        <p class="fw-bold">ATENÇÃO: Ao publicar o quarto ele poderá ser visualizado por outros usuários, e aceitará reservas.</p>
         <%= button_to 'Publicar Quarto', publish_room_path(@room), {method: 'patch', class:"btn btn-info text-white mb-2"}%>
       <% else %>
         <%= button_to 'Esconder Quarto', draft_room_path(@room), {method: 'patch', class:"btn btn-dark text-white mb-2"} %>

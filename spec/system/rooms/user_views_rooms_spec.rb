@@ -24,7 +24,9 @@ describe 'usuário vê quartos de uma pousada' do
     expect(page).to have_link 'Quarto Master'
     expect(page).to have_link 'Quarto Economy'
     expect(page).to have_link 'Quarto Economy Casal'
-    expect(page).to have_content 'Quarto mais barato'
+    expect(page).to have_content 'Número máximo de hóspedes: 5'
+    expect(page).to have_content 'Preço'
+    expect(page).to have_content 'Preço padrão da diária: R$ 5000'
     expect(page).to_not have_content 'Quarto Master Casal'
     expect(page).to_not have_content 'Melhor quarto para casais'
   end

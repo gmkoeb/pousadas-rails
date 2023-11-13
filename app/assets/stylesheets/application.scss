@@ -91,7 +91,7 @@ ul.inn-details{
 .room-card{
   border: 1px solid  !important;
   border-radius: 12px;
-  width: 25%;
+  width: 20rem;
   height: fit-content;
 }
 
@@ -109,11 +109,15 @@ ul.inn-details{
 
 .inn-card img, .inn-image, .room-image{
   width: 100%;
-  height: 112px;
+  height: 10vh;
   object-fit: cover;
   margin-bottom: 1rem; 
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+}
+
+.room img{
+  height: 35vh !important;
 }
 
 .admin-control, .admin-room-control{
