@@ -71,6 +71,11 @@ input[type="radio"]:checked {
   background-color: #f84d4f;
 }
 
+input[type="radio"], input[type="checkbox"]{
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
 ul.inn-details{
   width: 35vw !important;
 }
@@ -79,7 +84,7 @@ ul.inn-details{
   border: 1px solid  !important;
   border-radius: 12px;
   text-align: center;
-  width: 20rem;
+  width: 30rem;
   padding-bottom: 1rem;
 }
 

@@ -9,14 +9,14 @@
         <h2 class="text-center mb-4"><%= Room.model_name.human(count: @rooms.count) %></h2>
       <% end %>   
       
-      <aside class="admin-control text-center text-primary">
-        <h3>Painel de Controle </h3> <span class="fw-bold">*Essas informações não aparecem para os outros usuários</span>
+      <aside class="admin-control text-center">
+        <h3>Painel de Controle </h3> <span class="fw-bold text-danger">*Essas informações não aparecem para os outros usuários</span>
         <h5 class="mt-3"><%= Inn.human_attribute_name(:corporate_name) %>: <%= @inn.corporate_name %></h5>
         <h5><%= Inn.human_attribute_name(:brand_name) %>: <%= @inn.brand_name %></h5>
         <h5><%= Inn.human_attribute_name(:registration_number) %>: <%= @inn.registration_number %></h5>
         <div>
           <% if @inn.draft? %>
-            <p class="fw-bold">**ATENÇÃO: Ao publicar a pousada ela poderá ser visualizada por outros usuários.</p>
+            <p class="fw-bold text-danger">**ATENÇÃO: Ao publicar a pousada ela poderá ser visualizada por outros usuários.</p>
             <%= button_to 'Publicar pousada', publish_inn_path(@inn.id), {method: 'patch', class:"btn btn-info text-white mb-2"}%>
           <% else %>
             <%= button_to 'Esconder pousada', draft_inn_path(@inn.id), {method: 'patch', class:"btn btn-dark text-white mb-2"}%>
