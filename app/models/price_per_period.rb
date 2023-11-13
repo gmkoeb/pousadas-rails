@@ -3,7 +3,7 @@ class PricePerPeriod < ApplicationRecord
 
   validates :special_price, :starts_at, :ends_at, presence:true
   
-  validate :valid_inn, :date_overlaps, :invalid_date
+  validate :date_overlaps, :invalid_date
   
   private
 
@@ -24,11 +24,5 @@ class PricePerPeriod < ApplicationRecord
     return if self.starts_at.nil? || self.ends_at.nil? 
     errors.add(:base, 'Data de ínicio precisa ser maior que a data de término') if self.starts_at > self.ends_at  
   end 
-  
-  def valid_inn
-    user = User.where(inn: room.inn_id).first
-    unless self.room.inn && user == self.room.inn.user
-      errors.add(:inn, "Essa operação não pode ser realizada.")
-    end
-  end
+
 end

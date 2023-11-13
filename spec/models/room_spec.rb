@@ -79,17 +79,6 @@ RSpec.describe Room, type: :model do
         expect(room.errors[:maximum_guests]).to include 'não pode ficar em branco'
       end
 
-      it 'Pousada inválida' do
-        # Arrange
-        room = Room.new(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
-                        price: 5000, maximum_guests: 5)
-        # Act
-        room.valid?
-        result = room.errors.include?(:inn_id)
-        # Assert  
-        expect(result).to be true
-        expect(room.errors[:inn_id]).to include 'Essa operação não pode ser realizada.'
-      end
     end
   end
 end
