@@ -7,6 +7,8 @@ describe 'Usuario cria uma conta' do
     visit root_path
     click_on 'Entrar'
     click_on 'Criar uma conta'
+    fill_in 'Nome', with: 'Gabriel Manika'
+    fill_in 'CPF', with: '99999999'
     fill_in 'E-mail', with: 'email@email.com'
     fill_in 'Senha', with: '123456'
     fill_in 'Confirme sua senha', with: '123456'
@@ -25,6 +27,8 @@ describe 'Usuario cria uma conta' do
     visit root_path
     click_on 'Entrar'
     click_on 'Criar uma conta'
+    fill_in 'Nome', with: 'Gabriel Manika'
+    fill_in 'CPF', with: '99999999'
     fill_in 'E-mail', with: 'email@email.com'
     fill_in 'Senha', with: '123456'
     fill_in 'Confirme sua senha', with: '123456'
@@ -46,6 +50,8 @@ describe 'Usuario cria uma conta' do
     visit root_path
     click_on 'Entrar'
     click_on 'Criar uma conta'
+    fill_in 'Nome', with: 'Gabriel Manika'
+    fill_in 'CPF', with: '99999999'
     fill_in 'E-mail', with: 'email@email.com'
     fill_in 'Senha', with: '123456'
     fill_in 'Confirme sua senha', with: '123456'
@@ -65,6 +71,8 @@ describe 'Usuario cria uma conta' do
     visit root_path
     click_on 'Entrar'
     click_on 'Criar uma conta'
+    fill_in 'Nome', with: 'Gabriel Manika'
+    fill_in 'CPF', with: '99999999'
     fill_in 'E-mail', with: 'email@email.com'
     fill_in 'Senha', with: ''
     fill_in 'Confirme sua senha', with: ''
@@ -82,6 +90,8 @@ describe 'Usuario cria uma conta' do
     visit root_path
     click_on 'Entrar'
     click_on 'Criar uma conta'
+    fill_in 'Nome', with: 'Gabriel Manika'
+    fill_in 'CPF', with: '99999999'
     fill_in 'E-mail', with: 'email@email.com'
     fill_in 'Senha', with: '123456'
     fill_in 'Confirme sua senha', with: 'password'
@@ -94,11 +104,14 @@ describe 'Usuario cria uma conta' do
 
   it 'com e-mail já existente' do
     # Arrange 
-    User.create!(email: 'email@email.com', password: '123456')
+    User.create!(email: 'email@email.com', password: '123456', name: 'Gabriel', 
+                 registration_number: '99999999999')
     # Act
     visit root_path
     click_on 'Entrar'
     click_on 'Criar uma conta'
+    fill_in 'Nome', with: 'Gabriel Manika'
+    fill_in 'CPF', with: '99999999'
     fill_in 'E-mail', with: 'email@email.com'
     fill_in 'Senha', with: '123456'
     fill_in 'Confirme sua senha', with: '123456'

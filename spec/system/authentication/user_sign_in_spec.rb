@@ -3,7 +3,8 @@ require 'rails_helper'
 describe 'Usuário padrão se autentica' do
   it 'com sucesso' do
     # Arrange
-    User.create!(email: 'gmkoeb@gmail.com', password: 'password')
+    User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+             registration_number: '99999999999')
     # Act
     visit root_path
     click_on 'Entrar'
@@ -24,7 +25,8 @@ describe 'Usuário padrão se autentica' do
 
   it 'e realiza log out' do
     # Arrange
-    User.create!(email: 'gmkoeb@gmail.com', password: 'password')
+    User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                 registration_number: '99999999999')
     # Act
     visit root_path
     click_on 'Entrar'
@@ -43,7 +45,8 @@ describe 'Usuário padrão se autentica' do
 
   it 'com informações incorretas' do
     # Arrange
-    User.create!(email: 'gmkoeb@gmail.com', password: 'password')
+    User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                 registration_number: '99999999999')
     # Act
     visit root_path
     click_on 'Entrar'
@@ -60,7 +63,8 @@ end
 describe 'Usuário admin se autentica' do
   it 'com sucesso' do
     # Arrange
-    User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                 registration_number: '99999999999', admin: true)
     # Act
     visit root_path
     click_on 'Entrar'
@@ -81,7 +85,8 @@ describe 'Usuário admin se autentica' do
 
   it 'e não possui pousadas cadastradas' do
     # Arrange
-    User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                 registration_number: '99999999999', admin: true)
     # Act
     visit root_path
     click_on 'Entrar'
@@ -103,7 +108,8 @@ describe 'Usuário admin se autentica' do
 
   it 'e possui pousadas cadastradas' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                 registration_number: '99999999999', admin: true)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',

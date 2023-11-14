@@ -3,7 +3,8 @@ require 'rails_helper'
 describe 'dono de pousadas cadastra quarto' do
   it 'a partir da home' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                 registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                 address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -36,7 +37,8 @@ describe 'dono de pousadas cadastra quarto' do
 
   it 'com sucesso' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -71,7 +73,8 @@ describe 'dono de pousadas cadastra quarto' do
   end
 
   it 'com dados faltando' do
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -101,7 +104,8 @@ describe 'dono de pousadas cadastra quarto' do
   end
 
   it 'em pousada que já têm quartos' do
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -133,16 +137,17 @@ describe 'dono de pousadas cadastra quarto' do
   end
 
   it 'em pousada que não é dele' do
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    
-    user_2 = User.create!(email: 'admin@gmail.com', password: 'password', admin: 'true')
+    user_1 = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                            registration_number: '99999999999', admin: true)
+    user_2 = User.create!(email: 'gmkoeb2@gmail.com', password: 'password', name: 'Gabriel', 
+                          registration_number: '99999999999', admin: true)
 
-    inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
+    inn_1 = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
                       city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
                       payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
-                      check_in_check_out_time: '12:00', user: user)
+                      check_in_check_out_time: '12:00', user: user_1)
 
     inn_2 = Inn.create!(corporate_name: 'Pousadas Curitiba LTDA', brand_name: 'Pousada da Chuva', 
                         registration_number: '1233', phone: '4136223040', email: 'pousadachuva@gmail.com', 
@@ -152,7 +157,7 @@ describe 'dono de pousadas cadastra quarto' do
                         check_in_check_out_time: '12:00', user: user_2)
     # Act
     login_as(user_2)
-    visit new_inn_room_path(inn)
+    visit new_inn_room_path(inn_1)
     # Assert
     expect(current_path).to eq root_path
     expect(page).to have_content 'Você não pode realizar essa ação'

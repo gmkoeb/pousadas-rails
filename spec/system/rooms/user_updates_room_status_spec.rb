@@ -3,7 +3,8 @@ require 'rails_helper'
 describe 'Usuário dono da pousada muda status de quarto' do
   it 'e o publica' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua das pousadas, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -27,7 +28,8 @@ describe 'Usuário dono da pousada muda status de quarto' do
 
   it 'e o esconde' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua das pousadas, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',

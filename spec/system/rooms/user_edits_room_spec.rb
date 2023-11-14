@@ -3,7 +3,8 @@ require 'rails_helper'
 describe 'usuário edita quarto' do
   it 'a partir da home' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -38,7 +39,8 @@ describe 'usuário edita quarto' do
 
   it 'com sucesso' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -86,7 +88,8 @@ describe 'usuário edita quarto' do
 
   it 'com dados faltando' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -121,8 +124,10 @@ describe 'usuário edita quarto' do
   end
 
   it 'em uma pousada que não é dele' do
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    user_2 = User.create!(email: 'admin@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
+    user_2 = User.create!(email: 'admin@gmail.com', password: 'password', name: 'Gabriel', 
+                          registration_number: '99999999999', admin: 'true')
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',

@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'Dono de pousadas edita pousada' do
   it 'a partir da home' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    login_as(user)
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                 registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                 address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -12,6 +12,7 @@ describe 'Dono de pousadas edita pousada' do
                 payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
                 check_in_check_out_time: '12:00', user: user)
     # Act 
+    login_as(user)
     visit root_path
     within 'nav' do
       click_on 'Minha pousada'
@@ -43,8 +44,8 @@ describe 'Dono de pousadas edita pousada' do
 
   it 'com sucesso' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    login_as(user)
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                 registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                 address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -52,6 +53,7 @@ describe 'Dono de pousadas edita pousada' do
                 payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
                 check_in_check_out_time: '12:00', user: user)
     # Act 
+    login_as(user)
     visit root_path
     within 'nav' do
       click_on 'Minha pousada'
@@ -84,8 +86,8 @@ describe 'Dono de pousadas edita pousada' do
 
   it 'com dados faltando' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    login_as(user)
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                 registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                 address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -93,6 +95,7 @@ describe 'Dono de pousadas edita pousada' do
                 payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
                 check_in_check_out_time: '12:00', user: user)
     # Act 
+    login_as(user)
     visit root_path
     within 'nav' do
       click_on 'Minha pousada'
@@ -112,15 +115,16 @@ describe 'Dono de pousadas edita pousada' do
 
   it 'que não é dele' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    user_2 = User.create!(email: 'admin@admin.com', password: 'password', admin: 'true')
-    login_as(user_2)
-    inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
+    user_1 = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                          registration_number: '99999999999', admin: true)
+    user_2 = User.create!(email: 'joao@gmail.com', password: 'password', name: 'Joao', 
+                          registration_number: '00000000000', admin: true)
+    inn_1 = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
                       city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
                       payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
-                      check_in_check_out_time: '12:00', user: user)
+                      check_in_check_out_time: '12:00', user: user_1)
     inn_2 = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Sol', 
                         registration_number: '2333123', phone: '45995203040', email: 'pousadadosol@gmail.com', 
                         address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -128,7 +132,8 @@ describe 'Dono de pousadas edita pousada' do
                         payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
                         check_in_check_out_time: '12:00', user: user_2)
     # Act
-    visit edit_inn_path(inn.slug)
+    login_as(user_2)
+    visit edit_inn_path(inn_1)
     # Assert
     expect(current_path).to eq(root_path)
     expect(page).to have_content 'Você não pode realizar essa ação.'
@@ -138,16 +143,18 @@ end
 describe 'Usuário comum tenta editar uma pousada' do
   it 'a partir da home' do
     # Arrange
-    user = User.create!(email: 'gmkoeb1@gmail.com', password: 'password')
-    user_2 = User.create!(email: 'admin@admin.com', password: 'password', admin: 'true')
-    login_as(user)
+    admin = User.new(email: 'admin@gmail.com', password: 'password', admin: true, name: 'Gabriel', 
+                     registration_number: '99999999999')
+    non_admin = User.new(email: 'nonadmin@gmail.com', password: 'password', admin: false, name: 'Gabriel', 
+                         registration_number: '99999999999')
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
                       city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
                       payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Não pode som alto após as 18h', 
-                      check_in_check_out_time: '12:00', user: user_2)
+                      check_in_check_out_time: '12:00', user: admin)
     # Act
+    login_as(non_admin)
     visit edit_inn_path(inn.slug)
     # Assert
     expect(current_path).to eq(root_path)

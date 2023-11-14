@@ -2,8 +2,9 @@ require 'rails_helper'
 describe 'Usuario cria uma pousada' do
   it 'e não está logado' do
     # Arrange
-    user = User.create!(email: 'gabriel@gmail.com', password: 'password', admin: true)
-    Inn.create(corporate_name: 'Pousada Repetida LTDA', brand_name: 'Pousada do Luar', 
+    user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: true, name: 'Gabriel', 
+                    registration_number: '99999999999')
+    Inn.create!(corporate_name: 'Pousada Repetida LTDA', brand_name: 'Pousada do Luar', 
       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
       address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
       city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
@@ -17,7 +18,7 @@ describe 'Usuario cria uma pousada' do
 
   it 'e não é dono de pousadas' do
     # Arrange
-    user = User.create!(email: 'gabriel@gmail.com', password: 'password')
+    user = User.new(email: 'gabriel@gmail.com', password: 'password')
     # Act
     login_as(user)
     post(inns_path, params:{ inn: {brand_name: 'Pousadas sem Dono'} })
@@ -27,7 +28,8 @@ describe 'Usuario cria uma pousada' do
 
   it 'e já têm uma pousada' do
     # Arrange
-    user = User.create!(email: 'gabriel@gmail.com', password: 'password', admin: true)
+    user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: true, name: 'Gabriel', 
+                    registration_number: '99999999999')
     Inn.create!(corporate_name: 'Pousada Repetida LTDA', brand_name: 'Pousada do Luar', 
                 registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                 address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',

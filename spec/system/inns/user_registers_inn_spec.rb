@@ -3,7 +3,8 @@ require 'rails_helper'
 describe 'Dono de pousadas cria uma pousada' do
   it 'a partir da home' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     # Act
     login_as(user)
     visit root_path
@@ -37,7 +38,8 @@ describe 'Dono de pousadas cria uma pousada' do
 
   it 'com sucesso' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     # Act
     login_as(user)
     visit root_path
@@ -88,8 +90,10 @@ describe 'Dono de pousadas cria uma pousada' do
 
   it 'com dados repetidos' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    user_2 = User.create!(email: 'gmkoeb2@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
+    user_2 = User.create!(email: 'joao@gmail.com', password: 'password', name: 'Joao', 
+                          registration_number: '99999999999', admin: true)
     Inn.create!(corporate_name: 'Pousada Repetida LTDA', brand_name: 'Pousada do Luar', 
                 registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                 address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -126,7 +130,8 @@ describe 'Dono de pousadas cria uma pousada' do
 
   it 'com dados faltando' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     # Act
     login_as(user)
     visit root_path
@@ -159,7 +164,8 @@ end
 describe 'Usuário comum tenta criar uma pousada' do
   it 'a partir da home' do
     # Arrange
-    user = User.create!(email: 'gmkoeb1@gmail.com', password: 'password')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999')
     # Act
     login_as(user)
     visit new_inn_path

@@ -4,7 +4,8 @@ RSpec.describe Room, type: :model do
   describe '#valid?' do
     it 'todos os dados estão corretos' do
       # Arrange
-      user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+      user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true', name: 'Gabriel', 
+                      registration_number: '99999999999')
       inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                         registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                         address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',

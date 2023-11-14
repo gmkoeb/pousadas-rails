@@ -2,18 +2,23 @@ require 'rails_helper'
 describe 'Usuário visita página de cidade' do
   it 'e vê pousadas publicadas da cidade' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    user_2 = User.create!(email: 'gabriel_manika@gmail.com', password: 'password', admin: 'true')
-    user_3 = User.create!(email: 'joao@gmail.com', password: 'password', admin: 'true')
-    user_4 = User.create!(email: 'lucas@gmail.com', password: 'passsword', admin: 'true')
-    user_5 = User.create!(email: 'andré@gmail.com', password: 'passsword', admin: 'true')
+    user_1 = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                            registration_number: '99999999999', admin: true)
+    user_2 = User.create!(email: 'gmkoeb2@gmail.com', password: 'password', name: 'Gabriel', 
+                          registration_number: '99999999999', admin: true)
+    user_3 = User.create!(email: 'joao@gmail.com', password: 'password', name: 'Joao', 
+                          registration_number: '99999999999', admin: true)
+    user_4 = User.create!(email: 'lucas@gmail.com', password: 'passsword', name: 'Lucas', 
+                          registration_number: '99999999999', admin: true)
+    user_5 = User.create!(email: 'andré@gmail.com', password: 'passsword', admin: 'true', 
+                          registration_number: '99999999999', name: 'André')
 
     Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                 registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                 address: 'Rua das pousadas, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
                 city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
                 payment_methods: '["Dinheiro"]', accepts_pets: 'false', terms_of_service: 'Proibido som alto após as 18h', 
-                check_in_check_out_time: '12:00', user: user, status: 'published')
+                check_in_check_out_time: '12:00', user: user_1, status: 'published')
 
     Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Sol', 
                 registration_number: '5333123', phone: '42995203040', email: 'pousadadosol@gmail.com', 
@@ -57,7 +62,8 @@ describe 'Usuário visita página de cidade' do
 
   it 'e vê detalhes de uma pousada' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
 
     Inn.create!(corporate_name: 'Pousadas Curitiba LTDA', brand_name: 'Pousada da Chuva', 
                 registration_number: '15333123', phone: '411203040', email: 'pousadadachuva@gmail.com', 

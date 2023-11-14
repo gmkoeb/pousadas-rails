@@ -3,7 +3,8 @@ require 'rails_helper'
 describe 'usuário vê detalhes de uma pousada' do
   it 'e vê informações adicionais' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua das pousadas, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -29,7 +30,8 @@ describe 'usuário vê detalhes de uma pousada' do
 
   it 'que não está disponível' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua das pousadas, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -46,7 +48,8 @@ end
 describe 'Dono de pousadas vê detalhes de pousada' do
   it 'e vê informações adicionais se a pousada é dele' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                       address: 'Rua das pousadas, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -80,8 +83,10 @@ describe 'Dono de pousadas vê detalhes de pousada' do
 
   it 'não vê informações adicionais se a pousada não é dele' do
     # Arrange
-    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true')
-    user_2 = User.create!(email: 'admin@gmail.com', password: 'password', admin: 'true')
+    user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                        registration_number: '99999999999', admin: true)
+    user_2 = User.create!(email: 'admin@gmail.com', password: 'password', admin: 'true', name: 'Gabriel', 
+                          registration_number: '99999999999')
 
     inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                       registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 

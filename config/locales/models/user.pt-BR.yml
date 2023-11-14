@@ -5,3 +5,5 @@ pt-BR:
     attributes:
       user:
         admin: 'Dono de pousadas'
+        name: 'Nome Completo'
+        registration_number: 'CPF'
