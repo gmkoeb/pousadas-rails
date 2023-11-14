@@ -27,10 +27,10 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.friendly.find(params[:id])
-    return unless @room.draft?
-
-    redirect_to inn_path(@room.inn), 
-    alert: 'Este quarto não está aceitando reservas no momento.' if current_user.nil? || current_user.rooms.exclude?(@room)
+    if @room.draft?
+      redirect_to inn_path(@room.inn), 
+      alert: 'Este quarto não está aceitando reservas no momento.' if current_user.nil? || current_user.rooms.exclude?(@room)
+    end
   end
 
   def edit;end

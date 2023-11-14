@@ -15,5 +15,7 @@ Rails.application.routes.draw do
       resources :reservations, only:[:new, :create]
       post 'check', to: 'reservations#check', :as => :check
     end
+
+    resources :reservations, only: [:show]
   end
 end

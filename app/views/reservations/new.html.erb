@@ -33,23 +33,27 @@
 <% end %>
 <% if @total_price %>
   <%= form_with model: [@room, @reservation], html: {class: "row g-3 mt-3 w-50"} do |f| %>
-    <div class="col-md-4">
+    <div class="col-md-4 d-none">
       <%= f.label :guests, class: "form-label" %>
       <%= f.number_field :guests, :value => @guests, class: "form-control" %>
     </div> 
 
-    <div class="col-md-4">
+    <div class="col-md-4 d-none">
       <%= f.label :check_in, class: "form-label" %>
       <%= f.date_field :check_in, :value => @check_in_date, class: "form-control" %>
     </div>
     
-    <div class="col-md-4">
+    <div class="col-md-4 d-none">
       <%= f.label :check_out, class: "form-label" %>
       <%= f.date_field :check_out, :value => @check_out_date, class: "form-control" %>
     </div>
 
+     <div class="col-md-4 d-none">
+      <%= f.label :total_price, class: "form-label" %>
+      <%= f.number_field :total_price, :value => @total_price, class: "form-control" %>
+    </div>
     <div>
-      <h4>Preço total da reserva: R$<%= @total_price %></h4>
+      <%= render 'reservation_details', room:@room %>
     </div>
 
     <div class="col-md-12 text-center">
