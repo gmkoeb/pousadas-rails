@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
     if current_user.admin?
       new_inn_path
     else
-      root_path
+      super
     end 
   end
 end

@@ -8,6 +8,8 @@ class Room < ApplicationRecord
 
   belongs_to :inn
   has_many :price_per_periods
+  has_many :reservations
+  
   validates :name, :description, :area, :maximum_guests, :price, presence: true
   enum status: {draft: 0, published: 2}
 

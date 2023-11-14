@@ -26,14 +26,6 @@ class PricePerPeriodsController < ApplicationController
 
   private
 
-  def set_inn
-    @inn = current_user.inn
-  end
-
-  def set_room
-    @room = Room.friendly.find(params[:room_id])
-  end
-
   def set_room_and_check_user
     @room = Room.friendly.find(params[:room_id])
     return redirect_to root_path, alert: 'Você não pode realizar essa ação' if current_user.rooms.exclude?(@room)

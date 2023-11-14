@@ -4,7 +4,7 @@ class SessionsController < Devise::SessionsController
     if current_user.admin? && current_user.inn.nil?
       new_inn_path
     else
-      root_path
+      super
     end
   end
 end

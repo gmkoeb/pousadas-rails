@@ -1,0 +1,81 @@
+<h2 class="text-center"><%= @room.name %></h2> 
+<div class="mx-2 mt-2 text-center">
+  <p><i class="fa-solid fa-users"></i> Número máximo de hóspedes: <%= @room.maximum_guests %></p>
+</div>
+<div class="mx-2 mt-3 text-center">
+  <h5><i class="fa-solid fa-money-bill-wave"></i> Preço</h5>
+  <p>Preço padrão da diária: R$ <%= @room.price %></p>
+</div>
+<div class="mx-2 mt-2 text-center">
+  <h5><i class="fa-solid fa-circle-info"></i> Especificações</h5>
+  <p>Descrição: <%= @room.description %></p>
+  <p>Área: <%= @room.area %> m²</p>
+</div>
+<h5 class="text-center mt-3 text-dark"> <i class="fa-solid fa-clipboard-question"></i> Informações Adicionais</h5>
+<div class="d-flex flex-wrap gap-3 mx-2 align-items-center justify-content-center">
+  <p><%= bathroom(@room.has_bathroom) %><i class="fa-solid fa-toilet mx-2"></i></p>
+  <p><%= balcony(@room.has_balcony) %></p>
+  <p><%= air_conditioner(@room.has_air_conditioner) %><i class="fa-solid fa-wind mx-2"></i></p>
+  <p><%= tv(@room.has_tv) %><i class="fa-solid fa-tv mx-2"></i></p>
+  <p><%= wardrobe(@room.has_wardrobe) %></li>
+  <p><%= coffer(@room.has_coffer) %><i class="fa-solid fa-lock mx-2"></i></p>
+  <p><%= accessibility(@room.accessible) %><i class="fa-brands fa-accessible-icon mx-2"></i></p>
+</div>
+<% if @reservation.errors.any? %>
+  <div class="rounded p-2 border border-1 fw-bold mt-3">
+    <h4 class="text-center">Verifique os erros abaixo:</h4>
+    <ul>
+      <% @reservation.errors.full_messages.each do |msg| %>
+      <li class="text-danger"><%=msg%></li>
+      <%end%>
+    </ul>
+  </div>
+<% end %>
+<% if @total_price %>
+  <%= form_with model: [@room, @reservation], html: {class: "row g-3 mt-3 w-50"} do |f| %>
+    <div class="col-md-4">
+      <%= f.label :guests, class: "form-label" %>
+      <%= f.number_field :guests, :value => @guests, class: "form-control" %>
+    </div> 
+
+    <div class="col-md-4">
+      <%= f.label :check_in, class: "form-label" %>
+      <%= f.date_field :check_in, :value => @check_in_date, class: "form-control" %>
+    </div>
+    
+    <div class="col-md-4">
+      <%= f.label :check_out, class: "form-label" %>
+      <%= f.date_field :check_out, :value => @check_out_date, class: "form-control" %>
+    </div>
+
+    <div>
+      <h4>Preço total da reserva: R$<%= @total_price %></h4>
+    </div>
+
+    <div class="col-md-12 text-center">
+      <%= f.submit 'Efetuar Reserva', class: 'btn btn-primary text-white' %>
+    </div>
+
+  <% end %>
+<% else %>
+  <%= form_with(url: room_check_path(@room), method: :post, html: {class: "row g-3 w-75 mt-3"}) do |f|%>
+    <div class="col-md-4">
+      <%= f.label :guests, 'Quantidade de Hóspedes', class: "form-label" %>
+      <%= f.number_field :guests, class: "form-control" %>
+    </div> 
+
+    <div class="col-md-4">
+      <%= f.label :check_in, 'Data de Entrada', class: "form-label" %>
+      <%= f.date_field :check_in, class: "form-control" %>
+    </div>
+    
+    <div class="col-md-4">
+      <%= f.label :check_out, 'Data de Saída', class: "form-label" %>
+      <%= f.date_field :check_out, class: "form-control" %>
+    </div>
+
+    <div>
+      <%= f.submit 'Verificar Disponibilidade', class: 'btn btn-primary text-white' %>
+    </div>
+  <% end %>
+<% end %>

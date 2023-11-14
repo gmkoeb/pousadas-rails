@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :rooms, only: [:show, :edit, :update] do
       patch :publish, :draft, on: :member
       resources :price_per_periods, only:[:new, :create, :destroy]
+      resources :reservations, only:[:new, :create]
+      post 'check', to: 'reservations#check', :as => :check
     end
   end
 end

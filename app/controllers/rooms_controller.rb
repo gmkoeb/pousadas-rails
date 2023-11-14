@@ -33,8 +33,7 @@ class RoomsController < ApplicationController
     alert: 'Este quarto não está aceitando reservas no momento.' if current_user.nil? || current_user.rooms.exclude?(@room)
   end
 
-  def edit
-  end
+  def edit;end
 
   def update
     if @room.update(room_params)

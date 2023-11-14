@@ -24,6 +24,9 @@
     <p><%= coffer(room.has_coffer) %><i class="fa-solid fa-lock mx-2"></i></p>
     <p><%= accessibility(room.accessible) %><i class="fa-brands fa-accessible-icon mx-2"></i></p>
   </div>
+  <div class="text-center">
+    <%= link_to 'Reservar Quarto', new_room_reservation_path(room), class: 'btn btn-primary text-white' %>
+  </div>
 <% end %>
 
 <% if current_user && current_user.inn == inn %>
