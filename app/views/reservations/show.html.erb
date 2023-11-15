@@ -1,0 +1,9 @@
+<h1>Reserva <%= @reservation.code %></h1>
+<%= render 'reservation_details', room: @room, reservation: @reservation %>
+<p>Status: <%= t(@reservation.status) %></p>
+<% unless @reservation.check_in.between?(DateTime.now, 7.days.from_now) %>
+  <% if @reservation.pending? %>
+    <p>Você poderá cancelar sua reserva em até 7 dias antes da data de check-in</p>
+    <%= button_to 'Cancelar Reserva', cancel_reservation_path(@reservation), {method: 'patch', class:"btn btn-danger text-white mb-2"} %>
+  <% end %>
+<% end %>

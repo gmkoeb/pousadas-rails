@@ -1,26 +1,4 @@
-<h2 class="text-center"><%= @room.name %></h2> 
-<div class="mx-2 mt-2 text-center">
-  <p><i class="fa-solid fa-users"></i> Número máximo de hóspedes: <%= @room.maximum_guests %></p>
-</div>
-<div class="mx-2 mt-3 text-center">
-  <h5><i class="fa-solid fa-money-bill-wave"></i> Preço</h5>
-  <p>Preço padrão da diária: R$ <%= @room.price %></p>
-</div>
-<div class="mx-2 mt-2 text-center">
-  <h5><i class="fa-solid fa-circle-info"></i> Especificações</h5>
-  <p>Descrição: <%= @room.description %></p>
-  <p>Área: <%= @room.area %> m²</p>
-</div>
-<h5 class="text-center mt-3 text-dark"> <i class="fa-solid fa-clipboard-question"></i> Informações Adicionais</h5>
-<div class="d-flex flex-wrap gap-3 mx-2 align-items-center justify-content-center">
-  <p><%= bathroom(@room.has_bathroom) %><i class="fa-solid fa-toilet mx-2"></i></p>
-  <p><%= balcony(@room.has_balcony) %></p>
-  <p><%= air_conditioner(@room.has_air_conditioner) %><i class="fa-solid fa-wind mx-2"></i></p>
-  <p><%= tv(@room.has_tv) %><i class="fa-solid fa-tv mx-2"></i></p>
-  <p><%= wardrobe(@room.has_wardrobe) %></li>
-  <p><%= coffer(@room.has_coffer) %><i class="fa-solid fa-lock mx-2"></i></p>
-  <p><%= accessibility(@room.accessible) %><i class="fa-brands fa-accessible-icon mx-2"></i></p>
-</div>
+<%= render 'reservation_room_details', room:@room %>
 <% if @reservation.errors.any? %>
   <div class="rounded p-2 border border-1 fw-bold mt-3">
     <h4 class="text-center">Verifique os erros abaixo:</h4>
@@ -40,22 +18,27 @@
 
     <div class="col-md-4 d-none">
       <%= f.label :check_in, class: "form-label" %>
-      <%= f.date_field :check_in, :value => @check_in_date, class: "form-control" %>
+      <%= f.date_field :check_in, :value => @check_in_date.to_date, class: "form-control" %>
     </div>
     
     <div class="col-md-4 d-none">
       <%= f.label :check_out, class: "form-label" %>
-      <%= f.date_field :check_out, :value => @check_out_date, class: "form-control" %>
+      <%= f.date_field :check_out, :value => @check_out_date.to_date, class: "form-control" %>
     </div>
 
      <div class="col-md-4 d-none">
       <%= f.label :total_price, class: "form-label" %>
       <%= f.number_field :total_price, :value => @total_price, class: "form-control" %>
     </div>
+    
     <div>
-      <%= render 'reservation_details', room:@room %>
+      <%= render 'reservation_details', room:@room, reservation:@reservation %>
     </div>
-
+    <% if @check_in_date.to_date.between?(Date.today, 7.days.from_now) %>
+      <p>Você não poderá cancelar essa reserva, pois a data de check-in está muito próxima</p>
+    <% else %>
+      <p>Você poderá cancelar a reserva em até 7 dias úteis antes da data de check-in</p>
+    <% end %>
     <div class="col-md-12 text-center">
       <%= f.submit 'Efetuar Reserva', class: 'btn btn-primary text-white' %>
     </div>

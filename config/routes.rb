@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       post 'check', to: 'reservations#check', :as => :check
     end
 
-    resources :reservations, only: [:show]
+    resources :reservations, only: [:show, :index] do
+      patch :cancel, on: :member
+    end
   end
 end

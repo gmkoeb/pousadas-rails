@@ -54,7 +54,7 @@ describe 'usuário vê quartos de uma pousada' do
     visit root_path
     click_on 'Pousada do Luar', :match => :first
     # Assert
-    expect(page).to have_content 'Nenhum quarto dessa pousada está aceitando reservas no momento.'
+    expect(page).to have_content 'Nenhum quarto dessa pousada está disponível para reservas no momento'
     expect(page).to_not have_link 'Clique aqui para cadastrar um quarto.'
   end
 
@@ -78,6 +78,6 @@ describe 'usuário vê quartos de uma pousada' do
     end
     # Assert
     expect(page).to have_link 'Quarto Master Casal'
-    expect(page).to_not have_content 'Nenhum quarto dessa pousada está aceitando reservas no momento.'
+    expect(page).to_not have_content 'Nenhum quarto dessa pousada está disponível para reservas no momento'
   end
 end

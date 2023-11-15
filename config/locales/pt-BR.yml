@@ -5,3 +5,7 @@ pt-BR:
   recent:
     one: 'Recente'
     other: 'Recentes'
+  canceled: 'Cancelada'
+  active: 'Ativa'
+  finished: 'Finalizada'
+  pending: 'Pendente'

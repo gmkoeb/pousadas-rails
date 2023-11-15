@@ -51,6 +51,9 @@
                     <li class="nav-item"><%= link_to 'Cadastrar pousada', new_inn_path, class: "dropdown-item" %></li>
                   <% end %> 
                 <% end %>
+              <% if current_user.reservations.any? %>
+                <%= link_to 'Minhas Reservas', reservations_path %>
+              <% end %>
               <li class="nav-item w-50 rounded mx-auto"><%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "p-0 dropdown-item mx-auto btn btn-danger" %></li>
             </ul>
           </li>
