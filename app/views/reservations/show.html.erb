@@ -2,13 +2,13 @@
 <%= render 'reservation_details', room: @room, reservation: @reservation %>
 <p>Status da Reserva: <%= t(@reservation.status) %></p>
 
-<% if @reservation.pending? %>
-  <% if @reservation.check_in >= 7.days.from_now && current_user != @room.inn.user %>
+<% if @reservation.pending?  && current_user != @room.inn.user %>
+  <% if @reservation.check_in >= a_week_from_check_in_date(@reservation.check_in)%>
     <p>Você poderá cancelar sua reserva em até 7 dias antes da data de check-in</p>
     <%= button_to 'Cancelar Reserva', cancel_reservation_path(@reservation), {method: 'patch', class:"btn btn-danger text-white mb-2"} %>
   <% end %>
-
 <% end %>
+
 <% if current_user == @room_owner %>
   <% if @reservation.pending? %>
     <%= button_to 'Realizar Check-in', check_in_reservation_path(@reservation), {method: 'patch', class:"btn btn-success text-white mb-2"} %>

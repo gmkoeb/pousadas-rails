@@ -29,14 +29,18 @@ class ReservationsController < ApplicationController
 
   def new
     @reservation = @room.reservations.build
+    @session_params = session[:params]
   end
 
   def create
+    session[:params] = nil
     reservation_params = params.require(:reservation).permit(:guests, :check_in, :check_out, :total_price)
     reservation_params[:check_out] = set_checkout_time(@inn_standard_time, reservation_params[:check_out])
     reservation_params[:check_in] = set_checkin_time(@inn_standard_time, reservation_params[:check_in])
+
     @reservation = @room.reservations.build(reservation_params)
     @reservation.user = current_user
+
     if @reservation.save
       @room.draft!
       redirect_to reservation_path(@reservation), notice: 'Reserva efetuada com sucesso.'
@@ -50,11 +54,15 @@ class ReservationsController < ApplicationController
     @check_out_date = set_checkout_time(@inn_standard_time, params[:check_out])
     @check_in_date = set_checkin_time(@inn_standard_time, params[:check_in])
     @guests = params[:guests]
+    @total_price = calculate_price(@check_in_date, @check_out_date)
+
+    reservation_params = { guests: @guests, check_in: @check_in_date, check_out: 
+                           @check_out_date, total_price: @total_price }
     
-    @reservation = @room.reservations.build(guests: @guests, check_in: @check_in_date, check_out: @check_out_date)
+    @reservation = @room.reservations.build(reservation_params)
     @reservation.user = @inn.user
     if @reservation.valid?
-      @total_price = calculate_price(@check_in_date, @check_out_date)
+      session[:params] = reservation_params
       render 'new'
     else
       render 'new'
@@ -83,11 +91,13 @@ class ReservationsController < ApplicationController
 
   def check_in
     @reservation = Reservation.friendly.find(params[:id])
-    unless Date.today.between?(@reservation.check_in.to_date, @reservation.check_in.to_date + 2)
+    check_in_time = @reservation.check_in
+    if DateTime.now > check_in_time + 2.days || DateTime.now < check_in_time
       return redirect_to reservation_path(@reservation), alert: 'Não foi possível realizar o check-in.' 
+    else
+      @reservation.update(check_in: DateTime.now, status: 'active')
+      redirect_to reservation_path(@reservation), notice: 'Check-in realizado com sucesso!'
     end
-    @reservation.update(check_in: DateTime.now, status: 'active')
-    redirect_to reservation_path(@reservation), notice: 'Check-in realizado com sucesso!'
   end
 
   private

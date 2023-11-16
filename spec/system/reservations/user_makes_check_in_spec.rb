@@ -29,7 +29,7 @@ describe 'Usuário realiza check-in' do
     expect(page).to have_content 'Check-in realizado com sucesso!'
     expect(page).to have_content 'Status da Reserva: Ativa'
   end
-
+  
   it 'dois dias após data prevista' do
     # Arrange
     guest = User.create!(email: 'guest@gmail.com', password: 'password', name: 'Guest',

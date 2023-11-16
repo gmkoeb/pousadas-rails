@@ -1,5 +1,6 @@
 module ReservationsHelper
   def calculate_price(checkin, checkout)
+    return if checkin.nil? || checkout.nil?
     reservation_days = (checkout.to_date - checkin.to_date).to_i
     @total_price = @room.price * reservation_days
     prices_per_periods = @room.price_per_periods
@@ -38,5 +39,9 @@ module ReservationsHelper
         price_per_period
       end
     end
+  end
+
+  def a_week_from_check_in_date(check_in)
+    7.days.from_now.change(hour: check_in.hour, min: check_in.min)
   end
 end
