@@ -51,8 +51,7 @@ describe 'usuário vê quartos de uma pousada' do
     inn.rooms.create!(name: 'Quarto Master Casal', description: 'Melhor quarto para casais', area: 50, 
                       price: 6000, maximum_guests: 2, has_bathroom: true, has_balcony: true, accessible: true, status: 'draft')
     # Act
-    visit root_path
-    click_on 'Pousada do Luar', :match => :first
+    visit inn_path(inn)
     # Assert
     expect(page).to have_content 'Nenhum quarto dessa pousada está disponível para reservas no momento'
     expect(page).to_not have_link 'Clique aqui para cadastrar um quarto.'
@@ -72,10 +71,7 @@ describe 'usuário vê quartos de uma pousada' do
     price: 6000, maximum_guests: 2, has_bathroom: true, has_balcony: true, accessible: true, status: 'draft')
     # Act
     login_as(user)
-    visit root_path
-    within 'nav' do
-      click_on 'Minha pousada'
-    end
+    visit inn_path(inn)
     # Assert
     expect(page).to have_link 'Quarto Master Casal'
     expect(page).to_not have_content 'Nenhum quarto dessa pousada está disponível para reservas no momento'

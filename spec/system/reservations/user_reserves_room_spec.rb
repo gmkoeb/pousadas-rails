@@ -44,10 +44,7 @@ describe 'Usuário reserva um quarto' do
     allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('123ABCDE')                         
     # Act
     login_as(guest)
-    visit root_path
-    click_on 'Pousada do Luar', :match => :first
-    click_on 'Quarto Master'
-    click_on 'Reservar Quarto'
+    visit new_room_reservation_path(room)
     fill_in 'Quantidade de Hóspedes', with: '2'
     fill_in 'Data de Entrada', with: Date.today
     fill_in 'Data de Saída', with: Date.today + 7

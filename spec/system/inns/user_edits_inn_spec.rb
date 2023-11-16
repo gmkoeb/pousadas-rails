@@ -54,11 +54,8 @@ describe 'Dono de pousadas edita pousada' do
                 check_in_check_out_time: '12:00', user: user)
     # Act 
     login_as(user)
-    visit root_path
-    within 'nav' do
-      click_on 'Minha pousada'
-    end
-    click_on 'Editar'
+    visit edit_inn_path(user.inn)
+
     fill_in 'Razão social', with: 'Pousadas Florianópolis Editadas LTDA'
     fill_in 'Nome fantasia', with: 'Pousada do Sol'
     fill_in 'E-mail', with: 'pousadadosol@gmail.com'
@@ -96,11 +93,8 @@ describe 'Dono de pousadas edita pousada' do
                 check_in_check_out_time: '12:00', user: user)
     # Act 
     login_as(user)
-    visit root_path
-    within 'nav' do
-      click_on 'Minha pousada'
-    end
-    click_on 'Editar'
+    visit edit_inn_path(user.inn)
+    
     fill_in 'Razão social', with: ''
     choose 'inn_accepts_pets_true'
     fill_in 'Políticas de uso', with: 'Não pode som alto após as 18h'

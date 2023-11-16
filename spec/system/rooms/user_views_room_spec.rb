@@ -62,14 +62,11 @@ describe 'Usuário vê detalhes de um quarto' do
                       city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
                       payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
                       check_in_check_out_time: '12:00', user: user, status: 'published')
-    inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
-                      price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true, status: 'draft')
+    room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
+                             price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true, status: 'draft')
     login_as(user)
     # Act
-    visit root_path
-    click_on 'Pousada do Luar', :match => :first
-    click_on 'Quarto Master'
-
+    visit room_path(room)
     # Assert
     expect(page).to have_content 'Editar Quarto'
     expect(page).to have_content 'Publicar Quarto'

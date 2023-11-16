@@ -83,11 +83,7 @@ describe 'dono de pousadas cadastra quarto' do
                       check_in_check_out_time: '12:00', user: user)
     # Act
     login_as(user)
-    visit root_path
-    within 'nav' do 
-      click_on 'Minha pousada'
-    end
-    click_on 'Clique aqui para cadastrar um.'
+    visit new_inn_room_path(inn)
     fill_in 'Nome do quarto', with: ''
     fill_in 'Descrição', with: ''
     fill_in 'Área', with: ''
@@ -116,11 +112,7 @@ describe 'dono de pousadas cadastra quarto' do
                       price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
     # Act
     login_as(user)
-    visit root_path
-    within 'nav' do 
-      click_on 'Minha pousada'
-    end
-    click_on 'Cadastrar Quarto'
+    visit new_inn_room_path(inn)
     fill_in 'Nome do quarto', with: ''
     fill_in 'Descrição', with: ''
     fill_in 'Área', with: ''

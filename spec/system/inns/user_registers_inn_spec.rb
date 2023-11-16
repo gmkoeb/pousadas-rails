@@ -44,6 +44,7 @@ describe 'Dono de pousadas cria uma pousada' do
     login_as(user)
     visit root_path
     click_on 'Cadastrar pousada'
+    
     fill_in 'Razão social', with: 'Pousadas Florianópolis LTDA'
     fill_in 'Nome fantasia', with: 'Pousada do Luar'
     fill_in 'CNPJ', with: '34133123'    

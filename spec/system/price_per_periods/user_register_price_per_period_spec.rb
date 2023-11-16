@@ -42,13 +42,7 @@ describe 'usuário cadastra preços especiais' do
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
     # Act
     login_as(user)
-    visit root_path
-    within 'nav' do
-      click_on 'Minha pousada'
-    end
-    click_on 'Quarto Master'
-    click_on 'Definir Preços Por Período'
-
+    visit new_room_price_per_period_path(room)
     # Act
     fill_in 'Preço Especial', with: '10000'
     fill_in 'Data de Ínicio', with: Date.today
@@ -81,13 +75,7 @@ describe 'usuário cadastra preços especiais' do
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
     # Act
     login_as(user)
-    visit root_path
-    within 'nav' do
-      click_on 'Minha pousada'
-    end
-    click_on 'Quarto Master'
-    click_on 'Definir Preços Por Período'
-    # Act
+    visit new_room_price_per_period_path(room)
     fill_in 'Preço Especial', with: ''
     click_on 'Enviar'
     # Assert
@@ -113,12 +101,8 @@ describe 'usuário cadastra preços especiais' do
     room.price_per_periods.create!(special_price: 1234, starts_at: Date.today - 4, ends_at: Date.tomorrow)                         
     # Act
     login_as(user)
-    visit root_path
-    within 'nav' do
-      click_on 'Minha pousada'
-    end
-    click_on 'Quarto Master'
-    click_on 'Definir Preços Por Período'
+    visit new_room_price_per_period_path(room)
+
     fill_in 'Preço Especial', with: '10000'
     fill_in 'Data de Ínicio', with: Date.today-1
     fill_in 'Data de Término', with: Date.tomorrow
@@ -144,12 +128,8 @@ describe 'usuário cadastra preços especiais' do
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)                       
     # Act
     login_as(user)
-    visit root_path
-    within 'nav' do
-      click_on 'Minha pousada'
-    end
-    click_on 'Quarto Master'
-    click_on 'Definir Preços Por Período'
+    visit new_room_price_per_period_path(room)
+
     fill_in 'Preço Especial', with: '10000'
     fill_in 'Data de Ínicio', with: Date.today
     fill_in 'Data de Término', with: Date.today - 4

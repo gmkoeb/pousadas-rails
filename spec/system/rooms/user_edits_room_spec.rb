@@ -96,16 +96,11 @@ describe 'usuário edita quarto' do
                       city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
                       payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
                       check_in_check_out_time: '12:00', user: user)
-    inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
-                      price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
+    room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
+                             price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
     # Act
     login_as(user)
-    visit root_path
-    within 'nav' do 
-      click_on 'Minha pousada'
-    end
-    click_on 'Quarto Master'
-    click_on 'Editar Quarto'
+    visit edit_room_path(room)
 
     fill_in 'Nome do quarto', with: ''
     fill_in 'Descrição', with: ''

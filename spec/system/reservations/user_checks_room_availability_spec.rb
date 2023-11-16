@@ -38,10 +38,7 @@ describe 'Usuário checa se quarto está disponível para reservas' do
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 4, has_bathroom: true, has_balcony: true, accessible: true, status: 'published')
     # Act
-    visit root_path
-    click_on 'Pousada do Luar', :match => :first
-    click_on 'Quarto Master'
-    click_on 'Reservar Quarto'
+    visit new_room_reservation_path(room)
     fill_in 'Quantidade de Hóspedes', with: '5'
     fill_in 'Data de Entrada', with: Date.tomorrow
     fill_in 'Data de Saída', with: Date.tomorrow + 7
@@ -64,10 +61,7 @@ describe 'Usuário checa se quarto está disponível para reservas' do
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 4, has_bathroom: true, has_balcony: true, accessible: true, status: 'published')
     # Act
-    visit root_path
-    click_on 'Pousada do Luar', :match => :first
-    click_on 'Quarto Master'
-    click_on 'Reservar Quarto'
+    visit new_room_reservation_path(room)
     fill_in 'Quantidade de Hóspedes', with: '2'
     fill_in 'Data de Entrada', with: Date.today
     fill_in 'Data de Saída', with: Date.today + 7
@@ -96,10 +90,7 @@ describe 'Usuário checa se quarto está disponível para reservas' do
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 4, has_bathroom: true, has_balcony: true, accessible: true, status: 'published')
     # Act
-    visit root_path
-    click_on 'Pousada do Luar', :match => :first
-    click_on 'Quarto Master'
-    click_on 'Reservar Quarto'
+    visit new_room_reservation_path(room)
     fill_in 'Quantidade de Hóspedes', with: '2'
     fill_in 'Data de Entrada', with: Date.today
     fill_in 'Data de Saída', with: Date.today + 7
@@ -122,10 +113,7 @@ describe 'Usuário checa se quarto está disponível para reservas' do
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 4, has_bathroom: true, has_balcony: true, accessible: true, status: 'published')
     # Act
-    visit root_path
-    click_on 'Pousada do Luar', :match => :first
-    click_on 'Quarto Master'
-    click_on 'Reservar Quarto'
+    visit new_room_reservation_path(room)
     fill_in 'Quantidade de Hóspedes', with: '2'
     fill_in 'Data de Entrada', with: 8.days.from_now
     fill_in 'Data de Saída', with: Date.today + 14
@@ -151,10 +139,7 @@ describe 'Usuário checa se quarto está disponível para reservas' do
                              price: 1000, maximum_guests: 4, has_bathroom: true, has_balcony: true, accessible: true, status: 'published')
     special_price = room.price_per_periods.create!(special_price: 10000, starts_at: Date.today, ends_at: Date.tomorrow)                         
     # Act
-    visit root_path
-    click_on 'Pousada do Luar', :match => :first
-    click_on 'Quarto Master'
-    click_on 'Reservar Quarto'
+    visit new_room_reservation_path(room)
     fill_in 'Quantidade de Hóspedes', with: '2'
     fill_in 'Data de Entrada', with: Date.today
     fill_in 'Data de Saída', with: Date.tomorrow
