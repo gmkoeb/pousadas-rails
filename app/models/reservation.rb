@@ -23,10 +23,11 @@ class Reservation < ApplicationRecord
 
   def room_supports_guests
     return if self.guests == nil
-    errors.add(:base, 'Esse quarto não suporta essa quantidade de hóspedes') if self.guests > room.maximum_guests
+    errors.add(:guests, 'acima do suportado pelo quarto') if self.guests > room.maximum_guests
   end
 
   def room_is_reserved
+    return if self.check_in.nil? || self.check_out.nil?
     active_reservations = Reservation.all.not_canceled.not_finished
     active_reservations.each do |reservation|
       reservation_duration = Range.new(reservation.check_in.to_date, reservation.check_out.to_date)
@@ -39,6 +40,12 @@ class Reservation < ApplicationRecord
   
   def invalid_date
     return if self.check_in.nil? || self.check_out.nil? 
-    errors.add(:base, 'Data de check-in precisa ser anterior à data de check-out') if self.check_in > self.check_out  
+    if self.check_in > self.check_out
+      errors.add(:check_in, 'precisa ser anterior à Data de Saída')   
+    end
+
+    if self.check_in < Date.today
+      errors.add(:check_in, 'no passado')
+    end
   end 
 end

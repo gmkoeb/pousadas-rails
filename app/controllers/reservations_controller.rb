@@ -2,6 +2,7 @@ class ReservationsController < ApplicationController
   include ReservationsHelper
   
   before_action :admin_has_inn?
+  before_action :authenticate_admin!, only: [:active, :check_in]
   before_action :set_room_and_check_availability, :set_inn_time, only: [:new, :create, :check]
   before_action :authenticate_user!, only: [:create, :show, :index]
   before_action :store_location, only: [:check]

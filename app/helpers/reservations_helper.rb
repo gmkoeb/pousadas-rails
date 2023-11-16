@@ -21,17 +21,15 @@ module ReservationsHelper
   end
 
   def set_checkin_time(inn_time, reservation_checkin)
-    total_time = inn_time.hour * 3600 + inn_time.min * 60
     return if reservation_checkin.in_time_zone.nil?
 
-    reservation_checkin = reservation_checkin.in_time_zone + total_time
+    reservation_checkin.in_time_zone.change(hour: inn_time.hour, min: inn_time.min)
   end
 
   def set_checkout_time(inn_time, reservation_checkout)
-    total_time = inn_time.hour * 3600 + inn_time.min * 60
     return if reservation_checkout.in_time_zone.nil?
     
-    reservation_checkout = reservation_checkout.in_time_zone + total_time
+    reservation_checkout.in_time_zone.change(hour: inn_time.hour, min: inn_time.min)
   end
 
   def current_price_per_period(room)

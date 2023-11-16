@@ -25,7 +25,7 @@ describe 'Usuário checa se quarto está disponível para reservas' do
     expect(page).to have_field 'Data de Saída'
   end
 
-  it 'e quarto não está disponível' do
+  it 'e quarto não suporta o número de hóspedes' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
                         registration_number: '99999999999', admin: true)
@@ -48,7 +48,7 @@ describe 'Usuário checa se quarto está disponível para reservas' do
     click_on 'Verificar Disponibilidade'
     # Assert
     expect(page).to have_content 'Verifique os erros abaixo:' 
-    expect(page).to have_content 'Esse quarto não suporta essa quantidade de hóspedes' 
+    expect(page).to have_content 'Quantidade de Hóspedes acima do suportado pelo quarto' 
   end
 
   it 'e quarto está disponível' do

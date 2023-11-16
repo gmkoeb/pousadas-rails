@@ -20,12 +20,12 @@ RSpec.describe PricePerPeriod, type: :model do
       # Assert
       expect(result).to be true
     end
+
     context 'validação de datas' do
       it 'datas sobrepostas' do
         # Arrange
         user = User.new(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
                             registration_number: '99999999999', admin: true)
-        login_as(user)
         inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                           registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                           address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
