@@ -1,0 +1,4 @@
+<h1>Reservas Ativas</h1>
+<% @reservations.each do |reservation| %>
+  <p>Reserva: <%= link_to reservation.code, reservation_path(reservation) %></p>
+<% end %>

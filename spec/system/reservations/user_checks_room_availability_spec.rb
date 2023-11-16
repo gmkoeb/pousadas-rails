@@ -127,7 +127,7 @@ describe 'Usuário checa se quarto está disponível para reservas' do
     click_on 'Quarto Master'
     click_on 'Reservar Quarto'
     fill_in 'Quantidade de Hóspedes', with: '2'
-    fill_in 'Data de Entrada', with: 7.days.from_now
+    fill_in 'Data de Entrada', with: 8.days.from_now
     fill_in 'Data de Saída', with: Date.today + 14
     click_on 'Verificar Disponibilidade'
     # Assert

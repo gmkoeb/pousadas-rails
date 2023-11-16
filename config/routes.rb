@@ -17,7 +17,8 @@ Rails.application.routes.draw do
     end
 
     resources :reservations, only: [:show, :index] do
-      patch :cancel, on: :member
+      patch :cancel, :check_in, on: :member
+      get '/active', to: 'reservations#active', on: :collection
     end
   end
 end

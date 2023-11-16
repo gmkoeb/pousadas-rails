@@ -3,16 +3,27 @@ class ReservationsController < ApplicationController
   
   before_action :admin_has_inn?
   before_action :set_room_and_check_availability, :set_inn_time, only: [:new, :create, :check]
-  before_action :authenticate_user!, only: [:create, :show]
+  before_action :authenticate_user!, only: [:create, :show, :index]
   before_action :store_location, only: [:check]
 
   def index
     user_reservations = current_user.reservations
-    return redirect_to root_path, alert: 'Você não possui nenhuma reserva.' if user_reservations.empty?
-    @finished_reservations,
-    @canceled_reservations = user_reservations.finished,
-                             user_reservations.canceled
-    @valid_reservations = Reservation.all.not_finished.not_canceled
+    user_room_reservations = current_user.rooms.joins(:reservations)
+    if user_reservations.empty? && current_user.admin == false
+      return redirect_to root_path, alert: 'Você não possui nenhuma reserva.' 
+    elsif user_room_reservations.empty? && current_user.admin
+      return redirect_to root_path, alert: 'Você não possui nenhuma reserva.'
+    elsif current_user.admin?
+      @past_reservations = Reservation.where(room: current_user.rooms).not_pending.not_active
+      @valid_reservations = Reservation.where(room: current_user.rooms).not_finished.not_canceled
+    else
+      @past_reservations = current_user.reservations.not_pending.not_active
+      @valid_reservations = current_user.reservations.not_finished.not_canceled
+    end
+  end
+
+  def active
+    @reservations = Reservation.where(room: current_user.rooms).active
   end
 
   def new
@@ -26,6 +37,7 @@ class ReservationsController < ApplicationController
     @reservation = @room.reservations.build(reservation_params)
     @reservation.user = current_user
     if @reservation.save
+      @room.draft!
       redirect_to reservation_path(@reservation), notice: 'Reserva efetuada com sucesso.'
     else
       flash.now[:alert] = "Não foi possível realizar reserva."
@@ -51,16 +63,30 @@ class ReservationsController < ApplicationController
   def show
     @reservation = Reservation.friendly.find(params[:id])
     @room = @reservation.room
-    room_owner = @room.inn.user 
-    unless current_user == @reservation.user || current_user == room_owner
+    @room_owner = @room.inn.user 
+    unless current_user == @reservation.user || current_user == @room_owner
       return redirect_to root_path, alert: 'Acesso negado' 
     end
   end
 
   def cancel
     @reservation = Reservation.friendly.find(params[:id])
+    room_owner = @reservation.room.inn.user
+    if @reservation.check_in < 7.days.from_now && current_user != room_owner
+      return redirect_to root_path, alert: 'Você não pode cancelar essa reserva' 
+    end
+    @reservation.room.published!
     @reservation.canceled!
     redirect_to reservations_path
+  end
+
+  def check_in
+    @reservation = Reservation.friendly.find(params[:id])
+    unless Date.today.between?(@reservation.check_in.to_date, @reservation.check_in.to_date + 2)
+      return redirect_to reservation_path(@reservation), alert: 'Não foi possível realizar o check-in.' 
+    end
+    @reservation.update(check_in: DateTime.now, status: 'active')
+    redirect_to reservation_path(@reservation), notice: 'Check-in realizado com sucesso!'
   end
 
   private

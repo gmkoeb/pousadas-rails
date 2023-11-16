@@ -46,12 +46,18 @@
                         <p class="mx-2">Minha pousada</p>   
                         <i class="fa-solid fa-pen-to-square pl-3 mt-1"></i>
                       <%end%>
+                      <% if current_user.rooms.joins(:reservations).any? %>
+                        <%= link_to 'Reservas', reservations_path %>
+                      <% end %>
+                      <% if Reservation.where(room: current_user.rooms).active.any? %>
+                        <%= link_to 'Reservas Ativas', active_reservations_path %>
+                      <% end %>
                     </li>
                   <% else %>
                     <li class="nav-item"><%= link_to 'Cadastrar pousada', new_inn_path, class: "dropdown-item" %></li>
                   <% end %> 
                 <% end %>
-              <% if current_user.reservations.any? %>
+              <% if current_user.reservations.any? && current_user.admin == false %>
                 <%= link_to 'Minhas Reservas', reservations_path %>
               <% end %>
               <li class="nav-item w-50 rounded mx-auto"><%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "p-0 dropdown-item mx-auto btn btn-danger" %></li>

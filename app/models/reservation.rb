@@ -27,10 +27,16 @@ class Reservation < ApplicationRecord
   end
 
   def room_is_reserved
-    unless Reservation.where(room: room).active.empty? 
-      errors.add(:base, 'Esse quarto já está reservado')
+    active_reservations = Reservation.all.not_canceled.not_finished
+    active_reservations.each do |reservation|
+      reservation_duration = Range.new(reservation.check_in.to_date, reservation.check_out.to_date)
+      new_reservation_duration = Range.new(self.check_in.to_date, self.check_out.to_date)
+      if reservation_duration.any?(new_reservation_duration)
+        errors.add(:base, 'Esse quarto já está reservado')
+      end
     end
   end
+  
   def invalid_date
     return if self.check_in.nil? || self.check_out.nil? 
     errors.add(:base, 'Data de check-in precisa ser anterior à data de check-out') if self.check_in > self.check_out  

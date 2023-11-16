@@ -5,9 +5,9 @@
     <p>Status: <%= t(reservation.status) %></p>
   <% end %>
 <% end %>
-<% if @canceled_reservations.any? || @finished_reservations.any? %>
+<% if @past_reservations.any?%>
   <h1>Histórico de Reservas</h1>
-  <% @canceled_reservations.each do |reservation| %>
+  <% @past_reservations.each do |reservation| %>
     <p><%= Reservation.model_name.human %>: <%= link_to reservation.code, reservation_path(reservation) %></p>
     <p>Status: <%= t(reservation.status) %></p>
   <% end %>
