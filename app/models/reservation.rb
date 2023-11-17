@@ -8,7 +8,7 @@ class Reservation < ApplicationRecord
   validates :guests, :check_in, :check_out, presence: true
 
   validate :room_supports_guests
-  validate :invalid_date
+  validate :invalid_date, on: :create
   validate :room_is_reserved, on: :create
 
   before_validation :generates_code, on: :create

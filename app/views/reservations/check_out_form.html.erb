@@ -1,0 +1,17 @@
+<h1>Formulário de Check-Out</h1>
+<h2>Hóspede: <%= @reservation.user.name %> CPF: <%= @reservation.user.registration_number %></h2>
+<h2>Quarto: <%= @room.name %></h2>
+<%= form_with(url: check_out_reservation_path(@reservation), method: :patch, html: {class: "row g-3 w-75 mt-3"}) do |f| %>
+  <div class="col-md-4">
+    <%= f.label :payment_method, 'Forma de Pagamento', class: "form-label" %>
+    <% @payment_methods.each do |method| %>
+      <%= f.label :payment_method, method %>
+      <%= f.radio_button :payment_method, method %>
+    <% end %>
+  </div> 
+  <div class="d-none">
+    <%= f.number_field :total_price, :value => @total_price%>
+  </div>
+  <h3>Valor Total: R$<%= @total_price %></h3>
+  <%= f.submit 'Finalizar Reserva' %>
+<% end %>

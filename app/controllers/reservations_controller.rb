@@ -2,7 +2,7 @@ class ReservationsController < ApplicationController
   include ReservationsHelper
   
   before_action :admin_has_inn?
-  before_action :authenticate_admin!, only: [:active, :check_in]
+  before_action :authenticate_admin!, only: [:active, :check_in, :check_out]
   before_action :set_room_and_check_availability, :set_inn_time, only: [:new, :create, :check]
   before_action :authenticate_user!, only: [:create, :show, :index]
   before_action :store_location, only: [:check]
@@ -97,6 +97,31 @@ class ReservationsController < ApplicationController
     else
       @reservation.update(check_in: DateTime.now, status: 'active')
       redirect_to reservation_path(@reservation), notice: 'Check-in realizado com sucesso!'
+    end
+  end
+
+  def check_out_form
+    @reservation = Reservation.friendly.find(params[:id])
+    @inn = current_user.inn
+    @payment_methods = eval(@inn.payment_methods)
+    @room = @reservation.room
+    @total_price = calculate_price(@reservation.check_in, DateTime.now)
+    if Date.today == @reservation.check_out.to_date
+      if DateTime.now.utc > @reservation.check_out
+        @total_price = calculate_price(@reservation.check_in, DateTime.tomorrow)
+      end
+    end
+  end
+
+  def check_out
+    @reservation = Reservation.friendly.find(params[:id])
+    check_out_params = { payment_method: params[:payment_method], 
+                         total_price: params[:total_price], check_out: DateTime.now }
+    if @reservation.update(check_out_params)
+      @reservation.finished!
+      redirect_to reservation_path(@reservation), notice: 'Check-Out realizado com sucesso!'
+    else
+      flash.now[:alert] = "Não foi possível realizar o check-out."
     end
   end
 

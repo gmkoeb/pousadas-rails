@@ -13,38 +13,22 @@
   <%= form_with model: [@room, @reservation], html: {class: "row g-3 mt-3 w-50"} do |f| %>
     <div class="col-md-4 d-none">
       <%= f.label :guests, class: "form-label" %>
-      <% if @session_params %>
-        <%= f.number_field :guests, :value => @session_params["guests"], class: "form-control" %>
-      <%else%> 
-        <%= f.number_field :guests, :value => @guests, class: "form-control" %>
-      <% end %>
+      <%= f.number_field :guests, value: @session_params ? @session_params["guests"] : @guests, class: "form-control" %>
     </div> 
 
     <div class="col-md-4 d-none">
       <%= f.label :check_in, class: "form-label" %>
-      <% if @session_params %>
-        <%= f.date_field :check_in, :value => @session_params["check_in"].to_date, class: "form-control" %>
-      <% else %>
-        <%= f.date_field :check_in, :value => @check_in_date.to_date, class: "form-control" %>
-      <% end %>
-    </div>
-    
-    <div class="col-md-4 d-none">
-      <%= f.label :check_out, class: "form-label" %>
-      <% if @session_params %>
-        <%= f.date_field :check_out, :value => @session_params["check_out"].to_date, class: "form-control" %>
-      <% else %>
-        <%= f.date_field :check_out, :value => @check_out_date.to_date, class: "form-control" %>
-      <% end %>
+      <%= f.date_field :check_in, value: @session_params ? @session_params["check_in"].to_date : @check_in_date.to_date, class: "form-control" %>
     </div>
 
-     <div class="col-md-4 d-none">
+    <div class="col-md-4 d-none">
+      <%= f.label :check_out, class: "form-label" %>
+      <%= f.date_field :check_out, value: @session_params ? @session_params["check_out"].to_date : @check_out_date.to_date, class: "form-control" %>
+    </div>
+
+    <div class="col-md-4 d-none">
       <%= f.label :total_price, class: "form-label" %>
-      <% if @session_params %>
-        <%= f.number_field :total_price, :value => @session_params["total_price"], class: "form-control" %>
-      <% else %>
-        <%= f.number_field :total_price, :value => @total_price, class: "form-control" %>
-      <% end %>
+      <%= f.number_field :total_price, value: @session_params ? @session_params["total_price"] : @total_price, class: "form-control" %>
     </div>
 
     <% if @session_params %>

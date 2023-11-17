@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_15_133927) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_17_120858) do
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -69,6 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_15_133927) do
     t.string "slug"
     t.string "code"
     t.integer "status", default: 0
+    t.string "payment_method"
     t.index ["room_id"], name: "index_reservations_on_room_id"
     t.index ["slug"], name: "index_reservations_on_slug", unique: true
     t.index ["user_id"], name: "index_reservations_on_user_id"
