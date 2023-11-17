@@ -6,6 +6,7 @@ class ReservationsController < ApplicationController
   before_action :set_room_and_check_availability, :set_inn_time, only: [:new, :create, :check]
   before_action :authenticate_user!, only: [:create, :show, :index]
   before_action :store_location, only: [:check]
+  before_action :set_reservation, only: [:check_out_form, :show, :check_in, :check_out, :cancel]
 
   def index
     user_reservations = current_user.reservations
@@ -54,7 +55,7 @@ class ReservationsController < ApplicationController
     @check_out_date = set_checkout_time(@inn_standard_time, params[:check_out])
     @check_in_date = set_checkin_time(@inn_standard_time, params[:check_in])
     @guests = params[:guests]
-    @total_price = calculate_price(@check_in_date, @check_out_date)
+    @total_price = calculate_price(@check_in_date, @check_out_date, @room.price, @room.price_per_periods)
 
     reservation_params = { guests: @guests, check_in: @check_in_date, check_out: 
                            @check_out_date, total_price: @total_price }
@@ -70,7 +71,6 @@ class ReservationsController < ApplicationController
   end
 
   def show
-    @reservation = Reservation.friendly.find(params[:id])
     @room = @reservation.room
     @room_owner = @room.inn.user 
     unless current_user == @reservation.user || current_user == @room_owner
@@ -79,7 +79,6 @@ class ReservationsController < ApplicationController
   end
 
   def cancel
-    @reservation = Reservation.friendly.find(params[:id])
     room_owner = @reservation.room.inn.user
     if @reservation.check_in < 7.days.from_now && current_user != room_owner
       return redirect_to root_path, alert: 'Você não pode cancelar essa reserva' 
@@ -90,7 +89,6 @@ class ReservationsController < ApplicationController
   end
 
   def check_in
-    @reservation = Reservation.friendly.find(params[:id])
     check_in_time = @reservation.check_in
     if DateTime.now > check_in_time + 2.days || DateTime.now < check_in_time
       return redirect_to reservation_path(@reservation), alert: 'Não foi possível realizar o check-in.' 
@@ -101,15 +99,14 @@ class ReservationsController < ApplicationController
   end
 
   def check_out_form
-    @reservation = Reservation.friendly.find(params[:id])
     return redirect_to reservation_path(@reservation), alert: 'Acesso negado.' unless @reservation.active?
     @inn = current_user.inn
     @payment_methods = eval(@inn.payment_methods)
     @room = @reservation.room
-    @total_price = calculate_price(@reservation.check_in, DateTime.now)
+    @total_price = calculate_price(@reservation.check_in, DateTime.now, @room.price, @room.price_per_periods)
     if Date.today == @reservation.check_out.to_date
       if DateTime.now.utc > @reservation.check_out
-        @total_price = calculate_price(@reservation.check_in, DateTime.tomorrow)
+        @total_price = calculate_price(@reservation.check_in, DateTime.tomorrow, @room.price, @room.price_per_periods)
       end
     end
   end
@@ -144,5 +141,9 @@ class ReservationsController < ApplicationController
   def set_inn_time
     @inn = @room.inn
     @inn_standard_time = @inn.check_in_check_out_time
+  end
+
+  def set_reservation
+    @reservation = Reservation.friendly.find(params[:id])
   end
 end

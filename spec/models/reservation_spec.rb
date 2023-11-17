@@ -269,7 +269,7 @@ RSpec.describe Reservation, type: :model do
                       payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
                       check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
-                             price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
+                                 price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         reservation_1 = room.reservations.create!(user: user, room: room, check_in: 1.days.from_now, check_out: 7.days.from_now, guests: 5)
         reservation_2 = room.reservations.new(user: user, room: room, check_in: 8.days.from_now, check_out: 10.days.from_now, guests: 5)
         # Act

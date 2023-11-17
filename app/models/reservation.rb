@@ -10,13 +10,19 @@ class Reservation < ApplicationRecord
   validate :room_supports_guests
   validate :invalid_date, on: :create
   validate :room_is_reserved, on: :create
-
+  validate :valid_user, on: [:check_in, :check_out]
   before_validation :generates_code, on: :create
 
   enum status: {pending: 0, active: 2, canceled: 4, finished: 6}
 
   private
-  
+  def valid_user
+    user = User.where(inn: self.room.inn).first
+    unless self.room.inn.user == user
+      errors.add(:base, "Acesso negado.")
+    end
+  end
+
   def generates_code
     self.code = SecureRandom.alphanumeric(8).upcase
   end
