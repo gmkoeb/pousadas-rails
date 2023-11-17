@@ -102,6 +102,7 @@ class ReservationsController < ApplicationController
 
   def check_out_form
     @reservation = Reservation.friendly.find(params[:id])
+    return redirect_to reservation_path(@reservation), alert: 'Acesso negado.' unless @reservation.active?
     @inn = current_user.inn
     @payment_methods = eval(@inn.payment_methods)
     @room = @reservation.room
@@ -119,6 +120,7 @@ class ReservationsController < ApplicationController
                          total_price: params[:total_price], check_out: DateTime.now }
     if @reservation.update(check_out_params)
       @reservation.finished!
+      @reservation.room.published!
       redirect_to reservation_path(@reservation), notice: 'Check-Out realizado com sucesso!'
     else
       flash.now[:alert] = "Não foi possível realizar o check-out."
