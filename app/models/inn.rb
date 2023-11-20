@@ -20,6 +20,10 @@ class Inn < ApplicationRecord
   validate :valid_user, on: [:update, :draft, :publish]
   enum status: {draft: 0, published: 2}
 
+  def full_address
+    "#{address}. #{district}, #{city} - #{state}"
+  end
+  
   private
 
   def user_has_admin_role

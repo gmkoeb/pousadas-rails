@@ -9,13 +9,7 @@ class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:check_out_form, :show, :check_in, :check_out, :cancel]
 
   def index
-    user_reservations = current_user.reservations
-    user_room_reservations = current_user.rooms.joins(:reservations)
-    if user_reservations.empty? && current_user.admin == false
-      return redirect_to root_path, alert: 'Você não possui nenhuma reserva.' 
-    elsif user_room_reservations.empty? && current_user.admin
-      return redirect_to root_path, alert: 'Você não possui nenhuma reserva.'
-    elsif current_user.admin?
+    if current_user.admin
       @past_reservations = Reservation.where(room: current_user.rooms).not_pending.not_active
       @valid_reservations = Reservation.where(room: current_user.rooms).not_finished.not_canceled
     else
@@ -30,9 +24,7 @@ class ReservationsController < ApplicationController
 
   def new
     @reservation = @room.reservations.build
-    if session[:params]
-      session[:params] = session[:params].transform_keys { |keys| keys.to_sym }
-    end
+    session[:params] = session[:params].transform_keys { |keys| keys.to_sym } if session[:params]
   end
 
   def create
@@ -119,6 +111,7 @@ class ReservationsController < ApplicationController
       @reservation.room.published!
       redirect_to reservation_path(@reservation), notice: 'Check-Out realizado com sucesso!'
     else
+      render 'check_out_form', status: 422
       flash.now[:alert] = "Não foi possível realizar o check-out."
     end
   end

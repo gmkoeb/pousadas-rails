@@ -1,9 +1,0 @@
-pt-BR:
-  routes:
-    inns: pousadas
-    rooms: quartos
-    price_per_periods: precos_por_periodo
-    new: criar
-    edit: editar
-    cities: cidades
-    search: procurar
