@@ -30,7 +30,7 @@
 <% end %>
 
 <% if room.price_per_periods.any? %>
-    <% if current_price_per_period(room) && request.path == new_room_reservation_path(room) %>
+    <% if current_price_per_period(room) && request.path == new_room_reservation_path(room) || request.path == room_check_path(room) %>
       <p>Preço Especial: R$ <%= current_price_per_period(room).special_price %></p>
       <p>Ativo até: <%= I18n.localize(current_price_per_period(room).ends_at) %></p>
     <% end %>
