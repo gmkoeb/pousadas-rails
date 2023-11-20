@@ -13,7 +13,7 @@
 
 <% if @reservation.active? %>
   <p>Data de Entrada: <%= I18n.localize(@reservation.check_in.in_time_zone('America/Sao_Paulo')) %></p>
-  <p>Data de Saída: <%= I18n.localize(@reservation.check_out.in_time_zone('America/Sao_Paulo')) %></p>
+  <p>Data de Saída: <%= I18n.localize(@reservation.check_out) %></p>
 <% end %>
 
 <% if @reservation.canceled? %>

@@ -120,7 +120,7 @@ describe 'Usuário checa detalhes de reserva' do
       expect(page).to have_content "Status da Reserva: Ativa"
       expect(page).to have_content "Quarto Reservado: Quarto Master"
       expect(page).to have_content "Data de Entrada: #{I18n.localize(1.days.from_now.at_midday.in_time_zone('America/Sao_Paulo'))}"
-      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday.in_time_zone('America/Sao_Paulo'))}"
+      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday)}"
       expect(page).to have_link "Realizar Check-Out"
     end
   end
@@ -220,6 +220,8 @@ describe 'Usuário checa detalhes de reserva' do
       expect(page).to have_content "Reserva #{reservation.code}" 
       expect(page).to have_content "Status da Reserva: Ativa"
       expect(page).to have_content "Quarto Reservado: Quarto Master"
+      expect(page).to have_content "Data de Entrada: #{I18n.localize(1.days.from_now.at_midday.in_time_zone('America/Sao_Paulo'))}"
+      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday)}"
       expect(page).to_not have_link "Realizar Check-Out"
     end
   end
