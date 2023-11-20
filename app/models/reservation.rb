@@ -16,26 +16,28 @@ class Reservation < ApplicationRecord
 
   private
   def self.calculate_price(check_in, check_out, standard_price, price_per_periods)
-    return if check_in.nil? || check_out.nil?
     reservation_days = (check_out.to_date - check_in.to_date).to_i
     total_price = standard_price * reservation_days
-    if price_per_periods.any?
-      price_per_periods.each do |price_per_period|
-        special_price_duration = Range.new(price_per_period.starts_at, price_per_period.ends_at)
-        reservation_duration = Range.new(check_in.to_date, check_out.to_date)
-        if special_price_duration.any?(reservation_duration)
-          if price_per_period.ends_at < check_out.to_date
-            special_price_remaining_duration = (price_per_period.ends_at - check_in.to_date).to_i
-            total_price = price_per_period.special_price * special_price_remaining_duration + standard_price * (check_out.to_date - price_per_period.ends_at).to_i
-          else
-            total_price = price_per_period.special_price * reservation_days
-          end
-        end
+  
+    price_per_periods.each do |price_per_period|
+      special_price_duration = Range.new(price_per_period.starts_at, price_per_period.ends_at)
+      reservation_duration = Range.new(check_in.to_date, check_out.to_date)
+  
+      next unless special_price_duration.overlaps?(reservation_duration)
+  
+      if price_per_period.ends_at < check_out.to_date
+        special_price_remaining_duration = (price_per_period.ends_at - check_in.to_date).to_i
+        total_special_price = price_per_period.special_price * special_price_remaining_duration
+        total_standard_price = standard_price * (check_out.to_date - price_per_period.ends_at).to_i
+        total_price = total_special_price + total_standard_price
+      else
+        total_price = price_per_period.special_price * reservation_days
       end
     end
+  
     total_price
   end
-
+  
   def self.standardize_check_in_time(inn_time, reservation_check_in)
     return if reservation_check_in.in_time_zone.nil?
 

@@ -21,9 +21,7 @@ class PricePerPeriod < ApplicationRecord
 
       range = Range.new(period.starts_at, period.ends_at)
       new_range = Range.new(self.starts_at, self.ends_at)
-      overlaps = new_range.any?(range)
-
-      errors.add(:base, 'Já existe um preço especial nessa data!') if overlaps
+      errors.add(:base, 'Já existe um preço especial nessa data!') if new_range.overlaps?(range)
     end
   end
 
