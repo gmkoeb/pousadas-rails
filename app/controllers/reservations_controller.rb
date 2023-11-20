@@ -1,6 +1,4 @@
 class ReservationsController < ApplicationController
-  include ReservationsHelper
-  
   before_action :admin_has_inn?
   before_action :authenticate_admin!, only: [:active, :check_in, :check_out]
   before_action :set_room_and_check_availability, :set_inn_time, only: [:new, :create, :check]
@@ -29,8 +27,8 @@ class ReservationsController < ApplicationController
 
   def create
     reservation_params = session[:params]
-    reservation_params[:check_in] = standardize_check_in_time(@inn_standard_time, reservation_params["check_in"])
-    reservation_params[:check_out] = standardize_check_out_time(@inn_standard_time, reservation_params["check_out"])
+    reservation_params[:check_in] = Reservation.standardize_check_in_time(@inn_standard_time, reservation_params["check_in"])
+    reservation_params[:check_out] = Reservation.standardize_check_out_time(@inn_standard_time, reservation_params["check_out"])
 
     @reservation = @room.reservations.build(reservation_params)
     @reservation.user = current_user
@@ -45,9 +43,9 @@ class ReservationsController < ApplicationController
 
   def check
     guests = params[:guests]
-    check_out_date = standardize_check_out_time(@inn_standard_time, params[:check_out])
-    check_in_date = standardize_check_in_time(@inn_standard_time, params[:check_in])
-    total_price = calculate_price(check_in_date, check_out_date, @room.price, @room.price_per_periods)
+    check_out_date = Reservation.standardize_check_out_time(@inn_standard_time, params[:check_out])
+    check_in_date = Reservation.standardize_check_in_time(@inn_standard_time, params[:check_in])
+    total_price = Reservation.calculate_price(check_in_date, check_out_date, @room.price, @room.price_per_periods)
 
     reservation_params = { guests: guests, check_in: check_in_date, 
                            check_out: check_out_date, total_price: total_price, 
@@ -96,14 +94,14 @@ class ReservationsController < ApplicationController
     @inn = current_user.inn
     @payment_methods = eval(@inn.payment_methods)
     @room = @reservation.room
-    @total_price = calculate_price(@reservation.check_in, Time.current, @room.price, @room.price_per_periods)
+    @total_price = Reservation.calculate_price(@reservation.check_in, Time.current, @room.price, @room.price_per_periods)
   end
 
   def check_out
     @room = @reservation.room
-    @total_price = calculate_price(@reservation.check_in, Time.current, @room.price, @room.price_per_periods)
+    @total_price = Reservation.calculate_price(@reservation.check_in, Time.current, @room.price, @room.price_per_periods)
     if Time.current > @reservation.check_out
-      @total_price = calculate_price(@reservation.check_in, Time.current.to_date.tomorrow, @room.price, @room.price_per_periods)
+      @total_price = Reservation.calculate_price(@reservation.check_in, Time.current.to_date.tomorrow, @room.price, @room.price_per_periods)
     end
     check_out_params = { payment_method: params[:payment_method], 
                          total_price: @total_price, check_out: Time.current }
