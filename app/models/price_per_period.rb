@@ -31,5 +31,4 @@ class PricePerPeriod < ApplicationRecord
     return if self.starts_at.nil? || self.ends_at.nil? 
     errors.add(:base, 'Data de ínicio precisa ser maior que a data de término') if self.starts_at > self.ends_at  
   end 
-
 end

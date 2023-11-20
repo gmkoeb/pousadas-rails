@@ -96,6 +96,7 @@ class ReservationsController < ApplicationController
     @inn = current_user.inn
     @payment_methods = eval(@inn.payment_methods)
     @room = @reservation.room
+    @total_price = calculate_price(@reservation.check_in, Time.current, @room.price, @room.price_per_periods)
   end
 
   def check_out
@@ -132,11 +133,6 @@ class ReservationsController < ApplicationController
   def set_inn_time
     @inn = @room.inn
     @inn_standard_time = @inn.check_in_check_out_time
-  end
-
-  def standardize_reservation_times(params)
-    params[:check_out] = standardize_check_out_time(@inn_standard_time, params["check_out"])
-    params[:check_in] = standardize_check_in_time(@inn_standard_time, params["check_in"])
   end
 
   def set_reservation

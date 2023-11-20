@@ -1,10 +1,23 @@
 <h1>Reserva <%= @reservation.code %></h1>
 <p>Status da Reserva: <%= t(@reservation.status) %></p>
-<% if @reservation.finished?%>
-  <h4>Forma de Pagamento Escolhida: <%= @reservation.payment_method %></h4>
-  <h4>Data de Entrada: <%= I18n.localize(@reservation.check_in.in_time_zone('America/Sao_Paulo')) %></h4>
-  <h4>Data de Saída: <%= I18n.localize(@reservation.check_out.in_time_zone('America/Sao_Paulo')) %></h4>
-  <h4>Valor Total da Reserva: R$ <%= @reservation.total_price %></h4>
+<p>Quarto Reservado: <%= @reservation.room.name %></p>
+<% if @reservation.finished? %>
+  <ul>
+    <li><p>Quarto: <%= @reservation.room.name %></p></li>
+    <li><p>Forma de Pagamento Escolhida: <%= @reservation.payment_method %></p></li>
+    <li><p>Data de Entrada: <%= I18n.localize(@reservation.check_in.in_time_zone('America/Sao_Paulo')) %></p></li>
+    <li><p>Data de Saída: <%= I18n.localize(@reservation.check_out.in_time_zone('America/Sao_Paulo')) %></p></li>
+    <li><p>Valor Total da Reserva: R$ <%= @reservation.total_price %></p></li>
+  </ul>
+<% end %>
+
+<% if @reservation.active? %>
+  <p>Data de Entrada: <%= I18n.localize(@reservation.check_in.in_time_zone('America/Sao_Paulo')) %></p>
+  <p>Data de Saída: <%= I18n.localize(@reservation.check_out.in_time_zone('America/Sao_Paulo')) %></p>
+<% end %>
+
+<% if @reservation.canceled? %>
+  <p>Data do cancelamento: <%= I18n.localize(@reservation.updated_at.to_date) %></p>
 <% end %>
 <% if @reservation.pending?  && current_user != @room.inn.user %>
   <%= render 'reservation_details', room: @room, reservation: @reservation %>

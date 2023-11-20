@@ -20,8 +20,7 @@ class RoomsController < ApplicationController
   end
 
   def index
-    @rooms = @inn.rooms.published
-    
+    @rooms = @inn.rooms.published   
     @rooms = current_user.rooms if current_user.inn == @inn
   end
 
