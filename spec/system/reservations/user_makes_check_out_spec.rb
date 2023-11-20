@@ -16,7 +16,7 @@ describe 'Usuário realiza check-out' do
                       check_in_check_out_time: '12:00', user: user, status: 'published')
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                               price: 1000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true, status: 'published')
-    reservation = room.reservations.create(user: guest, check_in: Date.today, 
+    reservation = room.reservations.create(user: guest, check_in: Time.current, 
                                            check_out: 14.days.from_now, total_price: 30000, guests: 2, status: 'active') 
     
     # Act
@@ -47,9 +47,9 @@ describe 'Usuário realiza check-out' do
                       check_in_check_out_time: '12:00', user: user, status: 'published')
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                               price: 1000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true, status: 'published')
-    reservation = room.reservations.create(user: guest, check_in: Date.today, 
+    reservation = room.reservations.create(user: guest, check_in: Time.current.change(hour: 12), 
                                            check_out: 14.days.from_now.change(hour: 12), 
-                                           total_price: 30000, guests: 2, status: 'active') 
+                                           total_price: 14000, guests: 2, status: 'active') 
     
     # Act
     travel_to 14.days.from_now.change(hour: 11) do
@@ -80,8 +80,8 @@ describe 'Usuário realiza check-out' do
                       check_in_check_out_time: '12:00', user: user, status: 'published')
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                               price: 1000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true, status: 'published')
-    reservation = room.reservations.create(user: guest, check_in: Date.today, 
-                                           check_out: 14.days.from_now.change(hour: 12), 
+    reservation = room.reservations.create(user: guest, check_in: DateTime.now.utc.change(hour: 12), 
+                                           check_out: 14.days.from_now.utc.change(hour: 12), 
                                            total_price: 30000, guests: 2, status: 'active') 
     
     # Act

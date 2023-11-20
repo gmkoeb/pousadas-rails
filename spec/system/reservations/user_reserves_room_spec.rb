@@ -19,8 +19,8 @@ describe 'Usuário reserva um quarto' do
     click_on 'Quarto Master'
     click_on 'Reservar Quarto'
     fill_in 'Quantidade de Hóspedes', with: '5'
-    fill_in 'Data de Entrada', with: Date.tomorrow
-    fill_in 'Data de Saída', with: Date.tomorrow + 7
+    fill_in 'Data de Entrada', with: Time.current
+    fill_in 'Data de Saída', with: 7.days.from_now
     click_on 'Verificar Disponibilidade'
     click_on 'Efetuar Reserva'
     # Assert
@@ -45,8 +45,8 @@ describe 'Usuário reserva um quarto' do
     # Act
     visit new_room_reservation_path(room)
     fill_in 'Quantidade de Hóspedes', with: '2'
-    fill_in 'Data de Entrada', with: Date.today
-    fill_in 'Data de Saída', with: Date.today + 7
+    fill_in 'Data de Entrada', with: Time.current
+    fill_in 'Data de Saída', with: 7.days.from_now
     click_on 'Verificar Disponibilidade'
     login_as(guest)
     click_on 'Efetuar Reserva'
@@ -54,8 +54,8 @@ describe 'Usuário reserva um quarto' do
     expect(current_path).to eq reservation_path(Reservation.last)
     expect(page).to have_content 'Reserva 123ABCDE'
     expect(page).to have_content 'Informações de reserva para o quarto: Quarto Master'
-    expect(page).to have_content "Data de Entrada: #{I18n.localize(Date.today.at_midday)}"
-    expect(page).to have_content "Data de Saída: #{I18n.localize(7.days.from_now.at_midday)}"
+    expect(page).to have_content "Data de Entrada: #{I18n.localize(Time.now.utc.at_midday)}"
+    expect(page).to have_content "Data de Saída: #{I18n.localize(Time.now.utc.at_midday + 7.days)}"
     expect(page).to have_content 'Horário de check-in e check-out: 12:00'
     expect(page).to have_content "Formas de pagamento aceitas:"
     expect(page).to have_content "Dinheiro"
@@ -81,15 +81,15 @@ describe 'Usuário reserva um quarto' do
     login_as(guest)
     visit new_room_reservation_path(room)
     fill_in 'Quantidade de Hóspedes', with: '2'
-    fill_in 'Data de Entrada', with: Date.today
-    fill_in 'Data de Saída', with: Date.today + 7
+    fill_in 'Data de Entrada', with: Time.current
+    fill_in 'Data de Saída', with: 7.days.from_now
     click_on 'Verificar Disponibilidade'
     click_on 'Efetuar Reserva'
     # Assert
     expect(current_path).to eq reservation_path(Reservation.last)
     expect(page).to have_content 'Reserva 123ABCDE'
     expect(page).to have_content 'Informações de reserva para o quarto: Quarto Master'
-    expect(page).to have_content "Data de Entrada: #{I18n.localize(Date.today.at_midday)}"
+    expect(page).to have_content "Data de Entrada: #{I18n.localize(DateTime.now.utc.at_midday)}"
     expect(page).to have_content "Data de Saída: #{I18n.localize(7.days.from_now.at_midday)}"
     expect(page).to have_content 'Horário de check-in e check-out: 12:00'
     expect(page).to have_content "Formas de pagamento aceitas:"

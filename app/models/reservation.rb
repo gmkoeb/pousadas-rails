@@ -50,7 +50,7 @@ class Reservation < ApplicationRecord
       errors.add(:check_in, 'precisa ser anterior à Data de Saída')   
     end
 
-    if self.check_in < Date.today
+    if self.check_in < Time.current.to_date
       errors.add(:check_in, 'no passado')
     end
   end 

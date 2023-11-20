@@ -1,16 +1,16 @@
 module ReservationsHelper
-  def calculate_price(checkin, checkout, standard_price, price_per_periods)
-    return if checkin.nil? || checkout.nil?
-    reservation_days = (checkout.to_date - checkin.to_date).to_i
+  def calculate_price(check_in, check_out, standard_price, price_per_periods)
+    return if check_in.nil? || check_out.nil?
+    reservation_days = (check_out.to_date - check_in.to_date).to_i
     total_price = standard_price * reservation_days
     if price_per_periods.any?
       price_per_periods.each do |price_per_period|
         special_price_duration = Range.new(price_per_period.starts_at, price_per_period.ends_at)
-        reservation_duration = Range.new(checkin.to_date, checkout.to_date)
+        reservation_duration = Range.new(check_in.to_date, check_out.to_date)
         if special_price_duration.any?(reservation_duration)
-          if price_per_period.ends_at <= checkout.to_date
-            special_price_remaining_duration = Range.new(checkin.to_date, price_per_period.ends_at)
-            total_price = price_per_period.special_price * (special_price_remaining_duration.count) + @room.price * (checkout.to_date - price_per_period.ends_at).to_i
+          if price_per_period.ends_at <= check_out.to_date
+            special_price_remaining_duration = Range.new(check_in.to_date, price_per_period.ends_at)
+            total_price = price_per_period.special_price * (special_price_remaining_duration.count) + @room.price * (check_out.to_date - price_per_period.ends_at).to_i
           else
             total_price = price_per_period.special_price * reservation_days
           end
@@ -20,24 +20,26 @@ module ReservationsHelper
     total_price
   end
 
-  def set_checkin_time(inn_time, reservation_checkin)
-    return if reservation_checkin.in_time_zone.nil?
+  def standardize_check_in_time(inn_time, reservation_check_in)
+    return if reservation_check_in.in_time_zone.nil?
 
-    reservation_checkin.in_time_zone.change(hour: inn_time.hour, min: inn_time.min)
+    reservation_check_in.in_time_zone.change(hour: inn_time.hour, min: inn_time.min)
   end
 
-  def set_checkout_time(inn_time, reservation_checkout)
-    return if reservation_checkout.in_time_zone.nil?
+  def standardize_check_out_time(inn_time, reservation_check_out)
+    return if reservation_check_out.in_time_zone.nil?
     
-    reservation_checkout.in_time_zone.change(hour: inn_time.hour, min: inn_time.min)
+    reservation_check_out.in_time_zone.change(hour: inn_time.hour, min: inn_time.min)
   end
 
   def current_price_per_period(room)
+    special_price = []
     room.price_per_periods.each do |price_per_period|
-      if Date.today.between?(price_per_period.starts_at, price_per_period.ends_at)
-        price_per_period
+      if Date.current.between?(price_per_period.starts_at, price_per_period.ends_at)
+        special_price = price_per_period
       end
     end
+    special_price
   end
 
   def a_week_from_check_in_date(check_in)

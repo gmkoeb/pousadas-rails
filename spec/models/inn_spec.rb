@@ -494,8 +494,6 @@ RSpec.describe Inn, type: :model do
         expect(result).to eq true
       end
     end
-
- 
   end
 
   describe '#search' do

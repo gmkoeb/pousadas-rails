@@ -29,8 +29,12 @@
   </div>
 <% end %>
 
-<% if current_user && current_user.inn == inn %>
-  <% if room.price_per_periods.any? && request.path == room_path(room)%>
+<% if room.price_per_periods.any? %>
+    <% if current_price_per_period(room) && request.path == new_room_reservation_path(room) %>
+      <p>Preço Especial: R$ <%= current_price_per_period(room).special_price %></p>
+      <p>Ativo até: <%= I18n.localize(current_price_per_period(room).ends_at) %></p>
+    <% end %>
+  <% if request.path == room_path(room) && current_user && current_user.inn == inn %>
     <table class="mx-auto text-center">
       <h2 class="text-center mt-5"><%= PricePerPeriod.model_name.human %></h2>
         <tr>

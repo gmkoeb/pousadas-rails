@@ -2,8 +2,8 @@
 <p>Status da Reserva: <%= t(@reservation.status) %></p>
 <% if @reservation.finished?%>
   <h4>Forma de Pagamento Escolhida: <%= @reservation.payment_method %></h4>
-  <h4>Data de Entrada: <%= I18n.localize(@reservation.check_in) %></h4>
-  <h4>Data de Saída: <%= I18n.localize(@reservation.check_out) %></h4>
+  <h4>Data de Entrada: <%= I18n.localize(@reservation.check_in.in_time_zone('America/Sao_Paulo')) %></h4>
+  <h4>Data de Saída: <%= I18n.localize(@reservation.check_out.in_time_zone('America/Sao_Paulo')) %></h4>
   <h4>Valor Total da Reserva: R$ <%= @reservation.total_price %></h4>
 <% end %>
 <% if @reservation.pending?  && current_user != @room.inn.user %>

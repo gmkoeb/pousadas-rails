@@ -15,7 +15,7 @@ RSpec.describe Reservation, type: :model do
                       check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.new(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-        reservation = room.reservations.new(user: user, room: room, check_in: Date.today, check_out: Date.tomorrow, guests: 3)
+        reservation = room.reservations.new(user: user, room: room, check_in: Time.current, check_out: 1.day.from_now, guests: 3)
         # Act
         result = reservation.valid?
         # Assert
@@ -99,7 +99,7 @@ RSpec.describe Reservation, type: :model do
                       check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.new(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-        reservation = room.reservations.new(user: user, room: room, check_in: Date.yesterday, check_out: Date.tomorrow, guests: 3)
+        reservation = room.reservations.new(user: user, room: room, check_in: DateTime.now - 2.days, check_out: 2.days.from_now, guests: 3)
         # Act
         reservation.valid?
         result = reservation.errors.include?(:check_in)
@@ -120,7 +120,7 @@ RSpec.describe Reservation, type: :model do
                       check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.new(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-        reservation = room.reservations.new(user: user, room: room, check_in: Date.today, check_out: Date.tomorrow, guests: 3)
+        reservation = room.reservations.new(user: user, room: room, check_in: 2.days.from_now, check_out: 3.days.from_now, guests: 3)
         # Act
         reservation.valid?
         result = reservation.errors.include?(:check_in)
@@ -140,7 +140,7 @@ RSpec.describe Reservation, type: :model do
                       check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.new(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-        reservation = room.reservations.new(user: user, room: room, check_in: Date.today, check_out: Date.yesterday, guests: 3)
+        reservation = room.reservations.new(user: user, room: room, check_in: 3.days.from_now, check_out: 2.days.from_now, guests: 3)
         # Act
         reservation.valid?
         result = reservation.errors.include?(:check_in)
