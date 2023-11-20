@@ -48,9 +48,7 @@ describe 'Usuário checa detalhes de reserva' do
                                             total_price: 30000, guests: 2, status: 'canceled') 
     # Act
     login_as guest
-    visit root_path
-    click_on 'Minhas Reservas'
-    click_on reservation.code
+    visit reservation_path(reservation)
     # Assert
     expect(page).to have_content "Reserva #{reservation.code}" 
     expect(page).to have_content "Status da Reserva: Cancelada"
@@ -144,9 +142,7 @@ describe 'Usuário checa detalhes de reserva' do
                             total_price: 13000, guests: 2, status: 'pending') 
       # Act
       login_as guest
-      visit root_path
-      click_on 'Minhas Reservas'
-      click_on reservation.code
+      visit reservation_path(reservation)
       # Assert
       expect(page).to have_content "Reserva #{reservation.code}" 
       expect(page).to have_content "Status da Reserva: Pendente"
@@ -179,9 +175,7 @@ describe 'Usuário checa detalhes de reserva' do
                             total_price: 7000, guests: 2, status: 'pending') 
       # Act
       login_as guest
-      visit root_path
-      click_on 'Minhas Reservas'
-      click_on reservation.code
+      visit reservation_path(reservation)
       # Assert
       expect(page).to have_content "Reserva #{reservation.code}" 
       expect(page).to have_content "Status da Reserva: Pendente"
@@ -213,9 +207,7 @@ describe 'Usuário checa detalhes de reserva' do
                                               total_price: 13000, guests: 2, status: 'active') 
       # Act
       login_as guest
-      visit root_path
-      click_on 'Minhas Reservas'
-      click_on reservation.code
+      visit reservation_path(reservation)
       # Assert
       expect(page).to have_content "Reserva #{reservation.code}" 
       expect(page).to have_content "Status da Reserva: Ativa"
