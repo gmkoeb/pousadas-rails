@@ -6,7 +6,6 @@ class Reservation < ApplicationRecord
   belongs_to :room
 
   validates :guests, :check_in, :check_out, presence: true
-
   validate :room_supports_guests
   validate :invalid_date, on: :create
   validate :room_is_reserved, on: :create

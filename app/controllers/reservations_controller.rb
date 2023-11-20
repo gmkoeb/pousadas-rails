@@ -29,9 +29,9 @@ class ReservationsController < ApplicationController
 
   def create
     reservation_params = session[:params]
-    reservation_params[:check_out] = standardize_check_out_time(@inn_standard_time, reservation_params["check_out"])
     reservation_params[:check_in] = standardize_check_in_time(@inn_standard_time, reservation_params["check_in"])
-     
+    reservation_params[:check_out] = standardize_check_out_time(@inn_standard_time, reservation_params["check_out"])
+
     @reservation = @room.reservations.build(reservation_params)
     @reservation.user = current_user
     if @reservation.save
@@ -44,14 +44,14 @@ class ReservationsController < ApplicationController
   end
 
   def check
-    @check_out_date = standardize_check_out_time(@inn_standard_time, params[:check_out])
-    @check_in_date = standardize_check_in_time(@inn_standard_time, params[:check_in])
-    @guests = params[:guests]
-    @total_price = calculate_price(@check_in_date, @check_out_date, @room.price, @room.price_per_periods)
-    
-    reservation_params = { guests: @guests, check_in: @check_in_date, 
-    check_out: @check_out_date, total_price: @total_price, 
-    user_id: @inn.user.id } 
+    guests = params[:guests]
+    check_out_date = standardize_check_out_time(@inn_standard_time, params[:check_out])
+    check_in_date = standardize_check_in_time(@inn_standard_time, params[:check_in])
+    total_price = calculate_price(check_in_date, check_out_date, @room.price, @room.price_per_periods)
+
+    reservation_params = { guests: guests, check_in: check_in_date, 
+                           check_out: check_out_date, total_price: total_price, 
+                           user_id: @inn.user.id } 
     
     @reservation = @room.reservations.build(reservation_params)
     
@@ -96,23 +96,22 @@ class ReservationsController < ApplicationController
     @inn = current_user.inn
     @payment_methods = eval(@inn.payment_methods)
     @room = @reservation.room
+  end
+
+  def check_out
+    @room = @reservation.room
     @total_price = calculate_price(@reservation.check_in, Time.current, @room.price, @room.price_per_periods)
     if Time.current > @reservation.check_out
       @total_price = calculate_price(@reservation.check_in, Time.current.to_date.tomorrow, @room.price, @room.price_per_periods)
     end
-  end
-
-  def check_out
-    @reservation = Reservation.friendly.find(params[:id])
     check_out_params = { payment_method: params[:payment_method], 
-                         total_price: params[:total_price], check_out: Time.current }
+                         total_price: @total_price, check_out: Time.current }
     if @reservation.update(check_out_params)
       @reservation.finished!
       @reservation.room.published!
-      redirect_to reservation_path(@reservation), notice: 'Check-Out realizado com sucesso!'
+      return redirect_to reservation_path(@reservation), notice: 'Check-Out realizado com sucesso!'
     else
-      render 'check_out_form', status: 422
-      flash.now[:alert] = "Não foi possível realizar o check-out."
+      redirect_to check_out_form_reservation_path(@reservation), alert: 'Não foi possível realizar o check-out.'
     end
   end
 
@@ -133,6 +132,11 @@ class ReservationsController < ApplicationController
   def set_inn_time
     @inn = @room.inn
     @inn_standard_time = @inn.check_in_check_out_time
+  end
+
+  def standardize_reservation_times(params)
+    params[:check_out] = standardize_check_out_time(@inn_standard_time, params["check_out"])
+    params[:check_in] = standardize_check_in_time(@inn_standard_time, params["check_in"])
   end
 
   def set_reservation
