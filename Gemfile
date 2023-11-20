@@ -46,8 +46,6 @@ gem "devise"
 
 gem 'friendly_id', '~> 5.4.0'
 
-gem 'route_translator'
-
 gem 'bootstrap', '~> 5.3.2'
 
 # Use Sass to process CSS
