@@ -1,6 +1,6 @@
 require 'rails_helper'
 describe 'usuário vê preços por período' do
-  it 'e não se não é dono da pousada' do
+  it 'e não vê se não é dono da pousada' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
                         registration_number: '99999999999', admin: true)
@@ -24,7 +24,7 @@ describe 'usuário vê preços por período' do
     expect(page).to_not have_content I18n.localize(Date.tomorrow)
   end
 
-  it 'e vê preços por período se é dono da pousada' do
+  it 'e vê todos os preços por período se é dono da pousada' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
                         registration_number: '99999999999', admin: true)

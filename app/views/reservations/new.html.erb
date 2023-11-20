@@ -1,4 +1,7 @@
-<%= render 'reservation_room_details', room:@room %>
+<div>
+  <%= render 'rooms/room_details', room: @room %>
+</div>
+
 <% if @reservation.errors.any? %>
   <div class="rounded p-2 border border-1 fw-bold mt-3">
     <h4 class="text-center">Verifique os erros abaixo:</h4>
@@ -9,52 +12,40 @@
     </ul>
   </div>
 <% end %>
-<% if @total_price || @session_params %>
+
+<% if session[:params] %>
   <%= form_with model: [@room, @reservation], html: {class: "row g-3 mt-3 w-50"} do |f| %>
-    <div class="col-md-4 d-none">
-      <%= f.label :guests, class: "form-label" %>
-      <%= f.number_field :guests, value: @session_params ? @session_params["guests"] : @guests, class: "form-control" %>
-    </div> 
-
-    <div class="col-md-4 d-none">
-      <%= f.label :check_in, class: "form-label" %>
-      <%= f.date_field :check_in, value: @session_params ? @session_params["check_in"].to_date : @check_in_date.to_date, class: "form-control" %>
-    </div>
-
-    <div class="col-md-4 d-none">
-      <%= f.label :check_out, class: "form-label" %>
-      <%= f.date_field :check_out, value: @session_params ? @session_params["check_out"].to_date : @check_out_date.to_date, class: "form-control" %>
-    </div>
-
-    <div class="col-md-4 d-none">
-      <%= f.label :total_price, class: "form-label" %>
-      <%= f.number_field :total_price, value: @session_params ? @session_params["total_price"] : @total_price, class: "form-control" %>
-    </div>
-
-    <% if @session_params %>
       <div>
-        <%= render 'session_details', room:@room, session_params:@session_params %>
+        <h2>Informações de reserva para o quarto: <%= @room.name %></h2>
+        <h4>Data de Entrada: <%= I18n.localize(session[:params][:check_in].in_time_zone) %></h4>
+        <h4>Data de Saída: <%= I18n.localize(session[:params][:check_out].in_time_zone) %></h4>
+        <h4>Horário de check-in e check-out: <%= @room.inn.check_in_check_out_time.strftime("%H:%M") %></h4>
+        <h4>Formas de pagamento aceitas:</h4>
+        <ul>
+          <% eval(@room.inn.payment_methods).each do |method| %>
+            <li class="mb-1">
+              <% case method %>
+                <% when 'Dinheiro' %>
+                <i class="fa-solid fa-money-bill-wave" style="color: #18ec1f;"></i> 
+                <% when 'Cartão de crédito', 'Cartão de débito' %>
+                <i class="fa-regular fa-credit-card"></i>
+                <% when 'PIX' %>
+                <i class="fa-brands fa-pix" style="color: #44ab9a;"></i>
+              <%end%>
+              <%= method %>
+            </li>
+          <%end%>
+        </ul>
+        <h4>Valor total das diárias: R$<%= session[:params][:total_price] %></h4>
       </div>
-      <% if @session_params["check_in"].to_date.between?(Date.today, 7.days.from_now) %>
+      <% if session[:params][:check_in].to_date.between?(Time.now.utc.to_date, 7.days.from_now.to_date) %>
         <p>Você não poderá cancelar essa reserva, pois a data de check-in está muito próxima</p>
       <% else %>
         <p>Você poderá cancelar a reserva em até 7 dias úteis antes da data de check-in</p>
       <% end %>
-    <% else %>
-      <div>
-        <%= render 'reservation_details', room:@room, reservation:@reservation %>
-      </div>
-      <% if @check_in_date.to_date.between?(Date.today, 7.days.from_now) %>
-        <p>Você não poderá cancelar essa reserva, pois a data de check-in está muito próxima</p>
-      <% else %>
-        <p>Você poderá cancelar a reserva em até 7 dias úteis antes da data de check-in</p>
-      <% end %>
-    <% end %>
-    
     <div class="col-md-12 text-center">
       <%= f.submit 'Efetuar Reserva', class: 'btn btn-primary text-white' %>
     </div>
-
   <% end %>
 <% else %>
   <%= form_with(url: room_check_path(@room), method: :post, html: {class: "row g-3 w-75 mt-3"}) do |f|%>
@@ -63,7 +54,7 @@
       <%= f.number_field :guests, :value => (@reservation.try(:guests) || ''), class: "form-control" %>
     </div> 
 
-    <div class="col-md-4">
+    <div class="col-md-4">      
       <%= f.label :check_in, 'Data de Entrada', class: "form-label" %>
       <%= f.date_field :check_in, :value => (@reservation.try(:check_in) || '').to_date, class: "form-control" %>
     </div>

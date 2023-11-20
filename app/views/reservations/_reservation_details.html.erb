@@ -1,6 +1,6 @@
 <h2>Informações de reserva para o quarto: <%= room.name %></h2>
-<h4>Data de Entrada: <%= I18n.localize(reservation.check_in) %></h4>
-<h4>Data de Saída: <%= I18n.localize(reservation.check_out) %></h4>
+<h4>Data de Entrada: <%= I18n.localize(reservation.check_in || session[:params][:check_in].in_time_zone) %></h4>
+<h4>Data de Saída: <%= I18n.localize(reservation.check_out || session[:params][:check_out].in_time_zone) %></h4>
 <h4>Horário de check-in e check-out: <%= room.inn.check_in_check_out_time.strftime("%H:%M") %></h4>
 <h4>Formas de pagamento aceitas:</h4>
 <ul>
