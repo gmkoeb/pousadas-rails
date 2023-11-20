@@ -3,7 +3,9 @@
     <%= link_to root_path do %>
       <h1 class="navbar-brand text-secondary fw-bold fs-1 mx-5">Pousadas <br> <span class="text-danger">Rails</span></h1>
     <% end %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+    <button class="navbar-toggler" 
+                  type="button" 
+                  data-bs-toggle="collapse" 
                   data-bs-target="#navbarNavDropdown" 
                   aria-controls="navbarNavDropdown" 
                   aria-expanded="false" 
@@ -12,7 +14,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <div class="container-fluid">
-        
+
         <%= form_with(url: search_inns_path, method: :get, html: {class: "d-flex gap-2"}) do |f|%>
             <div class="search-container w-75 mx-auto">
               <%= f.label :query, 'Buscar Pousadas' %>

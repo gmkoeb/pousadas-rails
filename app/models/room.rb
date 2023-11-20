@@ -12,7 +12,7 @@ class Room < ApplicationRecord
 
   validates :name, :description, :area, :maximum_guests, :price, presence: true
   validate :valid_user, on: [:create, :update, :draft, :publish]
-
+  validate :negative_price?
   enum status: {draft: 0, published: 2}
 
   private
@@ -22,5 +22,10 @@ class Room < ApplicationRecord
     unless self.inn.user == user
       errors.add(:base, "Acesso negado.")
     end
+  end
+
+  def negative_price?
+    return if self.price.nil?
+    errors.add(:price, 'não pode ser negativo') if self.price < 0
   end
 end

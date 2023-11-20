@@ -138,6 +138,6 @@ describe 'usuário cadastra preços especiais' do
     # Assert
     expect(page).to have_content 'Não foi possível cadastrar preço especial.'
     expect(page).to have_content 'Verifique os erros abaixo:'
-    expect(page).to have_content 'Data de ínicio precisa ser maior que a data de término'
+    expect(page).to have_content 'Data de Ínicio precisa ser maior que a data de término'
   end
 end

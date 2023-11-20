@@ -5,6 +5,7 @@ class PricePerPeriod < ApplicationRecord
   
   validate :date_overlaps, :invalid_date, :valid_user
 
+  validate :negative_price?
   private
 
   def valid_user
@@ -27,6 +28,11 @@ class PricePerPeriod < ApplicationRecord
 
   def invalid_date
     return if self.starts_at.nil? || self.ends_at.nil? 
-    errors.add(:base, 'Data de ínicio precisa ser maior que a data de término') if self.starts_at > self.ends_at  
+    errors.add(:starts_at, 'precisa ser maior que a data de término') if self.starts_at > self.ends_at  
   end 
+
+  def negative_price?
+    return if self.special_price.nil?
+    errors.add(:special_price, 'não pode ser negativo') if self.special_price < 0
+  end
 end

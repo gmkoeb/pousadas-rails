@@ -16,6 +16,7 @@ class Reservation < ApplicationRecord
 
   private
   def self.calculate_price(check_in, check_out, standard_price, price_per_periods)
+    return if check_in.nil? || check_out.nil?
     reservation_days = (check_out.to_date - check_in.to_date).to_i
     total_price = standard_price * reservation_days
   
