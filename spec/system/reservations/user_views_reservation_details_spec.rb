@@ -25,8 +25,8 @@ describe 'Usuário checa detalhes de reserva' do
     expect(page).to have_content "Reserva #{reservation.code}" 
     expect(page).to have_content "Status da Reserva: Finalizada"
     expect(page).to have_content "Quarto Reservado: Quarto Master"
-    expect(page).to have_content "Data de Entrada: #{I18n.localize(8.days.from_now.at_midday.in_time_zone('America/Sao_Paulo'))}"
-    expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday.in_time_zone('America/Sao_Paulo'))}"
+    expect(page).to have_content "Data de Entrada: #{I18n.localize(8.days.from_now.at_midday.in_time_zone('America/Sao_Paulo'), format: :no_timezone)}"
+    expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday.in_time_zone('America/Sao_Paulo'), format: :no_timezone)}"
     expect(page).to have_content "Valor Total da Reserva: R$ 30000"
   end
 
@@ -81,9 +81,9 @@ describe 'Usuário checa detalhes de reserva' do
       # Assert
       expect(page).to have_content "Reserva #{reservation.code}" 
       expect(page).to have_content "Status da Reserva: Pendente"
-      expect(page).to have_content "Quarto Reservado: Quarto Master"
-      expect(page).to have_content "Data de Entrada: #{I18n.localize(1.days.from_now.at_midday)}"
-      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday)}"
+      expect(page).to have_content "Informações de reserva para o quarto: Quarto Master"
+      expect(page).to have_content "Data de Entrada: #{I18n.localize(1.days.from_now.at_midday, format: :no_timezone)}"
+      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday, format: :no_timezone)}"
       expect(page).to have_content "Horário de check-in e check-out: 12:00"
       expect(page).to have_content "Formas de pagamento aceitas:"
       expect(page).to have_content "Dinheiro"
@@ -117,8 +117,8 @@ describe 'Usuário checa detalhes de reserva' do
       expect(page).to have_content "Reserva #{reservation.code}" 
       expect(page).to have_content "Status da Reserva: Ativa"
       expect(page).to have_content "Quarto Reservado: Quarto Master"
-      expect(page).to have_content "Data de Entrada: #{I18n.localize(1.days.from_now.at_midday.in_time_zone('America/Sao_Paulo'))}"
-      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday)}"
+      expect(page).to have_content "Data de Entrada: #{I18n.localize(1.days.from_now.at_midday.in_time_zone('America/Sao_Paulo'), format: :no_timezone)}"
+      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday, format: :no_timezone)}"
       expect(page).to have_link "Realizar Check-Out"
     end
   end
@@ -146,9 +146,9 @@ describe 'Usuário checa detalhes de reserva' do
       # Assert
       expect(page).to have_content "Reserva #{reservation.code}" 
       expect(page).to have_content "Status da Reserva: Pendente"
-      expect(page).to have_content "Quarto Reservado: Quarto Master"
-      expect(page).to have_content "Data de Entrada: #{I18n.localize(1.days.from_now.at_midday)}"
-      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday)}"
+      expect(page).to have_content "Informações de reserva para o quarto: Quarto Master"
+      expect(page).to have_content "Data de Entrada: #{I18n.localize(1.days.from_now.at_midday, format: :no_timezone)}"
+      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday, format: :no_timezone)}"
       expect(page).to have_content "Horário de check-in e check-out: 12:00"
       expect(page).to have_content "Formas de pagamento aceitas:"
       expect(page).to have_content "Dinheiro"
@@ -179,9 +179,9 @@ describe 'Usuário checa detalhes de reserva' do
       # Assert
       expect(page).to have_content "Reserva #{reservation.code}" 
       expect(page).to have_content "Status da Reserva: Pendente"
-      expect(page).to have_content "Quarto Reservado: Quarto Master"
-      expect(page).to have_content "Data de Entrada: #{I18n.localize(7.days.from_now.at_midday)}"
-      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday)}"
+      expect(page).to have_content "Informações de reserva para o quarto: Quarto Master"
+      expect(page).to have_content "Data de Entrada: #{I18n.localize(7.days.from_now.at_midday, format: :no_timezone)}"
+      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday, format: :no_timezone)}"
       expect(page).to have_content "Horário de check-in e check-out: 12:00"
       expect(page).to have_content "Formas de pagamento aceitas:"
       expect(page).to have_content "Dinheiro"
@@ -212,8 +212,8 @@ describe 'Usuário checa detalhes de reserva' do
       expect(page).to have_content "Reserva #{reservation.code}" 
       expect(page).to have_content "Status da Reserva: Ativa"
       expect(page).to have_content "Quarto Reservado: Quarto Master"
-      expect(page).to have_content "Data de Entrada: #{I18n.localize(1.days.from_now.at_midday.in_time_zone('America/Sao_Paulo'))}"
-      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday)}"
+      expect(page).to have_content "Data de Entrada: #{I18n.localize(1.days.from_now.at_midday.in_time_zone('America/Sao_Paulo'), format: :no_timezone)}"
+      expect(page).to have_content "Data de Saída: #{I18n.localize(14.days.from_now.at_midday, format: :no_timezone)}"
       expect(page).to_not have_link "Realizar Check-Out"
     end
   end

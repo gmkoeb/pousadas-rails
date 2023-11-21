@@ -5,6 +5,7 @@ class ReservationsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :show, :index]
   before_action :store_location, only: [:check]
   before_action :set_reservation, only: [:check_out_form, :show, :check_in, :check_out, :cancel]
+  before_action :calculate_reservation_price, only:[:check_out_form, :check_out]
 
   def index
     if current_user.admin
@@ -81,7 +82,7 @@ class ReservationsController < ApplicationController
 
   def check_in
     check_in_time = @reservation.check_in
-    if Time.current > check_in_time + 2.days || Time.current < check_in_time
+    if Time.current > check_in_time + 2.days || Time.now < check_in_time
       return redirect_to reservation_path(@reservation), alert: 'Não foi possível realizar o check-in.' 
     else
       @reservation.update(check_in: Time.current, status: 'active')
@@ -93,16 +94,9 @@ class ReservationsController < ApplicationController
     return redirect_to reservation_path(@reservation), alert: 'Acesso negado.' unless @reservation.active?
     @inn = current_user.inn
     @payment_methods = eval(@inn.payment_methods)
-    @room = @reservation.room
-    @total_price = Reservation.calculate_price(@reservation.check_in, Time.current, @room.price, @room.price_per_periods)
   end
 
   def check_out
-    @room = @reservation.room
-    @total_price = Reservation.calculate_price(@reservation.check_in, Time.current, @room.price, @room.price_per_periods)
-    if Time.current > @reservation.check_out
-      @total_price = Reservation.calculate_price(@reservation.check_in, Time.current.to_date.tomorrow, @room.price, @room.price_per_periods)
-    end
     check_out_params = { payment_method: params[:payment_method], 
                          total_price: @total_price, check_out: Time.current }
     if @reservation.update(check_out_params)
@@ -135,5 +129,13 @@ class ReservationsController < ApplicationController
 
   def set_reservation
     @reservation = Reservation.friendly.find(params[:id])
+  end
+
+  def calculate_reservation_price
+    @room = @reservation.room
+    @total_price = Reservation.calculate_price(@reservation.check_in, Time.current, @room.price, @room.price_per_periods)
+    if Time.now > @reservation.check_out || Time.current.day == @reservation.check_in.day
+      @total_price = Reservation.calculate_price(@reservation.check_in, Time.current.to_date.tomorrow, @room.price, @room.price_per_periods)
+    end
   end
 end

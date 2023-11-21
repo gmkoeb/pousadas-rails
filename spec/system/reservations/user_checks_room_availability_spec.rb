@@ -68,8 +68,8 @@ describe 'Usuário checa se quarto está disponível para reservas' do
     click_on 'Verificar Disponibilidade'
     # Assert
     expect(page).to have_content 'Informações de reserva para o quarto: Quarto Master' 
-    expect(page).to have_content "Data de Entrada: #{I18n.localize(1.day.from_now.at_midday)}" 
-    expect(page).to have_content "Data de Saída: #{I18n.localize(8.days.from_now.at_midday)}" 
+    expect(page).to have_content "Data de Entrada: #{I18n.localize(1.day.from_now.at_midday, format: :no_timezone)}" 
+    expect(page).to have_content "Data de Saída: #{I18n.localize(8.days.from_now.at_midday, format: :no_timezone)}" 
     expect(page).to have_content "Horário de check-in e check-out: 12:00" 
     expect(page).to have_content "Formas de pagamento aceitas:" 
     expect(page).to have_content "Dinheiro" 
@@ -149,8 +149,8 @@ describe 'Usuário checa se quarto está disponível para reservas' do
     expect(page).to have_content 'Preço Especial: R$ 10000'
     expect(page).to have_content "Ativo até: #{I18n.localize(special_price.ends_at)}"  
     expect(page).to have_content 'Informações de reserva para o quarto: Quarto Master' 
-    expect(page).to have_content "Data de Entrada: #{I18n.localize(1.day.from_now.at_midday)}" 
-    expect(page).to have_content "Data de Saída: #{I18n.localize(3.days.from_now.at_midday)}" 
+    expect(page).to have_content "Data de Entrada: #{I18n.localize(1.day.from_now.at_midday, format: :no_timezone)}" 
+    expect(page).to have_content "Data de Saída: #{I18n.localize(3.days.from_now.at_midday, format: :no_timezone)}" 
     expect(page).to have_content "Horário de check-in e check-out: 12:00" 
     expect(page).to have_content "Formas de pagamento aceitas:" 
     expect(page).to have_content "Dinheiro" 

@@ -8,6 +8,7 @@ class Inn < ApplicationRecord
 
   belongs_to :user
   has_many :rooms
+  
   validates :brand_name, :corporate_name, :registration_number, :phone, :email, 
             :address, :district, :state, :city, :zip_code, :description, 
             :payment_methods, :terms_of_service, 
@@ -16,6 +17,7 @@ class Inn < ApplicationRecord
   validates :user_id, uniqueness: {
     message: "já possui uma pousada"
   }
+
   validate :user_has_admin_role
   validate :valid_user, on: [:update, :draft, :publish]
   enum status: {draft: 0, published: 2}

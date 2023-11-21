@@ -4,8 +4,8 @@ class PricePerPeriod < ApplicationRecord
   validates :special_price, :starts_at, :ends_at, presence:true
   
   validate :date_overlaps, :invalid_date, :valid_user
-
   validate :negative_price?
+  
   private
 
   def valid_user

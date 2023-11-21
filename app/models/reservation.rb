@@ -19,13 +19,13 @@ class Reservation < ApplicationRecord
     return if check_in.nil? || check_out.nil?
     reservation_days = (check_out.to_date - check_in.to_date).to_i
     total_price = standard_price * reservation_days
-  
+
     price_per_periods.each do |price_per_period|
       special_price_duration = Range.new(price_per_period.starts_at, price_per_period.ends_at)
       reservation_duration = Range.new(check_in.to_date, check_out.to_date)
   
       next unless special_price_duration.overlaps?(reservation_duration)
-  
+     
       if price_per_period.ends_at < check_out.to_date
         special_price_remaining_duration = (price_per_period.ends_at - check_in.to_date).to_i
         total_special_price = price_per_period.special_price * special_price_remaining_duration
@@ -73,9 +73,9 @@ class Reservation < ApplicationRecord
     active_reservations.each do |reservation|
       reservation_duration = Range.new(reservation.check_in.to_date, reservation.check_out.to_date)
       new_reservation_duration = Range.new(self.check_in.to_date, self.check_out.to_date)
-      if reservation_duration.any?(new_reservation_duration)
-        errors.add(:base, 'Esse quarto já está reservado')
-      end
+
+      errors.add(:base, 'Esse quarto já está reservado') if new_reservation_duration.overlaps?(reservation_duration)
+      
     end
   end
   

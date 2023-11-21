@@ -141,6 +141,10 @@ ul.inn-details{
   top: 25%;
 }
 
+.reservation-details > p{
+  font-size: 1.1rem;
+}
+
 @media (max-width: 1000px) {
   .admin-control, .admin-room-control{
     width: 100px;

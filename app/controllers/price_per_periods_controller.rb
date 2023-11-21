@@ -30,5 +30,4 @@ class PricePerPeriodsController < ApplicationController
     @room = Room.friendly.find(params[:room_id])
     return redirect_to root_path, alert: 'Você não pode realizar essa ação' if current_user.rooms.exclude?(@room)
   end
-
 end

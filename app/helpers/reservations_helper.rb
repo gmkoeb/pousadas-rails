@@ -12,4 +12,17 @@ module ReservationsHelper
   def a_week_from_check_in_date(check_in)
     7.days.from_now.change(hour: check_in.hour, min: check_in.min)
   end
+
+  def color_by_status(status)
+    case status
+    when 'pending'
+      'text-warning'
+    when 'canceled'
+      'text-danger'
+    when 'active'
+      'text-success'
+    else
+      'text-info'
+    end
+  end
 end

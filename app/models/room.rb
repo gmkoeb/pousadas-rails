@@ -11,8 +11,10 @@ class Room < ApplicationRecord
   has_many :reservations
 
   validates :name, :description, :area, :maximum_guests, :price, presence: true
+  
   validate :valid_user, on: [:create, :update, :draft, :publish]
   validate :negative_price?
+
   enum status: {draft: 0, published: 2}
 
   private

@@ -1,4 +1,4 @@
-<div>
+<div class="border rounded rounded-4 w-25">
   <%= render 'rooms/room_details', room: @room %>
 </div>
 
@@ -15,33 +15,13 @@
 
 <% if session[:params] %>
   <%= form_with model: [@room, @reservation], html: {class: "row g-3 mt-3 w-50"} do |f| %>
-      <div>
-        <h2>Informações de reserva para o quarto: <%= @room.name %></h2>
-        <h4>Data de Entrada: <%= I18n.localize(session[:params][:check_in].in_time_zone) %></h4>
-        <h4>Data de Saída: <%= I18n.localize(session[:params][:check_out].in_time_zone) %></h4>
-        <h4>Horário de check-in e check-out: <%= @room.inn.check_in_check_out_time.strftime("%H:%M") %></h4>
-        <h4>Formas de pagamento aceitas:</h4>
-        <ul>
-          <% eval(@room.inn.payment_methods).each do |method| %>
-            <li class="mb-1">
-              <% case method %>
-                <% when 'Dinheiro' %>
-                <i class="fa-solid fa-money-bill-wave" style="color: #18ec1f;"></i> 
-                <% when 'Cartão de crédito', 'Cartão de débito' %>
-                <i class="fa-regular fa-credit-card"></i>
-                <% when 'PIX' %>
-                <i class="fa-brands fa-pix" style="color: #44ab9a;"></i>
-              <%end%>
-              <%= method %>
-            </li>
-          <%end%>
-        </ul>
-        <h4>Valor total das diárias: R$<%= session[:params][:total_price] %></h4>
+      <div class="text-center d-flex flex-column gap-2">
+        <%= render 'reservation_details', room: @room, reservation: @reservation%>
       </div>
-      <% if session[:params][:check_in].to_date.between?(Time.now.utc.to_date, 7.days.from_now.to_date) %>
-        <p>Você não poderá cancelar essa reserva, pois a data de check-in está muito próxima</p>
+      <% if session[:params][:check_in].to_date.between?(Time.current.to_date, 7.days.from_now.to_date) %>
+        <p class="text-center text-danger fw-bold">*Você não poderá cancelar essa reserva, pois a data de check-in está muito próxima</p>
       <% else %>
-        <p>Você poderá cancelar a reserva em até 7 dias úteis antes da data de check-in</p>
+        <p class="text-center text-success fw-bold">*Você poderá cancelar a reserva em até 7 dias úteis antes da data de check-in</p>
       <% end %>
     <div class="col-md-12 text-center">
       <%= f.submit 'Efetuar Reserva', class: 'btn btn-primary text-white' %>
@@ -64,7 +44,7 @@
       <%= f.date_field :check_out, :value => (@reservation.try(:check_out) || '').to_date, class: "form-control" %>
     </div>
 
-    <div>
+    <div class="text-center">
       <%= f.submit 'Verificar Disponibilidade', class: 'btn btn-primary text-white' %>
     </div>
   <% end %>

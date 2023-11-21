@@ -9,3 +9,11 @@ pt-BR:
   active: 'Ativa'
   finished: 'Finalizada'
   pending: 'Pendente'
+  time:
+      formats:
+        default: "%a, %d %b %Y %H:%M:%S %z"
+        no_timezone: "%a, %d %b %Y às %H:%M"
+        long: "%B %d, %Y %H:%M"
+        short: "%d %b %H:%M"
+        time_only: "%I:%M%p"
+        military_time: "%H:%M"
