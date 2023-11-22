@@ -87,7 +87,12 @@
   <div class="d-flex flex-column col-md-12">
     <%= f.label :check_in_check_out_time, class: "form-label" %>
     <div class="d-flex gap-2">
-      <%= f.time_select :check_in_check_out_time, class: "form-select form-select-sm"  %>
+      <%= f.datetime_select :check_in_check_out_time, { minute_step: 15, 
+                                                        include_seconds: false, 
+                                                        discard_year: true, 
+                                                        discard_month: true, 
+                                                        discard_day: true, 
+                                                        default: Time.zone.now.change(year: 2000)}, class: "form-select form-select-sm" %>
     </div>
   </div>
   <div>
