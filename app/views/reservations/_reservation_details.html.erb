@@ -1,7 +1,7 @@
 <div class="d-flex flex-column align-items-center reservation-details">
   <h2>Informações de reserva para o quarto: <%= room.name %></h2>
-  <p>Data de Entrada: <%= I18n.localize(reservation.check_in || session[:params][:check_in], format: :no_timezone) %></p>
-  <p>Data de Saída: <%= I18n.localize(reservation.check_out || session[:params][:check_out], format: :no_timezone) %></p>
+  <p>Data de Entrada: <%= I18n.localize(reservation.check_in || session[:params][:check_in].in_time_zone, format: :no_timezone) %></p>
+  <p>Data de Saída: <%= I18n.localize(reservation.check_out || session[:params][:check_out].in_time_zone, format: :no_timezone) %></p>
   <p>Horário de check-in e check-out: <%= room.inn.check_in_check_out_time.strftime("%H:%M") %></p>
   <h4>Formas de pagamento aceitas:</h4>
   <div class = "d-flex justify-content-center gap-3">
@@ -19,5 +19,5 @@
       </p>
     <%end%>
   </div>
-  <h4>Valor total das diárias: R$<%= @total_price || reservation.total_price %></h4>
+  <h4>Valor total das diárias: R$<%= reservation.total_price || session[:params][:total_price]  %></h4>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_17_120858) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_22_162011) do
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -75,6 +75,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_120858) do
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.string "review_text"
+    t.integer "review_grade"
+    t.integer "reservation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["reservation_id"], name: "index_reviews_on_reservation_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -116,5 +127,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_120858) do
   add_foreign_key "price_per_periods", "rooms"
   add_foreign_key "reservations", "rooms"
   add_foreign_key "reservations", "users"
+  add_foreign_key "reviews", "reservations"
+  add_foreign_key "reviews", "users"
   add_foreign_key "rooms", "inns"
 end

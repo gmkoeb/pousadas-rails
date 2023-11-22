@@ -8,6 +8,7 @@ class Inn < ApplicationRecord
 
   belongs_to :user
   has_many :rooms
+  has_many :reviews, through: :rooms, :source => :reservations
   
   validates :brand_name, :corporate_name, :registration_number, :phone, :email, 
             :address, :district, :state, :city, :zip_code, :description, 

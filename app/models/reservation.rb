@@ -4,6 +4,7 @@ class Reservation < ApplicationRecord
 
   belongs_to :user, optional: true
   belongs_to :room
+  has_many :reviews
 
   validates :guests, :check_in, :check_out, presence: true
 
