@@ -54,6 +54,9 @@
                       <% if Reservation.where(room: current_user.rooms).active.any? %>
                         <%= link_to 'Reservas Ativas', active_reservations_path %>
                       <% end %>
+                      <% if current_user.inn.reviews.any? %>
+                        <%= link_to 'Avaliações', reviews_path %>
+                      <% end %>
                     </li>
                   <% else %>
                     <li class="nav-item"><%= link_to 'Cadastrar pousada', new_inn_path, class: "dropdown-item" %></li>
@@ -61,6 +64,9 @@
                 <% end %>
               <% if current_user.reservations.any? && current_user.admin == false %>
                 <%= link_to 'Minhas Reservas', reservations_path %>
+                  <% if Review.where(user_id: current_user.id).any? %>
+                    <%= link_to 'Minhas Avaliações', reviews_path %>
+                  <% end %>
               <% end %>
               <li class="nav-item w-50 rounded mx-auto"><%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "p-0 dropdown-item mx-auto btn btn-danger" %></li>
             </ul>

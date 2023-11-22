@@ -64,7 +64,7 @@ class ReservationsController < ApplicationController
   def show
     @room = @reservation.room
     @room_owner = @room.inn.user 
-    @reviews = @reservation.reviews
+    @review = @reservation.review
     unless current_user == @reservation.user || current_user == @room_owner
       return redirect_to root_path, alert: 'Acesso negado' 
     end

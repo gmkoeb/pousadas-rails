@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_22_162011) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_22_191144) do
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -82,6 +82,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_22_162011) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.string "review_answer"
     t.index ["reservation_id"], name: "index_reviews_on_reservation_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end

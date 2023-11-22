@@ -18,9 +18,12 @@ Rails.application.routes.draw do
   end
   
   resources :reservations, only: [:show, :index] do
-    resources :reviews, only: [:index, :create]
+    resources :reviews, only: [:create]
     patch :cancel, :check_in, :check_out, on: :member
     get :check_out_form, on: :member
     get :active, on: :collection
   end
+
+  resources :reviews, only: [:index, :update]
+
 end

@@ -11,7 +11,7 @@
     <p>Data de Saída: <%= I18n.localize(@reservation.check_out, format: :no_timezone) %></p>
     <p>Valor Total da Reserva: R$ <%= @reservation.total_price %></p>
   </div>
-  <% if @reviews.empty? && current_user == @reservation.user %>
+  <% if @review.nil? && current_user == @reservation.user %>
     <h2>Existe algo que você gostaria de compartilhar conosco?</h2>
     <%= form_with model: [@reservation, Review.new] do |f| %>
       <div>
@@ -28,14 +28,28 @@
       <%= f.submit 'Enviar Avaliação' %>
     <% end %>
   <% end %>
-  <% if @reviews.any? %>
-    <h2>Minha Avaliação</h2>
-    <p><%= @reviews.first.review_text %></p>
+  <% if @review %>
+    <h2>Avaliação</h2>
+    <p><%= @review.review_text %></p>
     <p>Nota</p>
-    <% @reviews.first.review_grade.times do %>
+    <% @review.review_grade.times do %>
       <i class="fa-solid fa-star"></i>
     <% end %>
-  <% end%>
+    <% if current_user == @room_owner && @review.review_answer.nil? %>
+      <h2>Responder Avaliação</h2>
+      <%= form_with model: [@reservation, @review], url: review_path(@review), method: :patch do |f| %>
+        <div>
+          <%= f.label :review_answer %>
+          <%= f.text_area :review_answer %>
+        </div>
+        <%= f.submit 'Enviar Resposta' %>
+      <% end %>
+    <% end %>
+    <% if @review.review_answer %>
+      <h2>Resposta da Avaliação</h2>
+      <p><%= @review.review_answer %></p>
+    <% end %>
+  <% end %>
 <% end %>
 
 <% if @reservation.active? %>

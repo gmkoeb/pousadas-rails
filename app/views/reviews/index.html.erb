@@ -1,0 +1,6 @@
+<h1>Avaliações</h1>
+<% @reviews.each do |review| %>
+  <h2>Reserva: <%= link_to review.reservation.code, reservation_path(review.reservation) %></h2>
+  <p><%= review.reservation.room.name %></p>
+  <p><%= review.review_text %></p>
+<% end %>

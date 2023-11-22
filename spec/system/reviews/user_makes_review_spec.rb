@@ -51,7 +51,7 @@ describe 'Usuário faz uma avaliação da pousada' do
     click_on 'Enviar Avaliação'
     # Assert
     expect(page).to have_content 'Avaliação enviada com sucesso!'
-    expect(page).to have_content 'Minha Avaliação'
+    expect(page).to have_content 'Avaliação'
     expect(page).to have_content 'Melhor pousada que fiquei na minha vida!'
     expect(page).to_not have_field 'Comentários Gerais'
     expect(page).to_not have_content 'Nota da Pousada'
