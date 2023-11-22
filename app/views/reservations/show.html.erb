@@ -7,8 +7,8 @@
   <div class="text-center reservation-details">
     <p>Quarto Reservado: <%= @reservation.room.name %></p>
     <p>Forma de Pagamento Escolhida: <%= @reservation.payment_method %></p>
-    <p>Data de Entrada: <%= I18n.localize(@reservation.check_in.in_time_zone('America/Sao_Paulo'), format: :no_timezone) %></p>
-    <p>Data de Saída: <%= I18n.localize(@reservation.check_out.in_time_zone('America/Sao_Paulo'), format: :no_timezone) %></p>
+    <p>Data de Entrada: <%= I18n.localize(@reservation.check_in, format: :no_timezone) %></p>
+    <p>Data de Saída: <%= I18n.localize(@reservation.check_out, format: :no_timezone) %></p>
     <p>Valor Total da Reserva: R$ <%= @reservation.total_price %></p>
   </div>
 <% end %>
@@ -16,7 +16,7 @@
 <% if @reservation.active? %>
   <div>
     <h5>Quarto Reservado: <%= @reservation.room.name %></h5>
-    <p>Data de Entrada: <%= I18n.localize(@reservation.check_in.in_time_zone('America/Sao_Paulo'), format: :no_timezone) %></p>
+    <p>Data de Entrada: <%= I18n.localize(@reservation.check_in, format: :no_timezone) %></p>
     <p>Data de Saída: <%= I18n.localize(@reservation.check_out, format: :no_timezone) %></p>
   </div>
 <% end %>
@@ -36,8 +36,10 @@
 <% if current_user == @room_owner %>
   <% if @reservation.pending? %>
     <%= render 'reservation_details', room: @room, reservation: @reservation %>
-    <%= button_to 'Realizar Check-in', check_in_reservation_path(@reservation), {method: 'patch', class:"btn btn-success text-white mb-2 mt-2"} %>
-    <%= button_to 'Cancelar Reserva', cancel_reservation_path(@reservation), {method: 'patch', class:"btn btn-danger text-white mb-2"} %>
+    <div class="d-flex gap-3">
+      <%= button_to 'Realizar Check-in', check_in_reservation_path(@reservation), {method: 'patch', class:"btn btn-success text-white"} %>
+      <%= button_to 'Cancelar Reserva', cancel_reservation_path(@reservation), {method: 'patch', class:"btn btn-danger text-white"} %>
+    </div>
   <% end %>
 
   <% if @reservation.active? %>

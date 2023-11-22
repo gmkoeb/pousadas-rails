@@ -18,7 +18,7 @@
       <div class="text-center d-flex flex-column gap-2">
         <%= render 'reservation_details', room: @room, reservation: @reservation%>
       </div>
-      <% if session[:params][:check_in].to_date.between?(Time.current.to_date, 7.days.from_now.to_date) %>
+      <% if session[:params][:check_in].to_date.between?(Time.zone.now.to_date, 7.days.from_now.to_date) %>
         <p class="text-center text-danger fw-bold">*Você não poderá cancelar essa reserva, pois a data de check-in está muito próxima</p>
       <% else %>
         <p class="text-center text-success fw-bold">*Você poderá cancelar a reserva em até 7 dias úteis antes da data de check-in</p>
@@ -28,7 +28,7 @@
     </div>
   <% end %>
 <% else %>
-  <%= form_with(url: room_check_path(@room), method: :post, html: {class: "row g-3 w-75 mt-3"}) do |f|%>
+  <%= form_with(url: room_check_path(@room), method: :post, html: {class: "row g-3 w-25 mt-3"}) do |f|%>
     <div class="col-md-4">
       <%= f.label :guests, 'Quantidade de Hóspedes', class: "form-label" %>
       <%= f.number_field :guests, :value => (@reservation.try(:guests) || ''), class: "form-control" %>

@@ -25,7 +25,7 @@ class Inn < ApplicationRecord
   def full_address
     "#{address}. #{district}, #{city} - #{state}"
   end
-  
+
   private
 
   def user_has_admin_role

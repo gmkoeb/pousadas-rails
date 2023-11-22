@@ -86,7 +86,7 @@ describe 'Dono de pousadas cria uma pousada' do
     expect(page).to have_content 'Dinheiro'
     expect(page).to have_content 'Essa pousada permite pets! 🐶'
     expect(page).to have_content 'Políticas de uso: Não pode som alto após as 18h'
-    expect(page).to have_content 'Horário padrão para check-in e check-out: 12:00'
+    expect(page).to have_content 'Horário padrão para check-in e check-out: 13:00'
   end
 
   it 'com dados repetidos' do

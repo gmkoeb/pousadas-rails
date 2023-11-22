@@ -2,19 +2,22 @@ class Reservation < ApplicationRecord
   extend FriendlyId
   friendly_id :code, use: :slugged
 
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :room
 
   validates :guests, :check_in, :check_out, presence: true
+
   validate :room_supports_guests
   validate :invalid_date, on: :create
   validate :room_is_reserved, on: :create
   validate :valid_user, on: [:check_in, :check_out]
+
   before_validation :generates_code, on: :create
 
   enum status: {pending: 0, active: 2, canceled: 4, finished: 6}
 
   private
+  
   def self.calculate_price(check_in, check_out, standard_price, price_per_periods)
     return if check_in.nil? || check_out.nil?
     reservation_days = (check_out.to_date - check_in.to_date).to_i
@@ -85,7 +88,7 @@ class Reservation < ApplicationRecord
       errors.add(:check_in, 'precisa ser anterior à Data de Saída')   
     end
 
-    if self.check_in < Time.current.to_date
+    if self.check_in < Time.zone.now.to_date
       errors.add(:check_in, 'no passado')
     end
   end 

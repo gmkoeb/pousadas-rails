@@ -80,7 +80,7 @@ describe 'Usuário realiza check-out' do
                       check_in_check_out_time: '12:00', user: user, status: 'published')
     room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                               price: 1000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true, status: 'published')
-    reservation = room.reservations.create(user: guest, check_in: DateTime.now.utc.change(hour: 12), 
+    reservation = room.reservations.create(user: guest, check_in: Time.zone.now.change(hour: 12), 
                                            check_out: 14.days.from_now.utc.change(hour: 12), 
                                            total_price: 30000, guests: 2, status: 'active') 
     

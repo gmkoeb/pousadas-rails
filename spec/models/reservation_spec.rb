@@ -99,7 +99,7 @@ RSpec.describe Reservation, type: :model do
                       check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.new(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-        reservation = room.reservations.new(user: user, room: room, check_in: DateTime.now - 2.days, check_out: 2.days.from_now, guests: 3)
+        reservation = room.reservations.new(user: user, room: room, check_in: Time.zone.now - 2.days, check_out: 2.days.from_now, guests: 3)
         # Act
         reservation.valid?
         result = reservation.errors.include?(:check_in)
@@ -296,7 +296,7 @@ RSpec.describe Reservation, type: :model do
                 price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
                 
       allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('123ABCDE')  
-      reservation = room.reservations.create!(user: user, room: room, check_in: Time.current, check_out: 1.day.from_now, guests: 3)
+      reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, check_out: 1.day.from_now, guests: 3)
       # Act
       result = reservation.code
       
@@ -318,7 +318,7 @@ RSpec.describe Reservation, type: :model do
         check_in_check_out_time: '12:00', user: user)
       room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
               price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-      reservation = room.reservations.create!(user: user, room: room, check_in: Time.current, check_out: 1.day.from_now, guests: 3)
+      reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, check_out: 1.day.from_now, guests: 3)
       # Act
       result = Reservation.calculate_price(reservation.check_in, reservation.check_out, room.price, room.price_per_periods)
       # Assert
@@ -338,7 +338,7 @@ RSpec.describe Reservation, type: :model do
       room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
               price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
       special_prices = room.price_per_periods.create!(special_price: 10_000, starts_at: Time.current, ends_at: 10.days.from_now)
-      reservation = room.reservations.create!(user: user, room: room, check_in: Time.current, check_out: 7.days.from_now.change(hour: 11), guests: 3)
+      reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, check_out: 7.days.from_now.change(hour: 11), guests: 3)
       # Act
       result = Reservation.calculate_price(reservation.check_in, reservation.check_out, room.price, room.price_per_periods)
       # Assert
@@ -358,7 +358,7 @@ RSpec.describe Reservation, type: :model do
       room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
               price: 5_000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
       special_prices = room.price_per_periods.create!(special_price: 10_000, starts_at: 1.day.ago, ends_at: 4.days.from_now)
-      reservation = room.reservations.create!(user: user, room: room, check_in: Time.current, check_out: 8.days.from_now, guests: 3)
+      reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, check_out: 8.days.from_now, guests: 3)
       # Act
       result = Reservation.calculate_price(reservation.check_in, reservation.check_out, room.price, room.price_per_periods)
       # Assert

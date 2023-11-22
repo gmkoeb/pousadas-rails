@@ -49,8 +49,7 @@ class ReservationsController < ApplicationController
     total_price = Reservation.calculate_price(check_in_date, check_out_date, @room.price, @room.price_per_periods)
 
     reservation_params = { guests: guests, check_in: check_in_date, 
-                           check_out: check_out_date, total_price: total_price, 
-                           user_id: @inn.user.id } 
+                           check_out: check_out_date, total_price: total_price } 
     
     @reservation = @room.reservations.build(reservation_params)
     
@@ -82,10 +81,10 @@ class ReservationsController < ApplicationController
 
   def check_in
     check_in_time = @reservation.check_in
-    if Time.current > check_in_time + 2.days || Time.now < check_in_time
+    if Time.zone.now > check_in_time + 2.days || Time.zone.now < check_in_time
       return redirect_to reservation_path(@reservation), alert: 'Não foi possível realizar o check-in.' 
     else
-      @reservation.update(check_in: Time.current, status: 'active')
+      @reservation.update(check_in: Time.zone.now, status: 'active')
       redirect_to reservation_path(@reservation), notice: 'Check-in realizado com sucesso!'
     end
   end
@@ -98,7 +97,7 @@ class ReservationsController < ApplicationController
 
   def check_out
     check_out_params = { payment_method: params[:payment_method], 
-                         total_price: @total_price, check_out: Time.current }
+                         total_price: @total_price, check_out: Time.zone.now }
     if @reservation.update(check_out_params)
       @reservation.finished!
       @reservation.room.published!
@@ -133,9 +132,9 @@ class ReservationsController < ApplicationController
 
   def calculate_reservation_price
     @room = @reservation.room
-    @total_price = Reservation.calculate_price(@reservation.check_in, Time.current, @room.price, @room.price_per_periods)
-    if Time.now > @reservation.check_out || Time.current.day == @reservation.check_in.day
-      @total_price = Reservation.calculate_price(@reservation.check_in, Time.current.to_date.tomorrow, @room.price, @room.price_per_periods)
+    @total_price = Reservation.calculate_price(@reservation.check_in, Time.zone.now, @room.price, @room.price_per_periods)
+    if Time.zone.now > @reservation.check_out || Time.zone.now.day == @reservation.check_in.day
+      @total_price = Reservation.calculate_price(@reservation.check_in, Time.zone.now.to_date.tomorrow, @room.price, @room.price_per_periods)
     end
   end
 end

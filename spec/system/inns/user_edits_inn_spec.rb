@@ -73,6 +73,7 @@ describe 'Dono de pousadas edita pousada' do
     expect(page).to have_content 'Razão social: Pousadas Florianópolis Editadas LTDA'
     expect(page).to have_content 'Nome fantasia: Pousada do Sol'
     expect(page).to have_content 'E-mail: pousadadosol@gmail.com'
+    expect(page).to have_content 'Horário padrão para check-in e check-out: 12:00'
     expect(page).to have_content 'Formas de pagamento'
     expect(page).to have_content 'Cartão de débito'
     expect(page).to have_content 'Cartão de crédito'
