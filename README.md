@@ -4,7 +4,7 @@
 ## Tabela de Conteúdos
 - [Instalação e Execução](#instalação-e-execução)
 - [Pré Requisitos](#pré-requisitos)
-- [API](#api)
+- [API](#api) 
 ## Instalação e Execução
 Para executar a aplicação você deve:
 1. Clone o repositório
@@ -186,10 +186,16 @@ Exemplo:
 }
 ```
 ### Resposta
-Se os parâmetros da requisição forem válidos e compatíveis com o quarto desejado, o cliente obtêm como resposta o valor total da reserva. No caso do exemplo acima:
+Se os parâmetros da requisição forem válidos e compatíveis com o quarto desejado, o cliente obtêm como resposta o valor total da reserva:
 
 ```json
 {
-  "total_price": preço_calculado
+  "total_price": 2000
 }
 ```
+Se os parâmetros da requisição forem inválidos, o cliente obtêm como resposta mensagens de erro:
+
+```json
+{
+  "errors":["Quantidade de Hóspedes acima do suportado pelo quarto", "Data de Entrada precisa ser anterior à Data de Saída"]
+}
