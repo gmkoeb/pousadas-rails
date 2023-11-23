@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   resources :inns, only: [:show, :create, :new, :edit, :update] do
     patch :publish, :draft, on: :member
+    get :reviews, on: :member
     get 'search', 'advanced_search', on: :collection
     get 'cities/:city', to: "inns#search_by_city", :as => :search_by_city, on: :collection 
     get 'advanced-search', to: 'inns#advanced_search_form', :as => :advanced_search_form, on: :collection

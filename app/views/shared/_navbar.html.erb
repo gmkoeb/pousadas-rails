@@ -55,7 +55,7 @@
                         <%= link_to 'Reservas Ativas', active_reservations_path %>
                       <% end %>
                       <% if current_user.inn.reviews.any? %>
-                        <%= link_to 'Avaliações', reviews_path %>
+                        <%= link_to 'Avaliações da Pousada', reviews_path %>
                       <% end %>
                     </li>
                   <% else %>

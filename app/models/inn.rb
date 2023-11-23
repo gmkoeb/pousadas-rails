@@ -27,6 +27,9 @@ class Inn < ApplicationRecord
   def full_address
     "#{address}. #{district}, #{city} - #{state}"
   end
+  def average_grade
+    "#{self.reviews.average(:review_grade).round(1)}/5.0"
+  end
 
   private
 

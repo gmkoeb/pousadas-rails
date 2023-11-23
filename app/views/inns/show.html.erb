@@ -47,6 +47,21 @@
           <p><%= Inn.human_attribute_name(:check_in_check_out_time)%>: <%= @inn.check_in_check_out_time.strftime("%H:%M")%></p>
         </li>
       </div>
+      <% if @reviews.any? %>
+        <div>
+          <h4><%= link_to 'Avaliações da Pousada', reviews_inn_path(@inn) %></h4>
+          <h2>Nota Média: <%= @inn.average_grade %></h2>
+          <% @reviews.each do |review| %>
+            <div>
+              <h5><%= User.find(review.user_id).name %></h5>
+              <% review.review_grade.times do %>
+                <i class="fa-solid fa-star"></i>
+              <%end%>
+              <p><%= review.review_text %></p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </ul>
     <% if @inn.rooms.present? %>  
       <h2 class="text-center mb-4"><%= Room.model_name.human(count: @rooms.count) %></h2>

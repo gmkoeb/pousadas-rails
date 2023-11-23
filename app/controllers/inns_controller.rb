@@ -23,7 +23,8 @@ class InnsController < ApplicationController
 
   def show     
     @inn = Inn.friendly.find(params[:id])
-    @rooms = @inn.rooms.published if @inn.rooms.present?
+    @rooms = @inn.rooms.published
+    @reviews = @inn.reviews.order(created_at: :desc).limit(3)
     unless current_user && current_user.inn == @inn
       return redirect_to root_path, notice: 'Essa pousada não está aceitando reservas no momento.' if @inn.draft?
     end
@@ -73,6 +74,10 @@ class InnsController < ApplicationController
     @inns = Inn.advanced_search(query, accepts_pets, payment_methods, room_infos, room_maximum_guests, room_price)
   end
 
+  def reviews
+    @inn = Inn.friendly.find(params[:id])
+    @reviews = @inn.reviews
+  end
   private
 
   def inn_params
