@@ -26,5 +26,14 @@ Rails.application.routes.draw do
   end
 
   resources :reviews, only: [:index, :update]
+  
+  namespace :api do
+    namespace :v1 do
+      resources :inns, only: [:index, :show] do
+        resources :rooms, only: [:index]
+      end
 
+      post '/rooms/:room_id/check', to: 'rooms#check', :as => :check_room
+    end
+  end
 end
