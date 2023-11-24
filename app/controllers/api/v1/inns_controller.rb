@@ -10,7 +10,8 @@ class Api::V1::InnsController < Api::V1::ApiController
 
   def show
     inn = Inn.find(params[:id])
-    render status: 200, json: inn.as_json(except: [:registration_number, :corporate_name])
+    formatted_time = inn.check_in_check_out_time.strftime('%H:%M')
+    render status: 200, json: inn.as_json(except: [:registration_number, :corporate_name]).merge({ formatted_time: formatted_time })
   end
 
   private
