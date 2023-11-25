@@ -11,12 +11,12 @@ class Room < ApplicationRecord
   has_many :reservations
 
   validates :name, :description, :area, :maximum_guests, :price, presence: true
-  
+
   validate :negative_price?
 
   enum status: {draft: 0, published: 2}
 
-  delegate :check_in_check_out_time, to: :inn
+  delegate :check_in_check_out_time, :payment_methods, to: :inn
 
   private
 

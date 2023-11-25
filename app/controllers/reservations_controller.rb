@@ -93,8 +93,7 @@ class ReservationsController < ApplicationController
 
   def check_out_form
     return redirect_to reservation_path(@reservation), alert: 'Acesso negado.' unless @reservation.active?
-    @inn = current_user.inn
-    @payment_methods = eval(@inn.payment_methods)
+    @payment_methods = eval(@room.payment_methods)
   end
 
   def check_out

@@ -5,7 +5,7 @@
   <p>Horário de check-in e check-out: <%= room.inn.check_in_check_out_time.strftime("%H:%M") %></p>
   <h4>Formas de pagamento aceitas:</h4>
   <div class = "d-flex justify-content-center gap-3">
-    <% eval(room.inn.payment_methods).each do |method| %>
+    <% eval(room.payment_methods).each do |method| %>
       <p>
         <% case method %>
           <% when 'Dinheiro' %>
