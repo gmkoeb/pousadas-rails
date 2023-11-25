@@ -11,7 +11,7 @@ class Api::V1::RoomsController < Api::V1::ApiController
     total_price = Reservation.calculate_price(reservation_params[:check_in], reservation_params[:check_out], room.price, room.price_per_periods)
     reservation = room.reservations.build(reservation_params)
     if reservation.valid?
-      render status: 200, json:{ "total_price" => total_price }
+      render status: 200, json:{ "total_price" => total_price, "room" => room.id }
     else
       render status: 406, json: { errors: reservation.errors.full_messages }
     end

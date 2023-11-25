@@ -133,7 +133,7 @@ describe 'Room API' do
       room_2 = inn.rooms.create!(name: 'Quarto Básico I', description: 'Pior quarto da pousada.', area: 5, 
                                  price: 5000, maximum_guests: 1, has_bathroom: true, has_balcony: true, 
                                  accessible: true, status: 'draft')    
-      check_params = { reservation_details: { check_in: 1.day.ago, check_out: 10.days.from_now, guests: 2 } }                           
+      check_params = { reservation_details: { check_in: 2.days.ago, check_out: 10.days.from_now, guests: 2 } }                           
       # Act
       post "/api/v1/rooms/#{room_1.id}/check", params: check_params
       # Assert
