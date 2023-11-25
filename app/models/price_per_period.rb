@@ -3,17 +3,10 @@ class PricePerPeriod < ApplicationRecord
 
   validates :special_price, :starts_at, :ends_at, presence:true
   
-  validate :date_overlaps, :invalid_date, :valid_user
+  validate :date_overlaps, :invalid_date
   validate :negative_price?
   
   private
-
-  def valid_user
-    user = User.where(inn: self.room.inn).first
-    unless self.room.inn.user == user
-      errors.add(:base, "Acesso negado.")
-    end
-  end
 
   def date_overlaps
     return if self.starts_at.nil? || self.ends_at.nil?

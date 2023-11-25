@@ -11,17 +11,12 @@ class Reservation < ApplicationRecord
   validate :room_supports_guests
   validate :invalid_date, on: :create
   validate :room_is_reserved, on: :create
-  validate :valid_user, on: [:check_in, :check_out]
 
   before_validation :generates_code, on: :create
 
   enum status: {pending: 0, active: 2, canceled: 4, finished: 6}
   
   private
-    
-  def self.standardize_time(inn_time, reservation_time)
-    reservation_time.in_time_zone.change(hour: inn_time.hour, min: inn_time.min) if reservation_time
-  end
 
   def self.calculate_price(check_in, check_out, standard_price, price_per_periods)
     return if check_in.nil? || check_out.nil?
@@ -45,13 +40,6 @@ class Reservation < ApplicationRecord
     end
   
     total_price
-  end
-
-  def valid_user
-    user = User.where(inn: self.room.inn).first
-    unless self.room.inn.user == user
-      errors.add(:base, "Acesso negado.")
-    end
   end
 
   def generates_code

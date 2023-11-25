@@ -12,20 +12,13 @@ class Room < ApplicationRecord
 
   validates :name, :description, :area, :maximum_guests, :price, presence: true
   
-  validate :valid_user, on: [:create, :update, :draft, :publish]
   validate :negative_price?
 
   enum status: {draft: 0, published: 2}
 
   delegate :check_in_check_out_time, to: :inn
-  private
 
-  def valid_user
-    user = User.where(inn: self.inn).first
-    unless self.inn.user == user
-      errors.add(:base, "Acesso negado.")
-    end
-  end
+  private
 
   def negative_price?
     return if self.price.nil?

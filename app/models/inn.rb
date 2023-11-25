@@ -21,7 +21,6 @@ class Inn < ApplicationRecord
   }
 
   validate :user_has_admin_role
-  validate :valid_user, on: [:update, :draft, :publish]
 
   enum status: {draft: 0, published: 2}
   
@@ -38,13 +37,6 @@ class Inn < ApplicationRecord
   def user_has_admin_role
     unless self.user && self.user.admin?
       errors.add(:user, "Você precisa ser um dono de pousadas para realizar essa ação.")
-    end
-  end
-
-  def valid_user
-    user = User.where(inn: self).first
-    unless self.user == user
-      errors.add(:base, "Acesso negado.")
     end
   end
 
