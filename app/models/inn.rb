@@ -22,8 +22,9 @@ class Inn < ApplicationRecord
 
   validate :user_has_admin_role
   validate :valid_user, on: [:update, :draft, :publish]
-  enum status: {draft: 0, published: 2}
 
+  enum status: {draft: 0, published: 2}
+  
   def full_address
     "#{address}. #{district}, #{city} - #{state}"
   end

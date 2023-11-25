@@ -1,7 +1,7 @@
 class ReservationsController < ApplicationController
   before_action :admin_has_inn?
   before_action :authenticate_admin!, only: [:active, :check_in, :check_out]
-  before_action :set_room_and_check_availability, :set_inn_time, only: [:new, :create, :check]
+  before_action :set_room_and_check_availability, only: [:new, :create, :check]
   before_action :authenticate_user!, only: [:create, :show, :index]
   before_action :store_location, only: [:check]
   before_action :set_reservation, only: [:check_out_form, :show, :check_in, :check_out, :cancel]
@@ -28,9 +28,9 @@ class ReservationsController < ApplicationController
 
   def create
     reservation_params = session[:params]
-    reservation_params[:check_in] = Reservation.standardize_check_in_time(@inn_standard_time, reservation_params["check_in"])
-    reservation_params[:check_out] = Reservation.standardize_check_out_time(@inn_standard_time, reservation_params["check_out"])
-
+    inn_time = @room.check_in_check_out_time
+    reservation_params[:check_in] = standardize_time(inn_time, reservation_params["check_in"])
+    reservation_params[:check_out] = standardize_time(inn_time, reservation_params["check_out"])
     @reservation = @room.reservations.build(reservation_params)
     @reservation.user = current_user
     if @reservation.save
@@ -44,8 +44,9 @@ class ReservationsController < ApplicationController
 
   def check
     guests = params[:guests]
-    check_out_date = Reservation.standardize_check_out_time(@inn_standard_time, params[:check_out])
-    check_in_date = Reservation.standardize_check_in_time(@inn_standard_time, params[:check_in])
+    inn_time = @room.check_in_check_out_time
+    check_in_date = standardize_time(inn_time, params[:check_in])
+    check_out_date = standardize_time(inn_time, params[:check_out])
     total_price = Reservation.calculate_price(check_in_date, check_out_date, @room.price, @room.price_per_periods)
 
     reservation_params = { guests: guests, check_in: check_in_date, 
@@ -122,11 +123,6 @@ class ReservationsController < ApplicationController
     end
   end
 
-  def set_inn_time
-    @inn = @room.inn
-    @inn_standard_time = @inn.check_in_check_out_time
-  end
-
   def set_reservation
     @reservation = Reservation.friendly.find(params[:id])
   end
@@ -137,5 +133,9 @@ class ReservationsController < ApplicationController
     if Time.zone.now > @reservation.check_out || Time.zone.now.day == @reservation.check_in.day
       @total_price = Reservation.calculate_price(@reservation.check_in, Time.zone.now.to_date.tomorrow, @room.price, @room.price_per_periods)
     end
+  end
+
+  def standardize_time(inn_time, reservation_time)
+    reservation_time.in_time_zone.change(hour: inn_time.hour, min: inn_time.min) if reservation_time
   end
 end

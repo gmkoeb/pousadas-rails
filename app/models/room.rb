@@ -17,6 +17,7 @@ class Room < ApplicationRecord
 
   enum status: {draft: 0, published: 2}
 
+  delegate :check_in_check_out_time, to: :inn
   private
 
   def valid_user

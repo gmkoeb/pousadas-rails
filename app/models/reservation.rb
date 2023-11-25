@@ -16,9 +16,13 @@ class Reservation < ApplicationRecord
   before_validation :generates_code, on: :create
 
   enum status: {pending: 0, active: 2, canceled: 4, finished: 6}
-
-  private
   
+  private
+    
+  def self.standardize_time(inn_time, reservation_time)
+    reservation_time.in_time_zone.change(hour: inn_time.hour, min: inn_time.min) if reservation_time
+  end
+
   def self.calculate_price(check_in, check_out, standard_price, price_per_periods)
     return if check_in.nil? || check_out.nil?
     reservation_days = (check_out.to_date - check_in.to_date).to_i
@@ -41,18 +45,6 @@ class Reservation < ApplicationRecord
     end
   
     total_price
-  end
-  
-  def self.standardize_check_in_time(inn_time, reservation_check_in)
-    return if reservation_check_in.in_time_zone.nil?
-
-    reservation_check_in.in_time_zone.change(hour: inn_time.hour, min: inn_time.min)
-  end
-
-  def self.standardize_check_out_time(inn_time, reservation_check_out)
-    return if reservation_check_out.in_time_zone.nil?
-    
-    reservation_check_out.in_time_zone.change(hour: inn_time.hour, min: inn_time.min)
   end
 
   def valid_user
