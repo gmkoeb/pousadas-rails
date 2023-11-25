@@ -5,6 +5,6 @@ pt-BR:
     attributes:
       review:
         reservation_id: 'Reserva'
-        review_text: 'Comentários Gerais'
-        review_grade: 'Nota da Pousada'
-        review_answer: 'Resposta'
+        text: 'Comentários Gerais'
+        grade: 'Nota da Pousada'
+        answer: 'Resposta'

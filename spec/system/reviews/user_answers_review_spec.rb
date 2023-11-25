@@ -16,8 +16,8 @@ describe 'Usuário responde avaliação' do
                              price: 5_000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
     reservation = room.reservations.create!(user: guest, room: room, check_in: Time.zone.now, 
                                             check_out: 8.days.from_now, guests: 3, status: 'finished')
-    review = reservation.create_review!(review_text: 'Quarto bom. Melhor pousada que fiquei na vida', 
-                                         review_grade: 5, user_id: guest.id)
+    review = reservation.create_review!(text: 'Quarto bom. Melhor pousada que fiquei na vida', 
+                                        grade: 5, user_id: guest.id)
     # Act
     login_as(user)
     visit root_path
@@ -46,8 +46,8 @@ describe 'Usuário responde avaliação' do
                              price: 5_000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
     reservation = room.reservations.create!(user: guest, room: room, check_in: Time.zone.now, 
                                             check_out: 8.days.from_now, guests: 3, status: 'finished')
-    review = reservation.create_review!(review_text: 'Quarto bom. Melhor pousada que fiquei na vida', 
-                                         review_grade: 5, user_id: guest.id)
+    review = reservation.create_review!(text: 'Quarto bom. Melhor pousada que fiquei na vida', 
+                                        grade: 5, user_id: guest.id)
     # Act
     login_as(user)
     visit reservation_path(reservation)

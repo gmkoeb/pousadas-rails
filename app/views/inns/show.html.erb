@@ -54,10 +54,10 @@
           <% @reviews.each do |review| %>
             <div>
               <h5><%= User.find(review.user_id).name %></h5>
-              <% review.review_grade.times do %>
+              <% review.grade.times do %>
                 <i class="fa-solid fa-star"></i>
               <%end%>
-              <p><%= review.review_text %></p>
+              <p><%= review.text %></p>
             </div>
           <% end %>
         </div>

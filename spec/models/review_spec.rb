@@ -18,13 +18,13 @@ RSpec.describe Review, type: :model do
         special_prices = room.price_per_periods.create!(special_price: 10_000, starts_at: 1.day.ago, ends_at: 4.days.from_now)
         reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, 
                                                 check_out: 8.days.from_now, guests: 3, status: 'finished')
-        review = reservation.build_review(review_text: '', review_grade: 5, user_id: user.id)
+        review = reservation.build_review(text: '', grade: 5, user_id: user.id)
         # Act
         review.valid?
-        result = review.errors.include?(:review_text)
+        result = review.errors.include?(:text)
         # Assert
         expect(result).to eq true
-        expect(review.errors[:review_text]).to include 'não pode ficar em branco'
+        expect(review.errors[:text]).to include 'não pode ficar em branco'
       end
 
       it 'nota da avaliação em branco' do
@@ -42,13 +42,13 @@ RSpec.describe Review, type: :model do
         special_prices = room.price_per_periods.create!(special_price: 10_000, starts_at: 1.day.ago, ends_at: 4.days.from_now)
         reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, 
                                                 check_out: 8.days.from_now, guests: 3, status: 'finished')
-        review = reservation.build_review(review_text: 'Algum texto', review_grade: '', user_id: user.id)
+        review = reservation.build_review(text: 'Algum texto', grade: '', user_id: user.id)
         # Act
         review.valid?
-        result = review.errors.include?(:review_grade)
+        result = review.errors.include?(:grade)
         # Assert
         expect(result).to eq true
-        expect(review.errors[:review_grade]).to include 'não pode ficar em branco'
+        expect(review.errors[:grade]).to include 'não pode ficar em branco'
       end
     end
     context 'reservation' do   
@@ -66,7 +66,7 @@ RSpec.describe Review, type: :model do
         special_prices = room.price_per_periods.create!(special_price: 10_000, starts_at: 1.day.ago, ends_at: 4.days.from_now)
         reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, 
                                                 check_out: 8.days.from_now, guests: 3, status: 'active')
-        review = reservation.build_review(review_text: 'Texto de review', review_grade: 5, user_id: user.id)
+        review = reservation.build_review(text: 'Texto de review', grade: 5, user_id: user.id)
 
         # Act
         review.valid?

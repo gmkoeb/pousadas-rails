@@ -47,7 +47,7 @@ describe 'Usuário faz uma avaliação da pousada' do
     login_as(guest)
     visit reservation_path(reservation)
     fill_in 'Comentários Gerais', with: 'Melhor pousada que fiquei na minha vida!'
-    choose 'review_review_grade_5'
+    choose 'review_grade_5'
     click_on 'Enviar Avaliação'
     # Assert
     expect(page).to have_content 'Avaliação enviada com sucesso!'

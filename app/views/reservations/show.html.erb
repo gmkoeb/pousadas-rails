@@ -15,14 +15,14 @@
     <h2>Existe algo que você gostaria de compartilhar conosco?</h2>
     <%= form_with model: [@reservation, Review.new] do |f| %>
       <div>
-        <%= f.label :review_text %>
-        <%= f.text_area :review_text %>
+        <%= f.label :text %>
+        <%= f.text_area :text %>
       </div>
       <div>
         <h2>Nota da Pousada</h2>
         <% 6.times do |grade| %>
-          <p class="fw-bold"><%= f.label :review_grade, grade %></p>
-          <%= f.radio_button :review_grade, grade, required: 'required'  %>
+          <p class="fw-bold"><%= f.label :grade, grade %></p>
+          <%= f.radio_button :grade, grade, required: 'required'  %>
         <% end %>
       </div>
       <%= f.submit 'Enviar Avaliação' %>
@@ -30,24 +30,24 @@
   <% end %>
   <% if @review %>
     <h2>Avaliação</h2>
-    <p><%= @review.review_text %></p>
+    <p><%= @review.text %></p>
     <p>Nota</p>
-    <% @review.review_grade.times do %>
+    <% @review.grade.times do %>
       <i class="fa-solid fa-star"></i>
     <% end %>
-    <% if current_user == @room_owner && @review.review_answer.nil? %>
+    <% if current_user == @room_owner && @review.answer.nil? %>
       <h2>Responder Avaliação</h2>
       <%= form_with model: [@reservation, @review], url: review_path(@review), method: :patch do |f| %>
         <div>
-          <%= f.label :review_answer %>
-          <%= f.text_area :review_answer %>
+          <%= f.label :answer %>
+          <%= f.text_area :answer %>
         </div>
         <%= f.submit 'Enviar Resposta' %>
       <% end %>
     <% end %>
-    <% if @review.review_answer %>
+    <% if @review.answer %>
       <h2>Resposta da Avaliação</h2>
-      <p><%= @review.review_answer %></p>
+      <p><%= @review.answer %></p>
     <% end %>
   <% end %>
 <% end %>

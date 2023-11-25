@@ -29,7 +29,7 @@ class Inn < ApplicationRecord
   end
   
   def average_grade
-    "#{self.reviews.average(:review_grade).round(1)}/5.0"
+    "#{self.reviews.average(:grade).round(1)}/5.0"
   end
 
   private

@@ -17,8 +17,8 @@ describe 'Usuário vê avaliações' do
                              price: 5_000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
     reservation = room.reservations.create!(user: guest, room: room, check_in: Time.zone.now, 
                                             check_out: 8.days.from_now, guests: 3, status: 'finished')
-    review = reservation.create_review(review_text: 'Quarto bom. Melhor pousada que fiquei na vida', 
-                                         review_grade: 5, user_id: guest.id)
+    review = reservation.create_review(text: 'Quarto bom. Melhor pousada que fiquei na vida', 
+                                       grade: 5, user_id: guest.id)
     # Act
     login_as(user)
     visit root_path
@@ -47,8 +47,8 @@ describe 'Usuário vê avaliações' do
                              price: 5_000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
     reservation = room.reservations.create!(user: guest, room: room, check_in: Time.zone.now, 
                                             check_out: 8.days.from_now, guests: 3, status: 'finished')
-    review = reservation.create_review(review_text: 'Quarto bom. Melhor pousada que fiquei na vida', 
-                                         review_grade: 5, user_id: guest.id)
+    review = reservation.create_review(text: 'Quarto bom. Melhor pousada que fiquei na vida', 
+                                       grade: 5, user_id: guest.id)
     # Act
     login_as(guest)
     visit root_path
@@ -86,10 +86,10 @@ describe 'Usuário vê avaliações' do
                                                 check_out: 8.days.from_now, guests: 1, 
                                                 status: 'finished')    
 
-    review_1 = reservation_1.create_review(review_text: 'Quarto bom. Melhor pousada que fiquei na vida', 
-                                           review_grade: 5, user_id: guest.id)
-    review_2 = reservation_2.create_review(review_text: 'Quarto simples e barato.', 
-                                           review_grade: 3, user_id: guest.id)                                       
+    review_1 = reservation_1.create_review(text: 'Quarto bom. Melhor pousada que fiquei na vida', 
+                                           grade: 5, user_id: guest.id)
+    review_2 = reservation_2.create_review(text: 'Quarto simples e barato.', 
+                                           grade: 3, user_id: guest.id)                                       
     # Act
     login_as(user)
     visit reviews_path
@@ -130,10 +130,10 @@ describe 'Usuário vê avaliações' do
                                                 check_out: 8.days.from_now, guests: 1, 
                                                 status: 'finished')    
 
-    review_1 = reservation_1.create_review(review_text: 'Quarto bom. Melhor pousada que fiquei na vida', 
-                                           review_grade: 5, user_id: guest_1.id)
-    review_2 = reservation_2.create_review(review_text: 'Quarto simples e barato.', 
-                                           review_grade: 3, user_id: guest_2.id)                                       
+    review_1 = reservation_1.create_review(text: 'Quarto bom. Melhor pousada que fiquei na vida', 
+                                           grade: 5, user_id: guest_1.id)
+    review_2 = reservation_2.create_review(text: 'Quarto simples e barato.', 
+                                           grade: 3, user_id: guest_2.id)                                       
     # Act
     login_as(guest_1)
     visit reviews_path

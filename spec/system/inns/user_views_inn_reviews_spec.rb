@@ -31,14 +31,14 @@ describe 'Usuário vê avaliações de uma pousada' do
     reservation_4 = room_2.reservations.create!(user: guest, check_in: 20.days.from_now, 
                                                 check_out: 28.days.from_now, guests: 1, 
                                                 status: 'finished')
-    review_1 = reservation_1.create_review(review_text: 'Quarto bom. Melhor pousada que fiquei na vida', 
-                                           review_grade: 5, user_id: guest.id)
-    review_2 = reservation_2.create_review(review_text: 'Quarto simples e barato.', 
-                                           review_grade: 3, user_id: guest.id) 
-    review_3 = reservation_3.create_review(review_text: 'O atendimento piorou desde a minha última estadia. Não recomendo', 
-                                           review_grade: 0, user_id: guest.id)    
-    review_4 = reservation_4.create_review(review_text: 'Não sei por que voltei para essa pousada. Péssimo atendimento e quarto horroroso.', 
-                                           review_grade: 0, user_id: guest.id)                                        
+    review_1 = reservation_1.create_review(text: 'Quarto bom. Melhor pousada que fiquei na vida', 
+                                           grade: 5, user_id: guest.id)
+    review_2 = reservation_2.create_review(text: 'Quarto simples e barato.', 
+                                           grade: 3, user_id: guest.id) 
+    review_3 = reservation_3.create_review(text: 'O atendimento piorou desde a minha última estadia. Não recomendo', 
+                                           grade: 0, user_id: guest.id)    
+    review_4 = reservation_4.create_review(text: 'Não sei por que voltei para essa pousada. Péssimo atendimento e quarto horroroso.', 
+                                           grade: 0, user_id: guest.id)                                        
     # Act
     visit root_path
     click_on 'Pousada do Luar', :match => :first
@@ -82,14 +82,14 @@ describe 'Usuário vê avaliações de uma pousada' do
     reservation_4 = room_2.reservations.create!(user: guest, check_in: 20.days.from_now, 
                                                 check_out: 28.days.from_now, guests: 1, 
                                                 status: 'finished')
-    review_1 = reservation_1.create_review(review_text: 'Quarto bom. Melhor pousada que fiquei na vida', 
-                                           review_grade: 5, user_id: guest.id)
-    review_2 = reservation_2.create_review(review_text: 'Quarto simples e barato.', 
-                                           review_grade: 3, user_id: guest.id) 
-    review_3 = reservation_3.create_review(review_text: 'O atendimento piorou desde a minha última estadia. Não recomendo', 
-                                           review_grade: 0, user_id: guest.id)    
-    review_4 = reservation_4.create_review(review_text: 'Não sei por que voltei para essa pousada. Péssimo atendimento e quarto horroroso.', 
-                                           review_grade: 0, user_id: guest.id)                                        
+    review_1 = reservation_1.create_review(text: 'Quarto bom. Melhor pousada que fiquei na vida', 
+                                           grade: 5, user_id: guest.id)
+    review_2 = reservation_2.create_review(text: 'Quarto simples e barato.', 
+                                           grade: 3, user_id: guest.id) 
+    review_3 = reservation_3.create_review(text: 'O atendimento piorou desde a minha última estadia. Não recomendo', 
+                                           grade: 0, user_id: guest.id)    
+    review_4 = reservation_4.create_review(text: 'Não sei por que voltei para essa pousada. Péssimo atendimento e quarto horroroso.', 
+                                           grade: 0, user_id: guest.id)                                        
     # Act
     visit root_path
     click_on 'Pousada do Luar', :match => :first

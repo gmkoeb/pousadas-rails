@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
   def create
     @reservation = Reservation.friendly.find(params[:reservation_id])
     return redirect_to reservation_path(@reservation) unless @reservation.finished?
-    review_params = params.require(:review).permit(:review_text, :review_grade, :reservation_id)
+    review_params = params.require(:review).permit(:text, :grade, :reservation_id)
     @review = @reservation.build_review(review_params)
     @review.user_id = @reservation.user_id
     if @review.save
@@ -24,7 +24,7 @@ class ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:id])
-    review_params = params.require(:review).permit(:review_answer)
+    review_params = params.require(:review).permit(:answer)
     if @review.update(review_params)
       return redirect_to @review.reservation, notice: "Resposta enviada com sucesso!"
     end

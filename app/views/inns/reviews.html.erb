@@ -2,8 +2,8 @@
 <h2>Nota Média: <%= @inn.average_grade %></h2>
 <% @reviews.each do |review| %>
   <h4><%= User.find(review.user_id).name %></h4>
-  <% review.review_grade.times do %>
+  <% review.grade.times do %>
     <i class="fa-solid fa-star"></i>
   <%end%>
-  <p><%= review.review_text %></p>
+  <p><%= review.text %></p>
 <% end %>
