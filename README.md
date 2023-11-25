@@ -123,6 +123,7 @@ GET /inns/1
   "accepts_pets":true,
   "terms_of_service":"exemplo",
   "check_in_check_out_time":"2000-01-01T15:00:00.000-02:00",
+  "formatted_time":"15:00",
   "created_at":"2023-11-23T15:48:21.020-03:00",
   "updated_at":"2023-11-23T15:48:53.779-03:00",
   "slug":"exemplo-exemplo",
@@ -190,7 +191,8 @@ Se os parâmetros da requisição forem válidos e compatíveis com o quarto des
 
 ```json
 {
-  "total_price": 2000
+  "total_price": 2000,
+  "room": 1
 }
 ```
 Se os parâmetros da requisição forem inválidos, o cliente obtêm como resposta mensagens de erro:
