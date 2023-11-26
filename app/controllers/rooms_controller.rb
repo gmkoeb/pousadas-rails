@@ -69,6 +69,6 @@ class RoomsController < ApplicationController
     room_params = params.require(:room).permit(:name, :description, :area, 
                                                :maximum_guests, :price, :has_bathroom, 
                                                :has_balcony, :has_air_conditioner, :has_tv,
-                                               :has_wardrobe, :has_coffer, :accessible)
+                                               :has_wardrobe, :has_coffer, :accessible, :picture)
   end
 end

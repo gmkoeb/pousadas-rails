@@ -92,9 +92,15 @@
                                                         discard_year: true, 
                                                         discard_month: true, 
                                                         discard_day: true, 
-                                                        default: Time.zone.now.change(year: 2000)}, class: "form-select form-select-sm" %>
+                                                        default: Time.zone.now.change(year: 2000)}, class: "form-select form-select-md text-center" %>
     </div>
   </div>
+  <div class="d-flex flex-column">
+    <p>Foto da Pousada (opcional)</p>
+    <%= f.file_field :picture, onchange: 'displayImagePreview(this)' %>
+    <label class="text-center mt-5" for="picture"></label>
+      <img id="image-preview" src="#" alt="Imagem da Pousada" class="d-none w-50 h-50 mx-auto mt-3">
+    </div>
   <div>
     <%= f.submit class: "btn btn-primary mb-3 w-100 text-white" %>
   </div>

@@ -1,5 +1,26 @@
 <% prices = sort_by_date(room.price_per_periods) %>  
-<%= image_tag 'room.jpg', class: "room-image" %>
+<% if room.picture? %>
+  <%= image_tag room.picture, class: "w-100 rounded-top-4 h-50" %>
+<% elsif current_user && current_user.inn == inn && request.path == room_path(room) %>
+  <div class="w-100 py-5 border-bottom d-flex justify-content-center">
+    <%= form_with(model: room, local: true, html: {class: "row p-5 d-flex flex-column text-center"}) do |f| %>
+      <div class="d-flex flex-column">
+        <%= f.file_field :picture, class: 'd-none', id: 'room_picture', onchange: 'displayImagePreview(this)' %>
+        <label for="room_picture" class="picture-upload">
+          <h5><i class="fa-solid fa-camera fa-2xl"></i></h5>
+          <p>Adicionar Foto</p>
+        </label>
+          <img id="image-preview" src="#" alt="Imagem do Quarto" class="d-none w-75 h-100 mx-auto mt-3">
+      </div>
+      <%= f.submit 'Adicionar Foto', id: 'upload-picture', class:'btn btn-info mt-3 d-none w-25 mx-auto' %>
+    <% end %>
+  </div>
+<% else %>
+  <div class="border-bottom mb-5 text-center">
+    <h1 class="my-4"><i class="fa-solid fa-bed fa-lg"></i></h1>
+  </div>
+<% end %>
+
 <h2 class="text-center"><%= room.name %></h2> 
 <div class="mx-2 mt-2 text-center">
   <p><i class="fa-solid fa-users"></i> Número máximo de hóspedes: <%= room.maximum_guests %></p>

@@ -1,5 +1,5 @@
 <div class="border rounded rounded-4 w-25">
-  <%= render 'rooms/room_details', room: @room %>
+  <%= render 'rooms/room_details', room: @room, inn: @room.inn %>
 </div>
 
 <% if @reservation.errors.any? %>

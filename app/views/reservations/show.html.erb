@@ -13,43 +13,56 @@
   </div>
   <% if @review.nil? && current_user == @reservation.user %>
     <h2>Existe algo que você gostaria de compartilhar conosco?</h2>
-    <%= form_with model: [@reservation, Review.new] do |f| %>
-      <div>
-        <%= f.label :text %>
-        <%= f.text_area :text %>
+    <%= form_with model: [@reservation, Review.new], html: {class: "row g-3 w-50 mt-3"} do |f| %>
+      <div class="col-md-12">
+        <%= f.label :text, class: "form-label" %>
+        <%= f.text_area :text, class: "form-control" %>
       </div>
       <div>
         <h2>Nota da Pousada</h2>
+        <div class="d-flex flex-row gap-5">
         <% 6.times do |grade| %>
-          <p class="fw-bold"><%= f.label :grade, grade %></p>
-          <%= f.radio_button :grade, grade, required: 'required'  %>
+          <div class="d-flex flex-column align-items-center">
+            <p class="fw-bold"><%= f.label :grade, grade, class: "form-check-label"%></p>
+            <%= f.radio_button :grade, grade, required: 'required', class: "form-check-input"  %>
+          </div>
         <% end %>
+        </div>
+        <%= f.submit 'Enviar Avaliação', class: "btn btn-info mt-5 w-100" %>
       </div>
-      <%= f.submit 'Enviar Avaliação' %>
     <% end %>
   <% end %>
   <% if @review %>
-    <h2>Avaliação</h2>
-    <p><%= @review.text %></p>
-    <p>Nota</p>
-    <% @review.grade.times do %>
-      <i class="fa-solid fa-star"></i>
-    <% end %>
-    <% if current_user == @room_owner && @review.answer.nil? %>
-      <h2>Responder Avaliação</h2>
-      <%= form_with model: [@reservation, @review], url: review_path(@review), method: :patch do |f| %>
+    <section class="d-flex flex-column align-items-center">
+      <div class="border-top w-100 text-center">
+        <h2 class="mt-4">Avaliação</h2>
+        <p><%= @review.text %></p>
+        <p>Nota</p>
         <div>
-          <%= f.label :answer %>
-          <%= f.text_area :answer %>
+          <% @review.grade.times do %>
+            <i class="fa-solid fa-star" style="color: #f84d4f;"></i>
+          <% end %>
         </div>
-        <%= f.submit 'Enviar Resposta' %>
+      </div>
+      <% if current_user == @room_owner && @review.answer.nil? %>
+        <%= form_with model: [@reservation, @review], url: review_path(@review), method: :patch, html: {class: "row g-3 w-100 mt-3"} do |f| %>
+          <h2 class="text-center">Responder Avaliação</h2>
+          <div>
+            <%= f.label :answer, class: "form-label" %>
+            <%= f.text_area :answer, class: "form-control" %>
+          <%= f.submit 'Enviar Resposta', class: "btn btn-info mb-5 w-100 mt-2" %>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
-    <% if @review.answer %>
-      <h2>Resposta da Avaliação</h2>
-      <p><%= @review.answer %></p>
-    <% end %>
+      <% if @review.answer %>
+        <h2 class="mt-4">Resposta da Pousada</h2>
+        <div class="text-center">
+          <p><%= @review.answer %></p>
+        </div>
+      <% end %>
+   </section> 
   <% end %>
+
 <% end %>
 
 <% if @reservation.active? %>

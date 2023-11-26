@@ -17,7 +17,7 @@
     <div class="d-flex justify-content-center gap-3 flex-wrap">
       <% @recent_inns.each do |recent_inn|%>
         <%= link_to inn_path(recent_inn) do %> 
-          <div class="inn-card">
+          <div class="inn-card h-100 border border-2 border-primary">
             <%= render 'shared/inn_card', inn: recent_inn %>
           </div>
         <% end %>
@@ -30,7 +30,7 @@
     <div class="d-flex justify-content-center gap-3 flex-wrap">
     <% @inns.each do |inn| %>
       <%= link_to inn_path(inn) do %> 
-        <div class="inn-card">
+        <div class="inn-card h-100 border border-dark">
           <%= render 'shared/inn_card', inn:inn %>
         </div>
       <% end %>

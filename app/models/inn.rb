@@ -5,7 +5,7 @@ class Inn < ApplicationRecord
   def should_generate_new_friendly_id?
     brand_name_changed?
   end
-
+  has_one_attached :picture
   belongs_to :user
   has_many :rooms
   has_many :reservations, through: :rooms

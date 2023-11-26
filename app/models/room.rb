@@ -5,7 +5,7 @@ class Room < ApplicationRecord
   def should_generate_new_friendly_id?
     name_changed?
   end
-
+  has_one_attached :picture
   belongs_to :inn
   has_many :price_per_periods
   has_many :reservations

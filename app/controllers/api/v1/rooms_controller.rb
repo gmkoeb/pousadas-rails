@@ -2,7 +2,7 @@ class Api::V1::RoomsController < Api::V1::ApiController
   def index
     inn = Inn.find(params[:inn_id]) 
     rooms = inn.rooms.published
-    render status: 200, json: rooms
+    render status: 200, json: rooms.as_json(except: [:picture])
   end
 
   def check

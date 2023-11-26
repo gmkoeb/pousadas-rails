@@ -56,7 +56,7 @@ describe 'Usuário responde avaliação' do
     # Assert
     expect(current_path).to eq reservation_path(reservation)
     expect(page).to have_content 'Resposta enviada com sucesso'
-    expect(page).to have_content 'Resposta da Avaliação'
+    expect(page).to have_content 'Resposta da Pousada'
     expect(page).to have_content 'Obrigado pela sua avaliação'
   end
 end

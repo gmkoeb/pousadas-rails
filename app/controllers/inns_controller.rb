@@ -85,7 +85,7 @@ class InnsController < ApplicationController
                                              :registration_number, :phone, :email, 
                                              :address, :district, :state, :city,
                                              :zip_code, :description, :accepts_pets, :terms_of_service, 
-                                             :check_in_check_out_time, payment_methods:[])
+                                             :check_in_check_out_time, :picture, payment_methods:[])
   end
 
   def set_inn_and_check_user

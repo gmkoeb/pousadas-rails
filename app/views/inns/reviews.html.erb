@@ -1,9 +1,11 @@
 <h1>Avaliações</h1>
 <h2>Nota Média: <%= @inn.average_grade %></h2>
-<% @reviews.each do |review| %>
-  <h4><%= User.find(review.user_id).name %></h4>
-  <% review.grade.times do %>
-    <i class="fa-solid fa-star"></i>
-  <%end%>
-  <p><%= review.text %></p>
-<% end %>
+<div class="text-center mt-5">
+  <% @reviews.each do |review| %>
+    <h4><%= User.find(review.user_id).name %></h4>
+    <% review.grade.times do %>
+      <i class="fa-solid fa-star" style="color: #f84d4f;"></i>
+    <%end%>
+    <p><%= review.text %></p>
+  <% end %>
+</div>
