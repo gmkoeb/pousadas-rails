@@ -7,6 +7,7 @@ class Inn < ApplicationRecord
   end
   has_one_attached :picture
   belongs_to :user
+  has_many :inn_gallery_pictures
   has_many :rooms
   has_many :reservations, through: :rooms
   has_many :reviews, through: :reservations
@@ -21,6 +22,8 @@ class Inn < ApplicationRecord
   }
 
   validate :user_has_admin_role
+
+  validate :picture_format
 
   enum status: {draft: 0, published: 2}
   
@@ -78,4 +81,10 @@ class Inn < ApplicationRecord
     
     return inns.sort_inns
   end 
+
+  def picture_format
+    if picture.attached? && !picture.content_type.in?(%w(image/jpeg image/png))
+      errors.add(:picture, 'deve possuir extensão JPEG ou PNG')
+    end
+  end
 end

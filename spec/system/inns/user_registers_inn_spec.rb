@@ -40,6 +40,7 @@ describe 'Dono de pousadas cria uma pousada' do
     # Arrange
     user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
                         registration_number: '99999999999', admin: true)
+    image_path = Rails.root.join('spec', 'support', 'assets', 'test_img.jpg')
     # Act
     login_as(user)
     visit root_path
@@ -64,6 +65,7 @@ describe 'Dono de pousadas cria uma pousada' do
     fill_in 'Políticas de uso', with: 'Não pode som alto após as 18h'
     select '12', from: 'inn[check_in_check_out_time(4i)]'
     select '00', from: 'inn[check_in_check_out_time(5i)]'
+    attach_file('inn[picture]', image_path)
     click_on 'Criar Pousada'
     # Assert
     expect(current_path).to eq inn_path('pousada-do-luar')

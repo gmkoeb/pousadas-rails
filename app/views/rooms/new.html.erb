@@ -74,10 +74,10 @@
   </div>  
   <div class="d-flex flex-column">
     <p>Foto do Quarto (opcional)</p>
-    <%= f.file_field :picture, onchange: 'displayImagePreview(this)' %>
-    <label class="text-center mt-5" for="picture"></label>
+    <%= f.file_field :picture, accept: 'image/png,image/gif,image/jpeg', onchange: 'displayImagePreview(this)' %>
+     <%= f.label :picture, class: "form-label" do %>
       <img id="image-preview" src="#" alt="Imagem do Quarto" class="d-none w-50 h-50 mx-auto mt-3">
-    </div>
+    <% end %>
   <div>
     <%= f.submit class: "btn btn-primary w-100 text-white" %>
   </div>

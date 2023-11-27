@@ -1,11 +1,11 @@
 <% prices = sort_by_date(room.price_per_periods) %>  
 <% if room.picture? %>
-  <%= image_tag room.picture, class: "w-100 rounded-top-4 h-50" %>
+  <%= image_tag room.picture, class: "w-100 rounded-top-4 mb-2" %>
 <% elsif current_user && current_user.inn == inn && request.path == room_path(room) %>
   <div class="w-100 py-5 border-bottom d-flex justify-content-center">
-    <%= form_with(model: room, local: true, html: {class: "row p-5 d-flex flex-column text-center"}) do |f| %>
+    <%= form_with(model: room, local: true, html: {class: "row p-5 d-flex flex-column text-center w-100"}) do |f| %>
       <div class="d-flex flex-column">
-        <%= f.file_field :picture, class: 'd-none', id: 'room_picture', onchange: 'displayImagePreview(this)' %>
+        <%= f.file_field :picture, class: 'd-none', id: 'room_picture', accept:'image/png, image/jpeg', onchange: 'displayImagePreview(this)' %>
         <label for="room_picture" class="picture-upload">
           <h5><i class="fa-solid fa-camera fa-2xl"></i></h5>
           <p>Adicionar Foto</p>

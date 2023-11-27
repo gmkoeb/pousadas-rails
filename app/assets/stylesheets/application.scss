@@ -79,6 +79,10 @@ ul.inn-details{
   width: 35vw !important;
 }
 
+.inn-details img{
+  height: 35vh;
+}
+
 .inn-card{
   border-radius: 12px;
   text-align: center;
@@ -95,6 +99,10 @@ ul.inn-details{
   border: 1px solid  !important;
   border-radius: 12px;
   width: 20rem;
+}
+
+.room-card img{
+  height: 40%;
 }
 
 .room-card:hover{
