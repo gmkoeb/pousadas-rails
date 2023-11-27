@@ -7,6 +7,6 @@ class User < ApplicationRecord
   has_one :inn
   has_many :rooms, through: :inn
   has_many :reservations
-  
+  has_many :reviews
   validates :name, :registration_number, presence: true
 end

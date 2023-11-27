@@ -37,14 +37,14 @@
                 <% end %>
               </a>
             <ul class="dropdown-menu text-center">
-              <li class="dropdown-item mb-2"><%= current_user.email %></li>
+              <li class="dropdown-item"><%= current_user.email %></li>
                 <% if current_user.admin? %>
                   <% if current_user.inn %>
-                    <li class="nav-item text-center">
-                      <%= link_to inn_path(current_user.inn), class: "dropdown-item d-flex" do %>
-                        <p class="mx-2">Minha pousada</p>   
-                        <i class="fa-solid fa-pen-to-square pl-3 mt-1"></i>
-                      <%end%>
+                    <li class="nav-item d-flex flex-column gap-2 mb-2">
+                        <%= link_to inn_path(current_user.inn), class: "dropdown-item d-flex" do %>
+                          <span class="mx-2">Minha pousada</span>   
+                          <i class="fa-solid fa-pen-to-square pl-3 mt-1"></i>
+                        <%end%>
                       <% if Reservation.where(room: current_user.rooms).any? %>
                         <%= link_to 'Reservas', reservations_path %>
                       <% end %>
@@ -61,11 +61,11 @@
                 <% end %>
               <% if current_user.reservations.any? && current_user.admin == false %>
                 <%= link_to 'Minhas Reservas', reservations_path %>
-                  <% if Review.where(user_id: current_user.id).any? %>
+                  <% if current_user.reviews.any? %>
                     <%= link_to 'Minhas Avaliações', reviews_path %>
                   <% end %>
               <% end %>
-              <li class="nav-item w-50 rounded mx-auto"><%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "p-0 dropdown-item mx-auto btn btn-danger" %></li>
+              <li class="nav-item w-50 rounded mx-auto mt-2"><%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "p-0 dropdown-item text-white logout-button py-1" %></li>
             </ul>
           </li>
         </div> 

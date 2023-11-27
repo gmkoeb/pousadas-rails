@@ -1,25 +1,26 @@
-<h1>Reserva <%= @reservation.code %></h1>
-<div class="d-flex flex-column align-items-center gap-4 reservation-details">
+<article class="d-flex flex-column align-items-center gap-4 reservation-details">
+  <h1>Reserva <%= @reservation.code %></h1>
   <h3 class="<%=color_by_status(@reservation.status)%> fw-bold" >Status da Reserva: <%= t(@reservation.status) %></h3>
   <h5>Hóspede: <%= @reservation.user.name %></h5>
 
 <% if @reservation.finished? %>
-  <div class="text-center reservation-details">
+  <section class="text-center reservation-details">
     <p>Quarto Reservado: <%= @reservation.room.name %></p>
     <p>Forma de Pagamento Escolhida: <%= @reservation.payment_method %></p>
     <p>Data de Entrada: <%= I18n.localize(@reservation.check_in, format: :no_timezone) %></p>
     <p>Data de Saída: <%= I18n.localize(@reservation.check_out, format: :no_timezone) %></p>
     <p>Valor Total da Reserva: R$ <%= @reservation.total_price %></p>
-  </div>
+  </section>
   <% if @review.nil? && current_user == @reservation.user %>
+  <section>
     <h2>Existe algo que você gostaria de compartilhar conosco?</h2>
-    <%= form_with model: [@reservation, Review.new], html: {class: "row g-3 w-50 mt-3"} do |f| %>
+    <%= form_with model: [@reservation, Review.new], html: {class: "row g-3 mt-3 mx-auto"} do |f| %>
       <div class="col-md-12">
         <%= f.label :text, class: "form-label" %>
-        <%= f.text_area :text, class: "form-control" %>
+        <%= f.text_area :text, required: 'required', class: "form-control" %>
       </div>
-      <div>
-        <h2>Nota da Pousada</h2>
+      <div class="d-flex flex-column align-items-center">
+        <h2>Dê uma nota para a pousada</h2>
         <div class="d-flex flex-row gap-5">
         <% 6.times do |grade| %>
           <div class="d-flex flex-column align-items-center">
@@ -28,9 +29,10 @@
           </div>
         <% end %>
         </div>
-        <%= f.submit 'Enviar Avaliação', class: "btn btn-info mt-5 w-100" %>
+        <%= f.submit 'Enviar Avaliação', class: "btn btn-info mt-5 w-25" %>
       </div>
     <% end %>
+  </section>
   <% end %>
   <% if @review %>
     <section class="d-flex flex-column align-items-center">
@@ -49,7 +51,7 @@
           <h2 class="text-center">Responder Avaliação</h2>
           <div>
             <%= f.label :answer, class: "form-label" %>
-            <%= f.text_area :answer, class: "form-control" %>
+            <%= f.text_area :answer, required: 'required', class: "form-control" %>
           <%= f.submit 'Enviar Resposta', class: "btn btn-info mb-5 w-100 mt-2" %>
           </div>
         <% end %>
@@ -65,37 +67,39 @@
 
 <% end %>
 
-<% if @reservation.active? %>
-  <div>
-    <h5>Quarto Reservado: <%= @reservation.room.name %></h5>
-    <p>Data de Entrada: <%= I18n.localize(@reservation.check_in, format: :no_timezone) %></p>
-    <p>Data de Saída: <%= I18n.localize(@reservation.check_out, format: :no_timezone) %></p>
-  </div>
-<% end %>
+  <section>
+    <% if @reservation.active? %>
+      <h5>Quarto Reservado: <%= @reservation.room.name %></h5>
+      <p>Data de Entrada: <%= I18n.localize(@reservation.check_in, format: :no_timezone) %></p>
+      <p>Data de Saída: <%= I18n.localize(@reservation.check_out, format: :no_timezone) %></p>
+    <% end %>
+  </section>
+  <section class="text-center">
+    <% if @reservation.canceled? %>
+      <h5>Quarto Reservado: <%= @reservation.room.name %></h5>
+      <p>Data do cancelamento: <%= I18n.localize(@reservation.updated_at.to_date) %></p>
+    <% end %>
+    <% if @reservation.pending?  && current_user != @room.inn.user %>
+      <%= render 'reservation_details', room: @room, reservation: @reservation %>
+      <% if @reservation.check_in >= a_week_from_check_in_date(@reservation.check_in)%>
+        <p>Você poderá cancelar sua reserva em até 7 dias antes da data de check-in</p>
+        <%= button_to 'Cancelar Reserva', cancel_reservation_path(@reservation), {method: 'patch', class:"btn btn-danger text-white mb-2"} %>
+      <% end %>
+    <% end %>
+  </section>
+  <section class="d-flex flex-column align-items-center">
+    <% if current_user == @room_owner %>
+      <% if @reservation.pending? %>
+        <%= render 'reservation_details', room: @room, reservation: @reservation %>
+        <div class="d-flex gap-3 mt-4">
+          <%= button_to 'Realizar Check-in', check_in_reservation_path(@reservation), {method: 'patch', class:"btn btn-success text-white"} %>
+          <%= button_to 'Cancelar Reserva', cancel_reservation_path(@reservation), {method: 'patch', class:"btn btn-danger text-white"} %>
+        </div>
+      <% end %>
 
-<% if @reservation.canceled? %>
-  <h5>Quarto Reservado: <%= @reservation.room.name %></h5>
-  <p>Data do cancelamento: <%= I18n.localize(@reservation.updated_at.to_date) %></p>
-<% end %>
-<% if @reservation.pending?  && current_user != @room.inn.user %>
-  <%= render 'reservation_details', room: @room, reservation: @reservation %>
-  <% if @reservation.check_in >= a_week_from_check_in_date(@reservation.check_in)%>
-    <p>Você poderá cancelar sua reserva em até 7 dias antes da data de check-in</p>
-    <%= button_to 'Cancelar Reserva', cancel_reservation_path(@reservation), {method: 'patch', class:"btn btn-danger text-white mb-2"} %>
-  <% end %>
-<% end %>
-
-<% if current_user == @room_owner %>
-  <% if @reservation.pending? %>
-    <%= render 'reservation_details', room: @room, reservation: @reservation %>
-    <div class="d-flex gap-3">
-      <%= button_to 'Realizar Check-in', check_in_reservation_path(@reservation), {method: 'patch', class:"btn btn-success text-white"} %>
-      <%= button_to 'Cancelar Reserva', cancel_reservation_path(@reservation), {method: 'patch', class:"btn btn-danger text-white"} %>
-    </div>
-  <% end %>
-
-  <% if @reservation.active? %>
-    <%= link_to 'Realizar Check-Out', check_out_form_reservation_path(@reservation), class: "btn btn-danger"%>
-  <% end %>
-<% end %>
-</div>
+      <% if @reservation.active? %>
+        <%= link_to 'Realizar Check-Out', check_out_form_reservation_path(@reservation), class: "btn btn-danger"%>
+      <% end %>
+    <% end %>
+  </section>
+</article>

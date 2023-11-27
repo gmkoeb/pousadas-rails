@@ -7,8 +7,8 @@
         <div class="add-photo w-100 py-5 border-bottom d-flex justify-content-center">
           <%= form_with(model: @inn, local: true, html: {class: "row p-5 d-flex flex-column text-center"}) do |f| %>
             <div class="d-flex flex-column">
-              <%= f.file_field :picture, id: 'profile_picture', class: 'd-none', onchange: 'displayImagePreview(this)' %>
-              <label class="picture-upload" for="profile_picture">
+              <%= f.file_field :picture, id: 'inn_picture', class: 'd-none', onchange: 'displayImagePreview(this)' %>
+              <label class="picture-upload" for="inn_picture">
                 <h5><i class="fa-solid fa-camera fa-2xl"></i></h5>
                 <p>Adicionar Foto</p>
               </label>
@@ -61,7 +61,7 @@
         <li>
           <p><%= Inn.human_attribute_name(:check_in_check_out_time)%>: <%= @inn.check_in_check_out_time.strftime("%H:%M")%></p>
         </li>
-        <li><%= Inn.human_attribute_name(:description)%>: <%= @inn.description %></li>
+        <li class="mb-5"><%= Inn.human_attribute_name(:description)%>: <%= @inn.description %></li>
       </div>
       <% if @reviews.any? %>
         <div class="text-center">

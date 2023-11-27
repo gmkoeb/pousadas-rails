@@ -2,10 +2,10 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!, :admin_has_inn?
 
   def index
-    if current_user.admin? && current_user.inn
+    if current_user.admin?
       @reviews = current_user.inn.reviews
     else
-      @reviews = Review.where(user_id: current_user.id)
+      @reviews = current_user.reviews
     end
   end
 

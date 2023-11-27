@@ -24,7 +24,7 @@ describe 'Usuário faz uma avaliação da pousada' do
     # Assert
     expect(page).to have_content 'Existe algo que você gostaria de compartilhar conosco?'
     expect(page).to have_field 'Comentários Gerais'
-    expect(page).to have_content 'Nota da Pousada'
+    expect(page).to have_content 'Dê uma nota para a pousada'
   end
 
   it 'com sucesso' do
@@ -54,7 +54,7 @@ describe 'Usuário faz uma avaliação da pousada' do
     expect(page).to have_content 'Avaliação'
     expect(page).to have_content 'Melhor pousada que fiquei na minha vida!'
     expect(page).to_not have_field 'Comentários Gerais'
-    expect(page).to_not have_content 'Nota da Pousada'
+    expect(page).to_not have_content 'Dê uma nota para a pousada'
   end
 
   it 'com campos em branco' do

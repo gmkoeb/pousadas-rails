@@ -150,6 +150,17 @@ input[type=file]{
 .picture-upload:hover{
   cursor: pointer;
 }
+
+button.logout-button:hover{
+  transition-duration: 300ms;
+  background-color: #dc3545;
+  opacity: 80%;
+}
+
+button.logout-button{
+  background-color: #dc3545;
+  border-radius: 0.5rem;
+}
 @media (max-width: 1000px) {
   .admin-control, .admin-room-control{
     width: 100px;

@@ -1,6 +1,6 @@
+<section class="text-center mt-5">
 <h1>Avaliações</h1>
 <h2>Nota Média: <%= @inn.average_grade %></h2>
-<div class="text-center mt-5">
   <% @reviews.each do |review| %>
     <h4><%= User.find(review.user_id).name %></h4>
     <% review.grade.times do %>
@@ -8,4 +8,4 @@
     <%end%>
     <p><%= review.text %></p>
   <% end %>
-</div>
+</section>
