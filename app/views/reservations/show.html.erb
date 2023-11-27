@@ -1,4 +1,4 @@
-<article class="d-flex flex-column align-items-center gap-4 reservation-details">
+<div class="d-flex flex-column align-items-center gap-4 reservation-details">
   <h1>Reserva <%= @reservation.code %></h1>
   <h3 class="<%=color_by_status(@reservation.status)%> fw-bold" >Status da Reserva: <%= t(@reservation.status) %></h3>
   <h5>Hóspede: <%= @reservation.user.name %></h5>
@@ -102,4 +102,4 @@
       <% end %>
     <% end %>
   </section>
-</article>
+</div>
