@@ -5,7 +5,8 @@ class ReservationsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :show, :index]
   before_action :store_location, only: [:check]
   before_action :set_reservation, only: [:check_out_form, :show, :check_in, :check_out, :cancel]
-  before_action :calculate_reservation_price, only:[:check_out_form, :check_out]
+  before_action :calculate_reservation_price, only: [:check_out_form, :check_out]
+  before_action :check_user, only: [:check_in, :check_out, :check_out_form]
 
   def index
     if current_user.admin
@@ -139,4 +140,12 @@ class ReservationsController < ApplicationController
   def standardize_time(inn_time, reservation_time)
     reservation_time.in_time_zone.change(hour: inn_time.hour, min: inn_time.min) if reservation_time
   end
+
+  def check_user
+    inn = @reservation.room.inn
+    if current_user
+      return redirect_to root_path, alert: 'Você não pode realizar essa ação.' if current_user.inn != inn
+    end
+  end
+  
 end
