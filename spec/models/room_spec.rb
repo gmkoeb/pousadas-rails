@@ -139,7 +139,7 @@ RSpec.describe Room, type: :model do
         result = room.errors.include?(:price)
         # Assert
         expect(result).to be true
-        expect(room.errors[:price]).to include 'não pode ser negativo'
+        expect(room.errors[:price]).to include 'deve ser maior que 0'
       end
     end
   end

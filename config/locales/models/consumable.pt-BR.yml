@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    models:
+      consumable: 'Consumíveis'
+    attributes:
+      consumable:
+        name: 'Nome do Item'
+        value: 'Valor'

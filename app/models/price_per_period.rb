@@ -2,9 +2,9 @@ class PricePerPeriod < ApplicationRecord
   belongs_to :room
 
   validates :special_price, :starts_at, :ends_at, presence:true
+  validates :special_price, numericality: {greater_than: 0}
   
   validate :date_overlaps, :invalid_date
-  validate :negative_price?
   
   private
 
@@ -23,9 +23,4 @@ class PricePerPeriod < ApplicationRecord
     return if self.starts_at.nil? || self.ends_at.nil? 
     errors.add(:starts_at, 'precisa ser maior que a data de término') if self.starts_at > self.ends_at  
   end 
-
-  def negative_price?
-    return if self.special_price.nil?
-    errors.add(:special_price, 'não pode ser negativo') if self.special_price < 0
-  end
 end

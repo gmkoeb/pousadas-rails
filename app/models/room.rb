@@ -12,7 +12,7 @@ class Room < ApplicationRecord
   has_many :gallery_pictures
   validates :name, :description, :area, :maximum_guests, :price, presence: true
 
-  validate :negative_price?
+  validates :price, numericality: {greater_than: 0}
   validate :picture_format
   
   enum status: {draft: 0, published: 2}
@@ -20,11 +20,6 @@ class Room < ApplicationRecord
   delegate :check_in_check_out_time, :payment_methods, to: :inn
 
   private
-
-  def negative_price?
-    return if self.price.nil?
-    errors.add(:price, 'não pode ser negativo') if self.price < 0
-  end
 
   def picture_format
     if picture.attached? && !picture.content_type.in?(%w(image/jpeg image/png))

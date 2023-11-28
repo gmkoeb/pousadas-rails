@@ -4,7 +4,9 @@ class Reservation < ApplicationRecord
 
   belongs_to :user, optional: true
   belongs_to :room
+
   has_one :review
+  has_many :consumables
 
   validates :guests, :check_in, :check_out, presence: true
 
@@ -18,7 +20,7 @@ class Reservation < ApplicationRecord
   
   private
 
-  def self.calculate_price(check_in, check_out, standard_price, price_per_periods)
+  def self.calculate_price(check_in, check_out, standard_price, price_per_periods, consumables)
     return if check_in.nil? || check_out.nil?
     reservation_days = (check_out.to_date - check_in.to_date).to_i
     total_price = standard_price * reservation_days
@@ -38,7 +40,14 @@ class Reservation < ApplicationRecord
         total_price = price_per_period.special_price * reservation_days
       end
     end
-  
+    
+    if consumables.any?
+      consumables_price = 0
+      consumables.each do |consumable|
+        consumables_price += consumable.value
+      end
+      total_price += consumables_price
+    end
     total_price
   end
 

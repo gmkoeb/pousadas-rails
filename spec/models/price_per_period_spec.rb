@@ -147,7 +147,7 @@ RSpec.describe PricePerPeriod, type: :model do
         result = price.errors.include?(:special_price)
         # Assert
         expect(result).to be true
-        expect(price.errors[:special_price]).to include 'não pode ser negativo'
+        expect(price.errors[:special_price]).to include 'deve ser maior que 0'
       end
     end
   end

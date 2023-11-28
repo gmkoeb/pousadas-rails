@@ -8,7 +8,8 @@ class Api::V1::RoomsController < Api::V1::ApiController
   def check
     room = Room.find(params[:room_id])
     reservation_params = params.require(:reservation_details).permit(:check_in, :check_out, :guests)
-    total_price = Reservation.calculate_price(reservation_params[:check_in], reservation_params[:check_out], room.price, room.price_per_periods)
+    consumables = []
+    total_price = Reservation.calculate_price(reservation_params[:check_in], reservation_params[:check_out], room.price, room.price_per_periods, consumables)
     reservation = room.reservations.build(reservation_params)
     if reservation.valid?
       render status: 200, json:{ "total_price" => total_price, "room" => room.id }

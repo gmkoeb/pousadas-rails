@@ -72,6 +72,25 @@
       <h5>Quarto Reservado: <%= @reservation.room.name %></h5>
       <p>Data de Entrada: <%= I18n.localize(@reservation.check_in, format: :no_timezone) %></p>
       <p>Data de Saída: <%= I18n.localize(@reservation.check_out, format: :no_timezone) %></p>
+      <% if @consumables.any? %>      
+      <table class="mx-auto text-center">
+        <h2 class="text-center mt-5"><%= Consumable.model_name.human %></h2>
+          <tr>
+            <th><p><%= Consumable.human_attribute_name(:name)%></p></th>
+            <th><p class="mx-5"><%= Consumable.human_attribute_name(:value)%></p></p></th>
+          </tr>
+        <% @consumables.each do |consumable| %>
+          <tr>
+            <td>
+              <%= consumable.name %>
+            </td>  
+            <td>
+              R$ <%= consumable.value %>
+            </td>  
+          </tr>
+        <% end %>
+      </table>
+      <% end %>
     <% end %>
   </section>
   <section class="text-center">
@@ -99,6 +118,7 @@
 
       <% if @reservation.active? %>
         <%= link_to 'Realizar Check-Out', check_out_form_reservation_path(@reservation), class: "btn btn-danger"%>
+        <%= link_to 'Adicionar Consumível', new_reservation_consumable_path(@reservation), class: "btn btn-info"%>
       <% end %>
     <% end %>
   </section>

@@ -64,6 +64,7 @@
       <li class="mb-5"><%= Inn.human_attribute_name(:description)%>: <%= @inn.description %></li>
     </div>
     <% if @gallery_pictures.any? %>
+      <h4>Galeria de Fotos</h4>
       <% @gallery_pictures.each do |gallery_picture| %>
         <%= image_tag gallery_picture.picture %>
         <%= button_to('Remover', gallery_picture_path(gallery_picture.id), method: :delete, class: "btn btn-danger") %>

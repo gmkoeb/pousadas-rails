@@ -70,22 +70,22 @@
           <th><p class="mx-5"><%= PricePerPeriod.human_attribute_name(:starts_at)%></p></th>
           <th><p><%= PricePerPeriod.human_attribute_name(:ends_at)%></p></th>
         </tr>
-      <% prices.each do |price| %>
-      <tr>
-        <td>
-          R$ <%= price.special_price %>
-        </td>  
-        <td>
-          <%= I18n.localize(price.starts_at) %>
-        </td>  
-        <td>
-          <%= I18n.localize(price.ends_at) %>
-        </td>
-        <td>
-          <%= button_to('Remover', room_price_per_period_path(room, price.id), method: :delete, class: "btn btn-danger") %>
-        </td>
-      </tr>
-      <% end %>
+        <% prices.each do |price| %>
+        <tr>
+          <td>
+            R$ <%= price.special_price %>
+          </td>  
+          <td>
+            <%= I18n.localize(price.starts_at) %>
+          </td>  
+          <td>
+            <%= I18n.localize(price.ends_at) %>
+          </td>
+          <td>
+            <%= button_to('Remover', room_price_per_period_path(room, price.id), method: :delete, class: "btn btn-danger") %>
+          </td>
+        </tr>
+        <% end %>
     </table>
   <% end %>
 <%end%>
