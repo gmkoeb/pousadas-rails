@@ -1,6 +1,6 @@
 class ReservationsController < ApplicationController
   before_action :admin_has_inn?
-  before_action :authenticate_admin!, only: [:active, :check_in, :check_out]
+  before_action :authenticate_admin!, only: [:active, :check_in, :check_out, :check_out_form]
   before_action :set_room_and_check_availability, only: [:new, :create, :check]
   before_action :authenticate_user!, only: [:create, :show, :index]
   before_action :store_location, only: [:check]
@@ -143,9 +143,7 @@ class ReservationsController < ApplicationController
 
   def check_user
     inn = @reservation.room.inn
-    if current_user
-      return redirect_to root_path, alert: 'Você não pode realizar essa ação.' if current_user.inn != inn
-    end
+    return redirect_to root_path, alert: 'Você não pode realizar essa ação.' if current_user.inn != inn
   end
-  
+
 end

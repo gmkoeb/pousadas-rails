@@ -23,9 +23,7 @@ class ConsumablesController < ApplicationController
   def check_user_and_set_reservation
     @reservation = Reservation.friendly.find(params[:reservation_id])
     inn = @reservation.room.inn
-    if current_user
-      return redirect_to root_path, alert: 'Você não pode realizar essa ação.' if current_user.inn != inn
-    end
+    return redirect_to root_path, alert: 'Você não pode realizar essa ação.' if current_user.inn != inn
   end
 
 end

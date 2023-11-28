@@ -59,5 +59,5 @@ class GalleryPicturesController < ApplicationController
       return redirect_to room_path(room), notice: 'Imagem removida com sucesso'
     end
   end
-
+  
 end
