@@ -7,7 +7,7 @@ class Inn < ApplicationRecord
   end
   has_one_attached :picture
   belongs_to :user
-  has_many :inn_gallery_pictures
+  has_many :gallery_pictures
   has_many :rooms
   has_many :reservations, through: :rooms
   has_many :reviews, through: :reservations

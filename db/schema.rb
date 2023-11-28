@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_25_173630) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_27_210034) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -48,6 +48,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_25_173630) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "gallery_pictures", force: :cascade do |t|
+    t.integer "room_id"
+    t.integer "inn_id"
+    t.string "picture"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inn_id"], name: "index_gallery_pictures_on_inn_id"
+    t.index ["room_id"], name: "index_gallery_pictures_on_room_id"
   end
 
   create_table "inns", force: :cascade do |t|
@@ -156,6 +166,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_25_173630) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "gallery_pictures", "inns"
+  add_foreign_key "gallery_pictures", "rooms"
   add_foreign_key "inns", "users"
   add_foreign_key "price_per_periods", "rooms"
   add_foreign_key "reservations", "rooms"

@@ -25,6 +25,7 @@ class InnsController < ApplicationController
     @inn = Inn.friendly.find(params[:id])
     @rooms = @inn.rooms.published
     @reviews = @inn.reviews.order(created_at: :desc).limit(3)
+    @gallery_pictures = @inn.gallery_pictures
     unless current_user && current_user.inn == @inn
       return redirect_to root_path, notice: 'Essa pousada não está aceitando reservas no momento.' if @inn.draft?
     end

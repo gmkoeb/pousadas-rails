@@ -63,6 +63,12 @@
       </li>
       <li class="mb-5"><%= Inn.human_attribute_name(:description)%>: <%= @inn.description %></li>
     </div>
+    <% if @gallery_pictures.any? %>
+      <% @gallery_pictures.each do |gallery_picture| %>
+        <%= image_tag gallery_picture.picture %>
+        <%= button_to('Remover', gallery_picture_path(gallery_picture.id), method: :delete, class: "btn btn-danger") %>
+      <% end %>
+    <% end %>
     <% if @reviews.any? %>
       <section class="text-center mb-3">
         <h4><%= link_to 'Avaliações da Pousada', reviews_inn_path(@inn) %></h4>
@@ -101,7 +107,7 @@
         <% end %>
         <%= link_to 'Editar Pousada', edit_inn_path(@inn), class:"btn btn-info text-white mb-2"%>
         <%= link_to 'Cadastrar Quarto', new_inn_room_path(@inn), class:"btn btn-info text-white mb-2" %> 
-        <%= link_to 'Adicionar Fotos da Pousada', new_inn_gallery_picture_path(@inn), class:"btn btn-info text-white" %>
+        <%= link_to 'Adicionar Foto da Pousada', new_inn_gallery_picture_path(@inn), class:"btn btn-info text-white" %>
       </div>
     </aside>
     <section class="d-flex flex-wrap gap-3 justify-content-center mb-5">
@@ -110,7 +116,7 @@
       <% else %>
         <% @inn.rooms.each do |room| %>
             <%= link_to room_path(room) do%>
-            <div class="room-card h-75">
+            <div class="room-card h-100">
               <%= render 'rooms/room_details', room: room, inn: @inn %>
             </div> 
             <% end %> 
@@ -124,7 +130,7 @@
       <% if @rooms.present? %>
         <% @rooms.each do |room| %>
             <%= link_to room_path(room) do %>
-            <div class="room-card h-75">
+            <div class="room-card h-100">
               <%= render 'rooms/room_details', room: room, inn: @inn %>
             </div> 
             <% end %> 

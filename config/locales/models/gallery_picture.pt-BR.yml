@@ -1,0 +1,7 @@
+pt-BR:
+  activerecord:
+    models:
+      gallery_picture: 'Imagem de Galeria'
+    attributes:
+      gallery_picture:
+        picture: 'Imagem'

@@ -45,6 +45,13 @@
     <p><%= coffer(room.has_coffer) %><i class="fa-solid fa-lock mx-2"></i></p>
     <p><%= accessibility(room.accessible) %><i class="fa-brands fa-accessible-icon mx-2"></i></p>
   </div>
+  <% if @gallery_pictures.any? %>
+    <h5 class="text-center mt-3 text-dark">Galeria de Fotos</h5>
+    <% @gallery_pictures.each do |gallery_picture| %>
+      <%= image_tag gallery_picture.picture %>
+      <%= button_to('Remover', gallery_picture_path(gallery_picture.id), method: :delete, class: "btn btn-danger") %>
+    <% end %>
+  <% end %>
   <div class="text-center">
     <%= link_to 'Reservar Quarto', new_room_reservation_path(room), class: 'btn btn-primary text-white' %>
   </div>

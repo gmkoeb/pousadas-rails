@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root "home#index"
   
   resources :inns, only: [:show, :create, :new, :edit, :update] do
+    resources :gallery_pictures, only: [:new, :create]
     patch :publish, :draft, on: :member
     get :reviews, on: :member
     get 'search', 'advanced_search', on: :collection
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
   end
 
   resources :rooms, only: [:show, :edit, :update] do
+    resources :gallery_pictures, only: [:new, :create]
     patch :publish, :draft, on: :member
     resources :price_per_periods, only:[:new, :create, :destroy]
     resources :reservations, only:[:new, :create]
@@ -27,6 +29,8 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:index, :update]
   
+  resources :gallery_pictures, only: [:destroy]
+
   namespace :api do
     namespace :v1 do
       resources :inns, only: [:index, :show] do

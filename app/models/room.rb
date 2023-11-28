@@ -9,7 +9,7 @@ class Room < ApplicationRecord
   belongs_to :inn
   has_many :price_per_periods
   has_many :reservations
-
+  has_many :gallery_pictures
   validates :name, :description, :area, :maximum_guests, :price, presence: true
 
   validate :negative_price?
