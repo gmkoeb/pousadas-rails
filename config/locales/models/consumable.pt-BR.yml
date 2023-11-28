@@ -6,3 +6,4 @@ pt-BR:
       consumable:
         name: 'Nome do Item'
         value: 'Valor'
+        reservation_id: 'Reserva'

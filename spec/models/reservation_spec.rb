@@ -381,7 +381,7 @@ RSpec.describe Reservation, type: :model do
       room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
               price: 5_000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
       special_prices = room.price_per_periods.create!(special_price: 10_000, starts_at: 1.day.ago, ends_at: 4.days.from_now)
-      reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, check_out: 8.days.from_now, guests: 3)
+      reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, check_out: 8.days.from_now, guests: 3, status: 'active')
       reservation.consumables.create!(name: 'Coca-Cola 300ml', value: '10' )
       reservation.consumables.create!(name: 'Ruffles 250g', value: '10' )
       reservation.consumables.create!(name: 'Hamburger com Fritas', value: '40' )
