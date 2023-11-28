@@ -9,6 +9,7 @@ class Reservation < ApplicationRecord
   has_many :consumables
 
   validates :guests, :check_in, :check_out, presence: true
+  validates :guests, numericality: { greater_than: 0 }
 
   validate :room_supports_guests
   validate :invalid_date, on: :create
@@ -62,7 +63,7 @@ class Reservation < ApplicationRecord
 
   def room_is_reserved
     return if self.check_in.nil? || self.check_out.nil?
-    active_reservations = Reservation.all.not_canceled.not_finished
+    active_reservations = room.reservations.not_canceled.not_finished
     active_reservations.each do |reservation|
       reservation_duration = Range.new(reservation.check_in.to_date, reservation.check_out.to_date)
       new_reservation_duration = Range.new(self.check_in.to_date, self.check_out.to_date)

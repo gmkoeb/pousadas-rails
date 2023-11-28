@@ -12,7 +12,7 @@ class Room < ApplicationRecord
   has_many :gallery_pictures
   validates :name, :description, :area, :maximum_guests, :price, presence: true
 
-  validates :price, numericality: {greater_than: 0}
+  validates :price, numericality: { greater_than: 0 }
   validate :picture_format
   
   enum status: {draft: 0, published: 2}

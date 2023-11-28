@@ -2,7 +2,7 @@ class PricePerPeriod < ApplicationRecord
   belongs_to :room
 
   validates :special_price, :starts_at, :ends_at, presence:true
-  validates :special_price, numericality: {greater_than: 0}
+  validates :special_price, numericality: { greater_than: 0 }
   
   validate :date_overlaps, :invalid_date
   
