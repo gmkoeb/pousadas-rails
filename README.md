@@ -201,3 +201,69 @@ Se os parâmetros da requisição forem inválidos, o cliente obtêm como respos
 {
   "errors":["Quantidade de Hóspedes acima do suportado pelo quarto", "Data de Entrada precisa ser anterior à Data de Saída"]
 }
+```
+### 5. Cidades com pousadas
+GET /inns/cities
+
+```json
+{
+  ["Curitiba", "Florianópolis", "São Paulo", "Guarulhos"]
+}
+```
+### 6. Filtro de pousadas em cidade específica
+GET inns/cities?query=city
+
+Exemplo:
+
+GET /inns/cities?query=curitiba
+
+```json
+[
+   {
+      "id":1,
+      "corporate_name":"Exemplo LTDA",
+      "brand_name":"Pousada Exemplo",
+      "registration_number":"444",
+      "phone":"4444444",
+      "email":"exemplo@email.com",
+      "address":"exemplo",
+      "district":"exemplo",
+      "state":"Paraná",
+      "city":"Curitiba",
+      "zip_code":"555555",
+      "description":"55555",
+      "payment_methods":"[\"Dinheiro\", \"PIX\", \"Cartão de crédito\", \"Cartão de débito\"]",
+      "accepts_pets":true,
+      "terms_of_service":"exemplo",
+      "check_in_check_out_time":"2000-01-01T15:00:00.000-02:00",
+      "created_at":"2023-11-23T15:48:21.020-03:00",
+      "updated_at":"2023-11-23T15:48:53.779-03:00",
+      "slug":"exemplo-exemplo",
+      "user_id":1,
+      "status":"published"
+   },
+   {
+      "id":2,
+      "corporate_name":"Exemplo 2 LTDA",
+      "brand_name":"Pousada Exemplo 2",
+      "registration_number":"4444",
+      "phone":"444444444",
+      "email":"exemplo@email.com2",
+      "address":"exemplo 2",
+      "district":"exemplo 2",
+      "state":"Paraná",
+      "city":"Curitiba",
+      "zip_code":"5555555",
+      "description":"55555",
+      "payment_methods":"[\"Dinheiro\", \"PIX\", \"Cartão de crédito\", \"Cartão de débito\"]",
+      "accepts_pets":true,
+      "terms_of_service":"exemplo",
+      "check_in_check_out_time":"2000-01-01T15:00:00.000-02:00",
+      "created_at":"2023-11-23T15:48:21.020-03:00",
+      "updated_at":"2023-11-23T15:48:53.779-03:00",
+      "slug":"exemplo-exemplo-2",
+      "user_id":2,
+      "status":"published"
+   }
+]
+```
