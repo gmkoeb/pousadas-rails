@@ -22,9 +22,10 @@ Rails.application.routes.draw do
   
   resources :reservations, only: [:show, :index] do
     resources :reviews, only: [:create]
+    resources :reservation_guests, only: [:create]
     resources :consumables, only: [:new, :create]
     patch :cancel, :check_in, :check_out, on: :member
-    get :check_out_form, on: :member
+    get :check_out_form, :check_in_form, on: :member
     get :active, on: :collection
   end
 

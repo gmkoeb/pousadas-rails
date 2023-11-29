@@ -1,12 +1,12 @@
 class ReservationsController < ApplicationController
   before_action :admin_has_inn?
-  before_action :authenticate_admin!, only: [:active, :check_in, :check_out, :check_out_form]
+  before_action :authenticate_admin!, only: [:active, :check_in, :check_out, :check_out_form, :check_in_form]
   before_action :set_room_and_check_availability, only: [:new, :create, :check]
   before_action :authenticate_user!, only: [:create, :show, :index]
   before_action :store_location, only: [:check]
-  before_action :set_reservation, only: [:check_out_form, :show, :check_in, :check_out, :cancel]
+  before_action :set_reservation, only: [:check_out_form, :show, :check_in, :check_out, :cancel, :check_in_form]
   before_action :calculate_reservation_price, only: [:check_out_form, :check_out]
-  before_action :check_user, only: [:check_in, :check_out, :check_out_form]
+  before_action :check_user, only: [:check_in, :check_out, :check_out_form, :check_in_form]
 
   def index
     if current_user.admin
@@ -69,6 +69,7 @@ class ReservationsController < ApplicationController
     @room_owner = @room.inn.user 
     @review = @reservation.review
     @consumables = @reservation.consumables
+    @reservation_guests = @reservation.reservation_guests
     unless current_user == @reservation.user || current_user == @room_owner
       return redirect_to root_path, alert: 'Acesso negado' 
     end
@@ -86,8 +87,10 @@ class ReservationsController < ApplicationController
 
   def check_in
     check_in_time = @reservation.check_in 
-    if Time.zone.now > check_in_time + 2.days || Time.zone.now < check_in_time
-      return redirect_to reservation_path(@reservation), alert: 'Não foi possível realizar o check-in.' 
+    if Time.zone.now > check_in_time + 2.days
+      return redirect_to reservation_path(@reservation), alert: 'Não será possível realizar check-in pois já se passaram 2 dias da data prevista.' 
+    elsif Time.zone.now < check_in_time
+      return redirect_to reservation_path(@reservation), alert: 'Não será possível realizar check-in antes do horário previsto.' 
     else
       @reservation.update(check_in: Time.zone.now, status: 'active')
       redirect_to reservation_path(@reservation), notice: 'Check-in realizado com sucesso!'
@@ -108,6 +111,18 @@ class ReservationsController < ApplicationController
       return redirect_to reservation_path(@reservation), notice: 'Check-Out realizado com sucesso!'
     else
       redirect_to check_out_form_reservation_path(@reservation), alert: 'Não foi possível realizar o check-out.'
+    end
+  end
+
+  def check_in_form
+    check_in_time = @reservation.check_in 
+    if Time.zone.now > check_in_time + 2.days
+      return redirect_to reservation_path(@reservation), alert: 'Não será possível realizar check-in pois já se passaram 2 dias da data prevista.' 
+    elsif Time.zone.now < check_in_time
+      return redirect_to reservation_path(@reservation), alert: 'Não será possível realizar check-in antes do horário previsto.' 
+    else
+      @valid_guests = []
+      @reservation_guest = @reservation.reservation_guests.build
     end
   end
 

@@ -89,7 +89,7 @@ describe 'Usuário checa detalhes de reserva' do
       expect(page).to have_content "Dinheiro"
       expect(page).to have_content "Valor total das diárias: R$13000"
       expect(page).to have_button "Cancelar Reserva"
-      expect(page).to have_button "Realizar Check-in"
+      expect(page).to have_button "Iniciar Processo de Check-in"
     end
 
     it 'vê reserva que está ativa' do

@@ -1,0 +1,41 @@
+<h1>Processo de Check-in</h1>
+<h2>Comprador da Reserva: <%= @reservation.user.name %></h2>
+<% if @valid_guests.length < @reservation.guests - 1 %>
+  <h3>Cadastro de Convidados</h3>
+  <% if @reservation_guest.errors.any? %>
+    <div class="rounded p-2 border border-1 fw-bold mt-3">
+      <h4 class="text-center">Verifique os erros abaixo:</h4>
+      <ul>
+        <% @reservation_guest.errors.full_messages.each do |msg| %>
+        <li class="text-danger"><%=msg%></li>
+        <%end%>
+      </ul>
+    </div>
+  <% end %>
+  <%= form_with model:[@reservation, @reservation_guest], url: reservation_reservation_guests_path(@reservation), method: :post do |f| %>
+    <% (@reservation.guests-1).times do |index| %>
+      <h2>Acompanhante <%= index + 1 %></h2>
+      <div>
+        <%= f.label :name %>
+        <%= f.text_field :name, multiple: true %>
+      </div>
+      <div>
+        <%= f.label :registration_number %>
+        <%= f.text_field :registration_number, multiple: true %>
+      </div>
+      <div>
+        <%= f.label :age %>
+        <%= f.number_field :age, multiple: true %>
+      </div>
+    <% end %>
+    <%= f.submit 'Registrar Acompanhantes'%>
+  <% end %>
+<% else %>
+  <% @reservation.reservation_guests.each_with_index do |reservation_guest, index| %>
+    <h2>Hóspede <%= index %></h2>
+    <p><%= reservation_guest.name %></p>
+    <p>CPF: <%= reservation_guest.registration_number %></p>
+    <p>Idade: <%= reservation_guest.age %></p>
+  <% end %>
+  <%= button_to 'Efetuar Check-in', check_in_reservation_path(@reservation), {method: 'patch', class:"btn btn-success text-white"} %>
+<% end %>

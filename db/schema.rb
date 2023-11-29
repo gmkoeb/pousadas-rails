@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_28_141829) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_28_204146) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -105,6 +105,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_141829) do
     t.index ["room_id"], name: "index_price_per_periods_on_room_id"
   end
 
+  create_table "reservation_guests", force: :cascade do |t|
+    t.string "name"
+    t.string "registration_number"
+    t.integer "age"
+    t.integer "reservation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reservation_id"], name: "index_reservation_guests_on_reservation_id"
+  end
+
   create_table "reservations", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "room_id", null: false
@@ -180,6 +190,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_141829) do
   add_foreign_key "gallery_pictures", "rooms"
   add_foreign_key "inns", "users"
   add_foreign_key "price_per_periods", "rooms"
+  add_foreign_key "reservation_guests", "reservations"
   add_foreign_key "reservations", "rooms"
   add_foreign_key "reservations", "users"
   add_foreign_key "reviews", "reservations"

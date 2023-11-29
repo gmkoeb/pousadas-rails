@@ -7,6 +7,7 @@ class Reservation < ApplicationRecord
 
   has_one :review
   has_many :consumables
+  has_many :reservation_guests
 
   validates :guests, :check_in, :check_out, presence: true
   validates :guests, numericality: { greater_than: 0 }

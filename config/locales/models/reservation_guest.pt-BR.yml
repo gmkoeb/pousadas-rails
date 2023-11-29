@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      reservation_guest: 'Hóspede Acompanhante'
+    attributes:
+      reservation_guest:
+        name: 'Nome Completo'
+        registration_number: 'CPF'
+        age: 'Idade'
