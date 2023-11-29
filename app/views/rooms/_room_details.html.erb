@@ -1,97 +1,101 @@
 <% prices = sort_by_date(room.price_per_periods) %>  
-<% if room.picture? %>
-  <%= image_tag room.picture, class: "w-100 rounded-top-4 mb-2" %>
-<% elsif current_user && current_user.inn == inn && request.path == room_path(room) %>
-  <div class="w-100 py-5 border-bottom d-flex justify-content-center">
-    <%= form_with(model: room, local: true, html: {class: "row p-5 d-flex flex-column text-center w-100"}) do |f| %>
-      <div class="d-flex flex-column">
-        <%= f.file_field :picture, class: 'd-none', id: 'room_picture', accept:'image/png, image/jpeg', onchange: 'displayImagePreview(this)' %>
-        <label for="room_picture" class="picture-upload">
-          <h5><i class="fa-solid fa-camera fa-2xl"></i></h5>
-          <p>Adicionar Foto</p>
-        </label>
-          <img id="image-preview" src="#" alt="Imagem do Quarto" class="d-none w-75 h-100 mx-auto mt-3">
-      </div>
-      <%= f.submit 'Adicionar Foto', id: 'upload-picture', class:'btn btn-info mt-3 d-none w-25 mx-auto' %>
-    <% end %>
-  </div>
-<% else %>
-  <div class="border-bottom mb-5 text-center">
-    <h1 class="my-4"><i class="fa-solid fa-bed fa-lg"></i></h1>
-  </div>
-<% end %>
-
-<h2 class="text-center"><%= room.name %></h2> 
-<div class="mx-2 mt-2 text-center">
-  <p><i class="fa-solid fa-users"></i> Número máximo de hóspedes: <%= room.maximum_guests %></p>
-</div>
-<div class="mx-2 mt-3 text-center">
-  <h5><i class="fa-solid fa-money-bill-wave"></i> Preço</h5>
-  <p>Preço padrão da diária: R$ <%= room.price %></p>
-</div>
-<% if request.path == room_path(room) %>
-  <div class="mx-2 mt-2 text-center">
-    <h5><i class="fa-solid fa-circle-info"></i> Especificações</h5>
-    <p>Descrição: <%= room.description %></p>
-    <p>Área: <%= room.area %> m²</p>
-  </div>
-  <h5 class="text-center mt-3 text-dark"> <i class="fa-solid fa-clipboard-question"></i> Informações Adicionais</h5>
-  <div class="d-flex flex-wrap gap-3 mx-2 align-items-center justify-content-center">
-    <p><%= bathroom(room.has_bathroom) %><i class="fa-solid fa-toilet mx-2"></i></p>
-    <p><%= balcony(room.has_balcony) %></p>
-    <p><%= air_conditioner(room.has_air_conditioner) %><i class="fa-solid fa-wind mx-2"></i></p>
-    <p><%= tv(room.has_tv) %><i class="fa-solid fa-tv mx-2"></i></p>
-    <p><%= wardrobe(room.has_wardrobe) %></li>
-    <p><%= coffer(room.has_coffer) %><i class="fa-solid fa-lock mx-2"></i></p>
-    <p><%= accessibility(room.accessible) %><i class="fa-brands fa-accessible-icon mx-2"></i></p>
-  </div>
-  <% if @gallery_pictures.any? %>
-    <h5 class="text-center mt-3 text-dark">Galeria de Fotos</h5>
-    <section class="d-flex flex-row flex-wrap justify-content-center">
-      <% @gallery_pictures.each do |gallery_picture| %>
-      <div class="text-center w-50">
-        <%= image_tag gallery_picture.picture, class: "w-75 mb-2 rounded h-50" %>
-        <% if current_user && current_user.inn && current_user.inn == room.inn %>
-          <%= button_to('Remover', gallery_picture_path(gallery_picture.id), method: :delete, class: "btn btn-danger") %>
-        <% end %>
-      </div>
+<div class="w-100">
+  <% if room.picture? %>
+    <%= image_tag room.picture, class: "w-100 rounded-top-4 mb-2 room-picture" %>
+  <% elsif current_user && current_user.inn == inn && request.path == room_path(room) %>
+    <div class="w-100 py-5 border-bottom d-flex justify-content-center">
+      <%= form_with(model: room, local: true, html: {class: "row p-5 d-flex flex-column text-center w-100"}) do |f| %>
+        <div class="d-flex flex-column">
+          <%= f.file_field :picture, class: 'd-none', id: 'room_picture', accept:'image/png, image/jpeg', onchange: 'displayImagePreview(this)' %>
+          <label for="room_picture" class="picture-upload">
+            <h5><i class="fa-solid fa-camera fa-2xl"></i></h5>
+            <p>Adicionar Foto</p>
+          </label>
+            <img id="image-preview" src="#" alt="Imagem do Quarto" class="d-none w-75 h-100 mx-auto mt-3">
+        </div>
+        <%= f.submit 'Adicionar Foto', id: 'upload-picture', class:'btn btn-info mt-3 d-none w-25 mx-auto' %>
       <% end %>
-    </section>
+    </div>
+  <% else %>
+    <div class="border-bottom mb-5 text-center">
+      <h1 class="my-4"><i class="fa-solid fa-bed fa-lg"></i></h1>
+    </div>
   <% end %>
-  <div class="text-center">
-    <%= link_to 'Reservar Quarto', new_room_reservation_path(room), class: 'btn btn-primary text-white' %>
-  </div>
-<% end %>
 
-<% if room.price_per_periods.any? %>
-    <% if current_price_per_period(room) && request.path == new_room_reservation_path(room) || request.path == room_check_path(room) %>
-      <p>Preço Especial: R$ <%= current_price_per_period(room).special_price %></p>
-      <p>Ativo até: <%= I18n.localize(current_price_per_period(room).ends_at) %></p>
-    <% end %>
-  <% if request.path == room_path(room) && current_user && current_user.inn == inn %>
-    <table class="mx-auto text-center">
-      <h2 class="text-center mt-5"><%= PricePerPeriod.model_name.human %></h2>
-        <tr>
-          <th><p><%= PricePerPeriod.human_attribute_name(:special_price)%></p></th>
-          <th><p class="mx-5"><%= PricePerPeriod.human_attribute_name(:starts_at)%></p></th>
-          <th><p><%= PricePerPeriod.human_attribute_name(:ends_at)%></p></th>
-        </tr>
-        <% prices.each do |price| %>
-        <tr>
-          <td>
-            R$ <%= price.special_price %>
-          </td>  
-          <td>
-            <%= I18n.localize(price.starts_at) %>
-          </td>  
-          <td>
-            <%= I18n.localize(price.ends_at) %>
-          </td>
-          <td>
-            <%= button_to('Remover', room_price_per_period_path(room, price.id), method: :delete, class: "btn btn-danger") %>
-          </td>
-        </tr>
+  <h2 class="text-center"><%= room.name %></h2> 
+  <div class="mx-2 mt-2 text-center">
+    <p><i class="fa-solid fa-users"></i> Número máximo de hóspedes: <%= room.maximum_guests %></p>
+  </div>
+
+  <div class="mx-2 mt-3 text-center">
+    <h5><i class="fa-solid fa-money-bill-wave"></i> Preço</h5>
+    <p>Preço padrão da diária: R$ <%= room.price %></p>
+  </div>
+
+  <% if request.path == room_path(room) %>
+    <div class="mx-2 mt-2 text-center">
+      <h5><i class="fa-solid fa-circle-info"></i> Especificações</h5>
+      <p>Descrição: <%= room.description %></p>
+      <p>Área: <%= room.area %> m²</p>
+    </div>
+    <h5 class="text-center mt-3 text-dark"> <i class="fa-solid fa-clipboard-question"></i> Informações Adicionais</h5>
+    <div class="d-flex flex-wrap gap-3 mx-2 align-items-center justify-content-center">
+      <p><%= bathroom(room.has_bathroom) %><i class="fa-solid fa-toilet mx-2"></i></p>
+      <p><%= balcony(room.has_balcony) %></p>
+      <p><%= air_conditioner(room.has_air_conditioner) %><i class="fa-solid fa-wind mx-2"></i></p>
+      <p><%= tv(room.has_tv) %><i class="fa-solid fa-tv mx-2"></i></p>
+      <p><%= wardrobe(room.has_wardrobe) %></li>
+      <p><%= coffer(room.has_coffer) %><i class="fa-solid fa-lock mx-2"></i></p>
+      <p><%= accessibility(room.accessible) %><i class="fa-brands fa-accessible-icon mx-2"></i></p>
+    </div>
+    <% if @gallery_pictures.any? %>
+      <h5 class="text-center mt-3 text-dark">Galeria de Fotos</h5>
+      <section class="d-flex flex-wrap justify-content-center">
+        <% @gallery_pictures.each do |gallery_picture| %>
+        <div class="text-center w-50">
+          <%= image_tag gallery_picture.picture, class: "w-75 mb-2 rounded h-50" %>
+          <% if current_user && current_user.inn && current_user.inn == room.inn %>
+            <%= button_to('Remover', gallery_picture_path(gallery_picture.id), method: :delete, class: "btn btn-danger mb-3") %>
+          <% end %>
+        </div>
         <% end %>
-    </table>
+      </section>
+    <% end %>
+    <div class="text-center">
+      <%= link_to 'Reservar Quarto', new_room_reservation_path(room), class: 'btn btn-primary text-white mb-3' %>
+    </div>
   <% end %>
-<%end%>
+
+  <% if room.price_per_periods.any? %>
+      <% if current_price_per_period(room) && request.path == new_room_reservation_path(room) || request.path == room_check_path(room) %>
+        <p>Preço Especial: R$ <%= current_price_per_period(room).special_price %></p>
+        <p>Ativo até: <%= I18n.localize(current_price_per_period(room).ends_at) %></p>
+      <% end %>
+    <% if request.path == room_path(room) && current_user && current_user.inn == inn %>
+      <table class="mx-auto text-center">
+        <h2 class="text-center mt-5"><%= PricePerPeriod.model_name.human %></h2>
+          <tr>
+            <th><p><%= PricePerPeriod.human_attribute_name(:special_price)%></p></th>
+            <th><p class="mx-5"><%= PricePerPeriod.human_attribute_name(:starts_at)%></p></th>
+            <th><p><%= PricePerPeriod.human_attribute_name(:ends_at)%></p></th>
+          </tr>
+          <% prices.each do |price| %>
+          <tr>
+            <td>
+              R$ <%= price.special_price %>
+            </td>  
+            <td>
+              <%= I18n.localize(price.starts_at) %>
+            </td>  
+            <td>
+              <%= I18n.localize(price.ends_at) %>
+            </td>
+            <td>
+              <%= button_to('Remover', room_price_per_period_path(room, price.id), method: :delete, class: "btn btn-danger") %>
+            </td>
+          </tr>
+          <% end %>
+      </table>
+    <% end %>
+  <%end%>
+</div>

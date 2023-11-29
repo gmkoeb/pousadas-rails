@@ -6,6 +6,7 @@ class Consumable < ApplicationRecord
   validates :value, numericality: {greater_than: 0}
 
   validate  :active_reservation?
+  
   private
 
   def active_reservation?
