@@ -3,7 +3,7 @@ class Api::V1::InnsController < Api::V1::ApiController
     inns = Inn.all.published
     query = params[:query]
     if query
-      inns = Inn.all.published.where("brand_name LIKE ?", "%#{query}%")
+      inns = Inn.all.published.where("brand_name LIKE ?", "%#{query}%").order(:name)
     end
     return render status: 200, json: inns.as_json(except: [:picture])
   end
