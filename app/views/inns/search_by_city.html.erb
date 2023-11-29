@@ -3,7 +3,7 @@
   <div class="d-flex justify-content-center gap-3">
     <% @inns.each do |inn| %>
       <%= link_to inn_path(inn) do %> 
-        <div class="inn-card">
+        <div class="inn-card border border-dark">
           <%= render 'shared/inn_card', inn:inn %>
         </div>
       <% end %>

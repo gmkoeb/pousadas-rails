@@ -73,33 +73,52 @@
 
   <section>
     <% if @reservation.active? %>
-      <h5>Quarto Reservado: <%= @reservation.room.name %></h5>
-      <p>Data de Entrada: <%= I18n.localize(@reservation.check_in, format: :no_timezone) %></p>
-      <p>Data de Saída: <%= I18n.localize(@reservation.check_out, format: :no_timezone) %></p>
+      <div class="text-center">
+        <h5>Quarto Reservado: <%= @reservation.room.name %></h5>
+        <p>Data de Entrada: <%= I18n.localize(@reservation.check_in, format: :no_timezone) %></p>
+        <p>Data de Saída: <%= I18n.localize(@reservation.check_out, format: :no_timezone) %></p>
+      </div>
       <% if @consumables.any? %>      
-        <table class="mx-auto text-center">
-          <h2 class="text-center mt-5"><%= Consumable.model_name.human %></h2>
+        <table class="mx-auto text-center border">
             <tr>
-              <th><p><%= Consumable.human_attribute_name(:name)%></p></th>
-              <th><p class="mx-5"><%= Consumable.human_attribute_name(:value)%></p></p></th>
+              <h2 class="text-center mt-5"><%= Consumable.model_name.human %></h2>
+              <th><p class="mx-4 mt-2"><%= Consumable.human_attribute_name(:name)%></p></th>
+              <th><p class="mx-4 mt-2"><%= Consumable.human_attribute_name(:value)%></p></th>
             </tr>
           <% @consumables.each do |consumable| %>
             <tr>
               <td>
-                <%= consumable.name %>
+                <p><%= consumable.name %></p>
               </td>  
               <td>
-                R$ <%= consumable.value %>
+                <p>R$ <%= consumable.value %></p>
               </td>  
             </tr>
           <% end %>
         </table>
       <% end %>
       <% if @reservation_guests.any? %>
-        <h2>Acompanhantes</h2>
-        <% @reservation_guests.each do |reservation_guest| %>
-          <p><strong>Nome Completo:</strong> <%= reservation_guest.name %> - <strong>CPF:</strong> <%= reservation_guest.registration_number %> - <strong>Idade:</strong> <%= reservation_guest.age %></p>
-        <% end %>
+        <table class="mx-auto text-center border">
+          <h2 class="text-center mt-5"><%= ReservationGuest.model_name.human %></h2>
+            <tr class="border-bottom">
+              <th><p class="mt-3 mx-2"><%= ReservationGuest.human_attribute_name(:name)%></p></th>
+              <th><p class="mx-5 mt-3"><%= ReservationGuest.human_attribute_name(:registration_number)%></p></th>
+              <th><p class="mt-3 mx-2"><%= ReservationGuest.human_attribute_name(:age)%></p></th>
+            </tr>
+          <% @reservation_guests.each do |guest| %>
+            <tr>
+              <td class="border-bottom">
+                <p><%= guest.name %></p>
+              </td>  
+              <td class="border-bottom">
+                <p><%= guest.registration_number %></p>
+              </td>  
+              <td class="border-bottom">
+                <p><%= guest.age %></p>
+              </td>  
+            </tr>
+          <% end %>
+        </table>
       <% end %>
     <% end %>
   </section>
@@ -133,8 +152,10 @@
       <% end %>
 
       <% if @reservation.active? %>
+      <div class="mb-4">
         <%= link_to 'Realizar Check-Out', check_out_form_reservation_path(@reservation), class: "btn btn-danger"%>
         <%= link_to 'Adicionar Consumível', new_reservation_consumable_path(@reservation), class: "btn btn-info"%>
+      </div>
       <% end %>
     <% end %>
   </section>

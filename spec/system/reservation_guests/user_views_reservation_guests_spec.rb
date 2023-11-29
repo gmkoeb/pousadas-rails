@@ -29,18 +29,18 @@ describe 'Usuário vê acompanhantes da reserva' do
     click_on 'Minhas Reservas'
     click_on reservation.code
     # Assert
-    expect(page).to have_content 'Nome Completo: Acompanhante 1'
-    expect(page).to have_content 'Nome Completo: Acompanhante 2'
-    expect(page).to have_content 'Nome Completo: Acompanhante 3'
-    expect(page).to have_content 'Nome Completo: Acompanhante 4'
-    expect(page).to have_content 'CPF: CPF do Acompanhante 1'
-    expect(page).to have_content 'CPF: CPF do Acompanhante 2'
-    expect(page).to have_content 'CPF: CPF do Acompanhante 3'
-    expect(page).to have_content 'CPF: CPF do Acompanhante 4'
-    expect(page).to have_content 'Idade: 50'
-    expect(page).to have_content 'Idade: 65'
-    expect(page).to have_content 'Idade: 75'
-    expect(page).to have_content 'Idade: 24'
+    expect(page).to have_content 'Acompanhante 1'
+    expect(page).to have_content 'Acompanhante 2'
+    expect(page).to have_content 'Acompanhante 3'
+    expect(page).to have_content 'Acompanhante 4'
+    expect(page).to have_content 'CPF do Acompanhante 1'
+    expect(page).to have_content 'CPF do Acompanhante 2'
+    expect(page).to have_content 'CPF do Acompanhante 3'
+    expect(page).to have_content 'CPF do Acompanhante 4'
+    expect(page).to have_content '50'
+    expect(page).to have_content '65'
+    expect(page).to have_content '75'
+    expect(page).to have_content '24'
     
   end
 end

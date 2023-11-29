@@ -12,23 +12,25 @@
       </ul>
     </div>
   <% end %>
-  <%= form_with model:[@reservation, @reservation_guest], url: reservation_reservation_guests_path(@reservation), method: :post do |f| %>
+  <%= form_with model:[@reservation, @reservation_guest], url: reservation_reservation_guests_path(@reservation), method: :post, html: {class: "row g-3 w-75 mt-3 mx-auto"} do |f| %>
     <% (@reservation.guests-1).times do |index| %>
       <h2>Acompanhante <%= index + 1 %></h2>
-      <div>
-        <%= f.label :name %>
-        <%= f.text_field :name, multiple: true %>
+      <div class="col-md-4">
+        <%= f.label :name, class: "form-label" %>
+        <%= f.text_field :name, multiple: true, class: "form-control" %>
       </div>
-      <div>
-        <%= f.label :registration_number %>
-        <%= f.text_field :registration_number, multiple: true %>
+      <div class="col-md-4">
+        <%= f.label :registration_number, class: "form-label" %>
+        <%= f.text_field :registration_number, multiple: true, class: "form-control" %>
       </div>
-      <div>
-        <%= f.label :age %>
-        <%= f.number_field :age, multiple: true %>
+      <div class="col-md-4">
+        <%= f.label :age, class: "form-label" %>
+        <%= f.number_field :age, multiple: true, class: "form-control" %>
       </div>
     <% end %>
-    <%= f.submit 'Registrar Acompanhantes'%>
+    <div class="text-center">
+      <%= f.submit 'Registrar Acompanhantes', class:"btn btn-info text-white w-100"%>
+    </div>
   <% end %>
 <% else %>
   <% @reservation.reservation_guests.each_with_index do |reservation_guest, index| %>
@@ -37,5 +39,5 @@
     <p>CPF: <%= reservation_guest.registration_number %></p>
     <p>Idade: <%= reservation_guest.age %></p>
   <% end %>
-  <%= button_to 'Efetuar Check-in', check_in_reservation_path(@reservation), {method: 'patch', class:"btn btn-success text-white"} %>
+  <%= button_to 'Efetuar Check-in', check_in_reservation_path(@reservation), {method: 'patch', class:"btn btn-success text-white mb-5"} %>
 <% end %>

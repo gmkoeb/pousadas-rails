@@ -1,7 +1,7 @@
 pt-BR:
   activerecord:
     models:
-      reservation_guest: 'Hóspede Acompanhante'
+      reservation_guest: 'Hóspedes Acompanhantes'
     attributes:
       reservation_guest:
         name: 'Nome Completo'
