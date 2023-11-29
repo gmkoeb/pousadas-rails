@@ -99,10 +99,11 @@ ul.inn-details{
   border: 1px solid  !important;
   border-radius: 12px;
   width: 20rem;
+  height: 20rem;
 }
 
 .room-card img{
-  height: 40%;
+  height: 50%;
 }
 
 .room-card:hover{
@@ -127,7 +128,7 @@ ul.inn-details{
 }
 
 .room img{
-  height: 25vh !important;
+  height: 35vh;
 }
 
 .admin-control, .admin-room-control{

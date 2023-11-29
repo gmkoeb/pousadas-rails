@@ -1,6 +1,6 @@
 <div>
   <% if current_user && current_user.rooms.include?(@room) %>
-    <div class="w-50 d-flex flex-column flex-wrap border border-primary rounded-4 mx-auto mb-5">
+    <div class="w-25 d-flex flex-column flex-wrap border border-primary rounded-4 mx-auto mb-5">
       <ul class="px-0 room">  
         <%= render 'room_details', room: @room, inn:@room.inn %>
       </ul>      
@@ -18,7 +18,7 @@
       <%= link_to 'Adicionar Foto do Quarto', new_room_gallery_picture_path(@room), class: "btn btn-info text-white mt-2" %>
     </aside>
   <% else %>
-    <div class="w-50 d-flex flex-column flex-wrap border border-primary rounded-4 mx-auto mb-5">
+    <div class="w-25 d-flex flex-column flex-wrap border border-primary rounded-4 mx-auto mb-5">
       <ul class="px-0 room">  
         <%= render 'room_details', room: @room, inn:@room.inn %>
       </ul>      

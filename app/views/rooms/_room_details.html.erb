@@ -47,10 +47,16 @@
   </div>
   <% if @gallery_pictures.any? %>
     <h5 class="text-center mt-3 text-dark">Galeria de Fotos</h5>
-    <% @gallery_pictures.each do |gallery_picture| %>
-      <%= image_tag gallery_picture.picture %>
-      <%= button_to('Remover', gallery_picture_path(gallery_picture.id), method: :delete, class: "btn btn-danger") %>
-    <% end %>
+    <section class="d-flex flex-row flex-wrap justify-content-center">
+      <% @gallery_pictures.each do |gallery_picture| %>
+      <div class="text-center w-50">
+        <%= image_tag gallery_picture.picture, class: "w-75 mb-2 rounded h-50" %>
+        <% if current_user && current_user.inn && current_user.inn == room.inn %>
+          <%= button_to('Remover', gallery_picture_path(gallery_picture.id), method: :delete, class: "btn btn-danger") %>
+        <% end %>
+      </div>
+      <% end %>
+    </section>
   <% end %>
   <div class="text-center">
     <%= link_to 'Reservar Quarto', new_room_reservation_path(room), class: 'btn btn-primary text-white' %>

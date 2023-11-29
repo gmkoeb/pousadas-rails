@@ -64,11 +64,17 @@
       <li class="mb-5"><%= Inn.human_attribute_name(:description)%>: <%= @inn.description %></li>
     </div>
     <% if @gallery_pictures.any? %>
-      <h4>Galeria de Fotos</h4>
-      <% @gallery_pictures.each do |gallery_picture| %>
-        <%= image_tag gallery_picture.picture %>
-        <%= button_to('Remover', gallery_picture_path(gallery_picture.id), method: :delete, class: "btn btn-danger") %>
-      <% end %>
+      <h4 class="text-center">Galeria de Fotos</h4>
+      <section class="d-flex flex-row flex-wrap">
+        <% @gallery_pictures.each do |gallery_picture| %>
+          <div class="text-center w-50">
+            <%= image_tag gallery_picture.picture, class: "w-75 h-75 mb-2 rounded" %>
+            <% if current_user && current_user.inn && current_user.inn == @inn %>
+              <%= button_to('Remover', gallery_picture_path(gallery_picture.id), method: :delete, class: "btn btn-danger mb-5") %>
+            <% end %>
+          </div>
+        <% end %>
+      </section>
     <% end %>
     <% if @reviews.any? %>
       <section class="text-center mb-3">
@@ -117,7 +123,7 @@
       <% else %>
         <% @inn.rooms.each do |room| %>
             <%= link_to room_path(room) do%>
-            <div class="room-card h-100">
+            <div class="room-card">
               <%= render 'rooms/room_details', room: room, inn: @inn %>
             </div> 
             <% end %> 
@@ -131,7 +137,7 @@
       <% if @rooms.present? %>
         <% @rooms.each do |room| %>
             <%= link_to room_path(room) do %>
-            <div class="room-card h-100">
+            <div class="room-card">
               <%= render 'rooms/room_details', room: room, inn: @inn %>
             </div> 
             <% end %> 
