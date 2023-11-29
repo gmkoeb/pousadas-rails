@@ -17,16 +17,4 @@ module InnsHelper
       'Essa pousada não permite pets. 😣'
     end
   end
-
-  def get_cities(inns)
-    cities = []
-    inns.each do |inn| 
-      cities << inn.city
-    end
-    cities.uniq
-  end
-  
-  def city_with_state(inn)
-    "#{inn.city} - #{inn.state}"
-  end
 end

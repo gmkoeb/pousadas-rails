@@ -4,7 +4,7 @@
   <section>
     <h2 class="text-center">Cidades com Pousadas</h2>
       <div class="d-flex justify-content-center gap-3">
-        <%get_cities(@inns).each do |city| %>
+        <%@cities.each do |city| %>
           <%= link_to search_by_city_inns_path(city) do %>
             <h4 class="btn btn-outline-success"><%=city%></h4>
           <%end%>

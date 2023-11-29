@@ -14,6 +14,17 @@ class Api::V1::InnsController < Api::V1::ApiController
     return render status: 200, json: inn.as_json(except: [:registration_number, :corporate_name, :picture]).merge({ formatted_time: formatted_time })
   end
 
+  def cities
+    inns = Inn.all.published
+    cities_with_inns = inns.map(&:city).uniq
+    query = params[:query]
+    if query
+      inns = inns.where("city LIKE ?", "%#{query}%")
+      return render status: 200, json: inns.as_json(except: [:picture])
+    end
+    return render status: 200, json: cities_with_inns
+  end
+
   private
 
   def return_500

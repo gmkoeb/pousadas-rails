@@ -191,4 +191,79 @@ describe 'Inn API' do
       expect(response.status).to eq 404
     end
   end
+
+  context 'GET /api/v1/inns/cities' do
+    it 'com sucesso' do
+      # Arrange
+      user_1 = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: true, name: 'Gabriel', 
+                    registration_number: '99999999999')
+      inn_1 = Inn.create!(corporate_name: 'Pousada API Florianópolis LTDA', brand_name: 'Pousada da API Florianópolis', 
+                        registration_number: '555333123', phone: '41995203040', email: 'pousadapi@gmail.com', 
+                        address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                        city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                        payment_methods: 'Dinheiro', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
+                        check_in_check_out_time: '12:00', user: user_1, status: 'published')
+      user_2 = User.new(email: 'user_2@gmail.com', password: 'password', admin: true, name: 'Gabriel', 
+                        registration_number: '99999999999')
+      inn_2 = Inn.create!(corporate_name: 'Pousada API Curitiba LTDA', brand_name: 'Pousada da API Curitiba', 
+                          registration_number: '4333123', phone: '5525203040', email: 'pousadapicuritiba@gmail.com', 
+                          address: 'Rua da pousada, 114', district: 'Santa Cândida', state: 'Paraná',
+                          city: 'Curitiba', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                          payment_methods: 'Dinheiro', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
+                          check_in_check_out_time: '12:00', user: user_2, status: 'published')                 
+      # Act
+      get "/api/v1/inns/cities"
+
+      # Assert
+      expect(response.status).to eq 200  
+      json_response = JSON.parse(response.body)
+      expect(json_response.class).to eq Array
+      expect(response.content_type).to include 'application/json' 
+      json_response = JSON.parse(response.body)
+      expect(json_response).to include('Curitiba')
+      expect(json_response).to include('Florianópolis')
+    end
+  end
+  context 'GET /api/v1/inns/cities?query=city' do
+    it 'com sucesso' do
+      # Arrange
+      user_1 = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: true, name: 'Gabriel', 
+                    registration_number: '99999999999')
+      inn_1 = Inn.create!(corporate_name: 'Pousada API Florianópolis LTDA', brand_name: 'Pousada da API Florianópolis', 
+                        registration_number: '555333123', phone: '41995203040', email: 'pousadapi@gmail.com', 
+                        address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                        city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                        payment_methods: 'Dinheiro', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
+                        check_in_check_out_time: '12:00', user: user_1, status: 'published')
+      user_2 = User.new(email: 'user_2@gmail.com', password: 'password', admin: true, name: 'Gabriel', 
+                        registration_number: '99999999999')
+      inn_2 = Inn.create!(corporate_name: 'Pousada API Curitiba LTDA', brand_name: 'Pousada da API Curitiba', 
+                          registration_number: '4333123', phone: '5525203040', email: 'pousadapicuritiba@gmail.com', 
+                          address: 'Rua da pousada, 114', district: 'Santa Cândida', state: 'Paraná',
+                          city: 'Curitiba', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                          payment_methods: 'Dinheiro', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
+                          check_in_check_out_time: '12:00', user: user_2, status: 'published')                 
+      # Act
+      get "/api/v1/inns/cities?query=curitiba"
+
+      # Assert
+      expect(response.status).to eq 200  
+      expect(response.content_type).to include 'application/json' 
+      json_response = JSON.parse(response.body)
+      expect(json_response.length).to eq 1
+      expect(json_response.class).to eq Array
+      expect(json_response[0]["corporate_name"]).to include('Pousada API Curitiba LTDA')       
+      expect(json_response[0]["brand_name"]).to include('Pousada da API Curitiba')
+      expect(json_response[0]["registration_number"]).to include('4333123')
+      expect(json_response[0]["phone"]).to include('5525203040')
+      expect(json_response[0]["email"]).to include('pousadapicuritiba@gmail.com')
+      expect(json_response[0]["address"]).to include('Rua da pousada, 114')
+      expect(json_response[0]["state"]).to include('Paraná')
+      expect(json_response[0]["city"]).to include('Curitiba')
+      expect(json_response[0]["payment_methods"]).to include('Dinheiro')
+      expect(json_response[0]["accepts_pets"]).to eq true
+      expect(json_response[0]["terms_of_service"]).to include('Não pode som alto após as 18h')
+      expect(json_response[0]["check_in_check_out_time"]).to include('12:00')
+    end
+  end
 end

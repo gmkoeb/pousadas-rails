@@ -79,6 +79,7 @@ class InnsController < ApplicationController
     @inn = Inn.friendly.find(params[:id])
     @reviews = @inn.reviews
   end
+  
   private
 
   def inn_params
