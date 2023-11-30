@@ -1,5 +1,5 @@
 <% prices = sort_by_date(room.price_per_periods) %>  
-<div class="w-100">
+<div>
   <% if room.picture? %>
     <%= image_tag room.picture, class: "w-100 rounded-top-4 mb-2 room-picture" %>
   <% elsif current_user && current_user.inn == inn && request.path == room_path(room) %>
@@ -41,10 +41,10 @@
     <h5 class="text-center mt-3 text-dark"> <i class="fa-solid fa-clipboard-question"></i> Informações Adicionais</h5>
     <div class="d-flex flex-wrap gap-3 mx-2 align-items-center justify-content-center">
       <p><%= bathroom(room.has_bathroom) %><i class="fa-solid fa-toilet mx-2"></i></p>
-      <p><%= balcony(room.has_balcony) %></p>
-      <p><%= air_conditioner(room.has_air_conditioner) %><i class="fa-solid fa-wind mx-2"></i></p>
+      <p><%= balcony(room.has_balcony) %><i class="fa-solid fa-wind mx-2"></i></p>
+      <p><%= air_conditioner(room.has_air_conditioner) %><i class="fa-solid fa-snowflake mx-2"></i></i></p>
       <p><%= tv(room.has_tv) %><i class="fa-solid fa-tv mx-2"></i></p>
-      <p><%= wardrobe(room.has_wardrobe) %></li>
+      <p><%= wardrobe(room.has_wardrobe) %><i class="fa-solid fa-shirt mx-2"></i></li>
       <p><%= coffer(room.has_coffer) %><i class="fa-solid fa-lock mx-2"></i></p>
       <p><%= accessibility(room.accessible) %><i class="fa-brands fa-accessible-icon mx-2"></i></p>
     </div>

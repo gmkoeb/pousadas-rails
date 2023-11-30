@@ -12,7 +12,7 @@
       </ul>
     </div>
   <% end %>
-  <%= form_with model:[@reservation, @reservation_guest], url: reservation_reservation_guests_path(@reservation), method: :post, html: {class: "row g-3 w-75 mt-3 mx-auto"} do |f| %>
+  <%= form_with model:[@reservation, @reservation_guest], url: reservation_reservation_guests_path(@reservation), method: :post, html: {class: "row g-3 w-50 mt-3 mx-auto"} do |f| %>
     <% (@reservation.guests-1).times do |index| %>
       <h2>Acompanhante <%= index + 1 %></h2>
       <div class="col-md-4">
@@ -34,7 +34,7 @@
   <% end %>
 <% else %>
   <% @reservation.reservation_guests.each_with_index do |reservation_guest, index| %>
-    <h2>Hóspede <%= index %></h2>
+    <h2>Hóspede <%= index + 1 %></h2>
     <p><%= reservation_guest.name %></p>
     <p>CPF: <%= reservation_guest.registration_number %></p>
     <p>Idade: <%= reservation_guest.age %></p>
