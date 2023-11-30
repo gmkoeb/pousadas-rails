@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Inn, type: :model do
-  describe 'valid?' do
+  describe '#valid?' do
     it 'todos os dados estão corretos' do
       # Arrange
       user = User.new(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 

@@ -197,15 +197,15 @@ RSpec.describe Reservation, type: :model do
         user = User.new(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
                         registration_number: '99999999999', admin: true)
         inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
-                      registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
-                      address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
-                      city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
-                      payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
-                      check_in_check_out_time: '12:00', user: user)
+                          registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
+                          address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                          city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                          payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
+                          check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
-                             price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
+                                 price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         reservation_1 = room.reservations.create!(user: user, room: room, check_in: 1.day.from_now, check_out: 7.days.from_now, guests: 5)
-        reservation_2 = room.reservations.new(user: user, room: room, check_in: 2.days.from_now, check_out: 8.days.from_now, guests: 5)
+        reservation_2 = room.reservations.build(user: user, room: room, check_in: 2.days.from_now, check_out: 8.days.from_now, guests: 5)
         # Act
         reservation_2.valid?
         result = reservation_2.errors.include?(:base)
@@ -219,15 +219,15 @@ RSpec.describe Reservation, type: :model do
         user = User.new(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
                         registration_number: '99999999999', admin: true)
         inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
-                      registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
-                      address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
-                      city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
-                      payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
-                      check_in_check_out_time: '12:00', user: user)
+                          registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
+                          address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                          city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                          payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
+                          check_in_check_out_time: '12:00', user: user)
         room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
-                             price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
+                                 price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         reservation_1 = room.reservations.create!(user: user, room: room, check_in: 1.day.from_now, check_out: 7.days.from_now, guests: 5)
-        reservation_2 = room.reservations.new(user: user, room: room, check_in: 7.days.from_now, check_out: 10.days.from_now, guests: 5)
+        reservation_2 = room.reservations.build(user: user, room: room, check_in: 7.days.from_now, check_out: 10.days.from_now, guests: 5)
         # Act
         reservation_2.valid?
         result = reservation_2.errors.include?(:base)
@@ -249,7 +249,7 @@ RSpec.describe Reservation, type: :model do
         room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         reservation_1 = room.reservations.create!(user: user, room: room, check_in: 4.days.from_now, check_out: 7.days.from_now, guests: 5)
-        reservation_2 = room.reservations.new(user: user, room: room, check_in: 3.days.from_now, check_out: 4.days.from_now, guests: 5)
+        reservation_2 = room.reservations.build(user: user, room: room, check_in: 3.days.from_now, check_out: 4.days.from_now, guests: 5)
         # Act
         reservation_2.valid?
         result = reservation_2.errors.include?(:base)
@@ -271,7 +271,7 @@ RSpec.describe Reservation, type: :model do
         room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
                                  price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
         reservation_1 = room.reservations.create!(user: user, room: room, check_in: 1.days.from_now, check_out: 7.days.from_now, guests: 5)
-        reservation_2 = room.reservations.new(user: user, room: room, check_in: 8.days.from_now, check_out: 10.days.from_now, guests: 5)
+        reservation_2 = room.reservations.build(user: user, room: room, check_in: 8.days.from_now, check_out: 10.days.from_now, guests: 5)
         # Act
         reservation_2.valid?
         result = reservation_2.errors.include?(:base)
@@ -285,15 +285,15 @@ RSpec.describe Reservation, type: :model do
     it 'gera código aleatório ao criar nova reserva' do
       # Arrange
       user = User.new(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
-      registration_number: '99999999999', admin: true)
+                      registration_number: '99999999999', admin: true)
       inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
-          registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
-          address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
-          city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
-          payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
-          check_in_check_out_time: '12:00', user: user)
+                      registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
+                      address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                      city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                      payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
+                      check_in_check_out_time: '12:00', user: user)
       room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
-                price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
+                             price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
                 
       allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('123ABCDE')  
       reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, check_out: 1.day.from_now, guests: 3)
@@ -308,17 +308,17 @@ RSpec.describe Reservation, type: :model do
   describe 'calculate_price' do
     it 'sem preços especiais' do   
       # Arrange
-      user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
-      registration_number: '99999999999', admin: true)
-      inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
-        registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
-        address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
-        city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
-        payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
-        check_in_check_out_time: '12:00', user: user)
-      room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
-              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-      reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, check_out: 1.day.from_now, guests: 3)
+      user = User.new(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                      registration_number: '99999999999', admin: true)
+      inn = Inn.new(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
+                    registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
+                    address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                    city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                    payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
+                    check_in_check_out_time: '12:00', user: user)
+      room = inn.rooms.build(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
+                               price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
+      reservation = room.reservations.build(user: user, room: room, check_in: Time.zone.now, check_out: 1.day.from_now, guests: 3)
       consumables = []
       # Act
       result = Reservation.calculate_price(reservation.check_in, reservation.check_out, room.price, room.price_per_periods, consumables)
@@ -328,18 +328,18 @@ RSpec.describe Reservation, type: :model do
 
     it 'com preços especiais durante toda a estadia' do   
       # Arrange
-      user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
-      registration_number: '99999999999', admin: true)
-      inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
-        registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
-        address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
-        city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
-        payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
-        check_in_check_out_time: '12:00', user: user)
-      room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
-              price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-      special_prices = room.price_per_periods.create!(special_price: 10_000, starts_at: Time.current, ends_at: 10.days.from_now)
-      reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, check_out: 7.days.from_now.change(hour: 11), guests: 3)
+      user = User.new(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+                      registration_number: '99999999999', admin: true)
+      inn = Inn.new(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
+                    registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
+                    address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
+                    city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
+                    payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
+                    check_in_check_out_time: '12:00', user: user)
+      room = inn.rooms.build(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
+                               price: 5000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
+      special_prices = room.price_per_periods.build(special_price: 10_000, starts_at: Time.current, ends_at: 10.days.from_now)
+      reservation = room.reservations.build(user: user, room: room, check_in: Time.zone.now, check_out: 7.days.from_now.change(hour: 11), guests: 3)
       consumables = []
       # Act
       result = Reservation.calculate_price(reservation.check_in, reservation.check_out, room.price, room.price_per_periods, consumables)
@@ -349,18 +349,18 @@ RSpec.describe Reservation, type: :model do
 
     it 'com preços especiais acabando no meio da estadia' do   
       # Arrange
-      user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+      user = User.new(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
       registration_number: '99999999999', admin: true)
-      inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
+      inn = Inn.new(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
         registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
         address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
         city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
         payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
         check_in_check_out_time: '12:00', user: user)
-      room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
+      room = inn.rooms.build(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
               price: 5_000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-      special_prices = room.price_per_periods.create!(special_price: 10_000, starts_at: 1.day.ago, ends_at: 4.days.from_now)
-      reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, check_out: 8.days.from_now, guests: 3)
+      special_prices = room.price_per_periods.build(special_price: 10_000, starts_at: 1.day.ago, ends_at: 4.days.from_now)
+      reservation = room.reservations.build(user: user, room: room, check_in: Time.zone.now, check_out: 8.days.from_now, guests: 3)
       consumables = []
       # Act
       result = Reservation.calculate_price(reservation.check_in, reservation.check_out, room.price, room.price_per_periods, consumables)
@@ -370,24 +370,24 @@ RSpec.describe Reservation, type: :model do
 
     it 'com itens consumidos durante estadia' do
       # Arrange
-      user = User.create!(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
+      user = User.new(email: 'gmkoeb@gmail.com', password: 'password', name: 'Gabriel', 
       registration_number: '99999999999', admin: true)
-      inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
+      inn = Inn.new(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
         registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
         address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
         city: 'Florianópolis', zip_code: '42830460', description: 'A melhor pousada de Florianópolis',
         payment_methods: '["Dinheiro"]', accepts_pets: 'true', terms_of_service: 'Não pode som alto após as 18h', 
         check_in_check_out_time: '12:00', user: user)
-      room = inn.rooms.create!(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
+      room = inn.rooms.build(name: 'Quarto Master', description: 'Melhor quarto da pousada.', area: 50, 
               price: 5_000, maximum_guests: 5, has_bathroom: true, has_balcony: true, accessible: true)
-      special_prices = room.price_per_periods.create!(special_price: 10_000, starts_at: 1.day.ago, ends_at: 4.days.from_now)
-      reservation = room.reservations.create!(user: user, room: room, check_in: Time.zone.now, check_out: 8.days.from_now, guests: 3, status: 'active')
-      reservation.consumables.create!(name: 'Coca-Cola 300ml', value: '10' )
-      reservation.consumables.create!(name: 'Ruffles 250g', value: '10' )
-      reservation.consumables.create!(name: 'Hamburger com Fritas', value: '40' )
-      reservation.consumables.create!(name: 'Pringles', value: '20' )
-      reservation.consumables.create!(name: 'Pizza grande', value: '100' )
-      reservation.consumables.create!(name: 'Coca-Cola 2l', value: '20' )
+      special_prices = room.price_per_periods.build(special_price: 10_000, starts_at: 1.day.ago, ends_at: 4.days.from_now)
+      reservation = room.reservations.build(user: user, room: room, check_in: Time.zone.now, check_out: 8.days.from_now, guests: 3, status: 'active')
+      reservation.consumables.build(name: 'Coca-Cola 300ml', value: '10' )
+      reservation.consumables.build(name: 'Ruffles 250g', value: '10' )
+      reservation.consumables.build(name: 'Hamburger com Fritas', value: '40' )
+      reservation.consumables.build(name: 'Pringles', value: '20' )
+      reservation.consumables.build(name: 'Pizza grande', value: '100' )
+      reservation.consumables.build(name: 'Coca-Cola 2l', value: '20' )
       # Act
       result = Reservation.calculate_price(reservation.check_in, reservation.check_out, room.price, room.price_per_periods, reservation.consumables)
       # Assert

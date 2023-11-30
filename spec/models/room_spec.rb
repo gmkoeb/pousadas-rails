@@ -23,7 +23,7 @@ RSpec.describe Room, type: :model do
       it 'nome' do
         # Arrange
         user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true', name: 'Gabriel', 
-                      registration_number: '99999999999')
+                        registration_number: '99999999999')
         inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                           registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                           address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -43,7 +43,7 @@ RSpec.describe Room, type: :model do
       it 'descrição' do
         # Arrange
         user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true', name: 'Gabriel', 
-                      registration_number: '99999999999')
+                        registration_number: '99999999999')
         inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                           registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                           address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -63,7 +63,7 @@ RSpec.describe Room, type: :model do
       it 'area' do
         # Arrange
         user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true', name: 'Gabriel', 
-                      registration_number: '99999999999')
+                        registration_number: '99999999999')
         inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                           registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                           address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -83,7 +83,7 @@ RSpec.describe Room, type: :model do
       it 'preço' do
         # Arrange
         user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true', name: 'Gabriel', 
-                      registration_number: '99999999999')
+                        registration_number: '99999999999')
         inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                           registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                           address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -103,7 +103,7 @@ RSpec.describe Room, type: :model do
       it 'número de máximo hóspedes' do
         # Arrange
         user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true', name: 'Gabriel', 
-                      registration_number: '99999999999')
+                        registration_number: '99999999999')
         inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                           registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                           address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
@@ -125,7 +125,7 @@ RSpec.describe Room, type: :model do
       it 'não pode ser negativo' do
         # Arrange
         user = User.new(email: 'gmkoeb@gmail.com', password: 'password', admin: 'true', name: 'Gabriel', 
-                      registration_number: '99999999999')
+                        registration_number: '99999999999')
         inn = Inn.create!(corporate_name: 'Pousadas Florianópolis LTDA', brand_name: 'Pousada do Luar', 
                           registration_number: '4333123', phone: '41995203040', email: 'pousadadoluar@gmail.com', 
                           address: 'Rua da pousada, 114', district: 'Beira Mar Norte', state: 'Santa Catarina',
