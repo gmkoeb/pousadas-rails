@@ -27,7 +27,7 @@
     <p><i class="fa-solid fa-users"></i> Número máximo de hóspedes: <%= room.maximum_guests %></p>
   </div>
 
-  <div class="mx-2 mt-3 text-center">
+  <div class="mx-2 mt-4 text-center">
     <h5><i class="fa-solid fa-money-bill-wave"></i> Preço</h5>
     <p>Preço padrão da diária: R$ <%= room.price %></p>
   </div>
@@ -68,8 +68,11 @@
 
   <% if room.price_per_periods.any? %>
       <% if current_price_per_period(room) && request.path == new_room_reservation_path(room) || request.path == room_check_path(room) %>
+      <div class="text-center mt-4">
+        <h5>Preço Especial</h5>
         <p>Preço Especial: R$ <%= current_price_per_period(room).special_price %></p>
         <p>Ativo até: <%= I18n.localize(current_price_per_period(room).ends_at) %></p>
+      </div>
       <% end %>
     <% if request.path == room_path(room) && current_user && current_user.inn == inn %>
       <table class="mx-auto text-center">

@@ -65,7 +65,7 @@
     </div>
     <% if @gallery_pictures.any? %>
       <h4 class="text-center">Galeria de Fotos</h4>
-      <section class="d-flex flex-row flex-wrap">
+      <section class="d-flex flex-row flex-wrap justify-content-center">
         <% @gallery_pictures.each do |gallery_picture| %>
           <div class="text-center w-50">
             <%= image_tag gallery_picture.picture, class: "w-75 h-75 mb-2 rounded" %>

@@ -14,7 +14,7 @@
 <% if @inn && request.path == new_inn_gallery_picture_path(@inn) || @inn && request.path == inn_gallery_pictures_path(@inn) %>
   <%= form_with model: [@inn, @gallery_picture], html: {class: "row g-3 w-25 mt-3"} do |f| %>
     <p>Foto da Pousada</p>
-    <%= f.file_field :picture, accept: 'image/png,image/gif,image/jpeg', onchange: 'displayImagePreview(this)' %>
+    <%= f.file_field :picture, accept: 'image/png,image/jpeg', onchange: 'displayImagePreview(this)' %>
     <%= f.label :picture, class: "form-label" do %>
       <img id="image-preview" src="#" alt="Imagem da Pousada" class="d-none mx-auto mt-3 w-50 h-50">
     <% end %>
@@ -27,7 +27,7 @@
 <% if @room && request.path == new_room_gallery_picture_path(@room) || @room && request.path == room_gallery_pictures_path(@room)%>
  <%= form_with model: [@room, @gallery_picture], html: {class: "row g-3 w-25 mt-3"} do |f| %>
     <p>Foto do Quarto</p>
-    <%= f.file_field :picture, accept: 'image/png,image/gif,image/jpeg', onchange: 'displayImagePreview(this)' %>
+    <%= f.file_field :picture, accept: 'image/png,image/jpeg', onchange: 'displayImagePreview(this)' %>
     <%= f.label :picture, class: "form-label" do %>
       <img id="image-preview" src="#" alt="Imagem do Quarto" class="d-none w-50 h-50 mx-auto mt-3">
     <% end %>
