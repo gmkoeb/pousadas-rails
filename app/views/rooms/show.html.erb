@@ -4,8 +4,8 @@
       <%= render 'room_details', room: @room, inn:@room.inn %>
     </div>      
     <aside class="admin-room-control text-center mt-5 px-5">
+      <h4>Painel de Controle</h4>
       <% if @room.draft? %>
-        <h4>Painel de Controle</h4>
         <p class="fw-bold text-danger">ATENÇÃO: Ao publicar o quarto ele poderá ser visualizado por outros usuários, e aceitará reservas.</p>
         <%= button_to 'Publicar Quarto', publish_room_path(@room), {method: 'patch', class:"btn btn-info text-white mb-2"}%>
       <% else %>

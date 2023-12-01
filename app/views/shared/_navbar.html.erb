@@ -60,10 +60,12 @@
                   <% end %> 
                 <% end %>
               <% if current_user.reservations.any? && current_user.admin == false %>
-                <%= link_to 'Minhas Reservas', reservations_path %>
+                <div class="d-flex flex-column">
+                  <%= link_to 'Minhas Reservas', reservations_path %>
                   <% if current_user.reviews.any? %>
                     <%= link_to 'Minhas Avaliações', reviews_path %>
                   <% end %>
+                </div>
               <% end %>
               <li class="nav-item w-50 rounded mx-auto mt-2"><%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "p-0 dropdown-item text-white logout-button py-1" %></li>
             </ul>
